@@ -8,7 +8,7 @@ export default function Footer({ onOpenLegal }) {
     <footer id="contacts" className="site-footer">
       <div className="wrap site-footer__grid">
         <div className="site-footer__brand">
-          <img className="brand__logo" src={BRAND_EMBLEM} alt="Buddha Spa" />
+          <img className="brand__logo" src={BRAND_EMBLEM} alt="BuddhaSpa" />
           <span className="brand__name">Buddha<span className="brand__name-accent">Spa</span></span>
           <p>{t('Тайский массаж и уход за телом в спа-салоне.')}</p>
         </div>

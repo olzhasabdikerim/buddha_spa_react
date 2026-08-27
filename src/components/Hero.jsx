@@ -51,7 +51,7 @@ export default function Hero() {
         </p>
         <div className="hero__actions">
           <Link to="/#branches" className="btn btn-coral">{t('Выбрать филиал')}</Link>
-          <Link to="/#guest-info" className="btn btn-line">{t('Записаться на спа')}</Link>
+          <Link to="/#branches" className="btn btn-line">{t('Записаться в BuddhaSpa')}</Link>
         </div>
       </div>
       <Link to="/#branches" className="hero__scroll" aria-label="Пролистать вниз">

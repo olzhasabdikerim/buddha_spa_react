@@ -6,6 +6,7 @@ import { applyBranchSeo } from '../lib/seo.js'
 import { useT } from '../i18n.jsx'
 import LeadModal from './LeadModal.jsx'
 import ServiceDetailModal from './ServiceDetailModal.jsx'
+import BranchBookingCard from './BranchBookingCard.jsx'
 
 function telHref(phone) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`
@@ -44,6 +45,8 @@ export default function BranchDetail({ branch }) {
     description: s.description,
     duration: s.durationLabel,
     price: s.priceFromLabel,
+    image: s.image,
+    priceNum: s.priceFromNum,
   })
   const openDetail = (s) => setDetail(s)
   const openLead = (s) => setLead({ service: bookService(s) })
@@ -62,18 +65,22 @@ export default function BranchDetail({ branch }) {
         <div className="wrap br-hero__inner">
           <Link to="/#branches" className="br-back">← {t('Все филиалы')}</Link>
           <p className="eyebrow br-hero__eyebrow">
-            {t(branch.city)} · Buddha Spa
+            {t(branch.city)} · BuddhaSpa
             {branch.premium && <span className="br-premium">Premium</span>}
           </p>
           <h1 className="br-hero__title serif">
-            {t('Тайский массаж и уход за телом')}
+            {branch.comingSoon ? t('Филиал готовится к открытию') : t('Тайский массаж и уход за телом')}
             <br /><span className="ital">{branch.fullAddress}</span>
           </h1>
           <p className="br-hero__sub">
-            {t('Тайский массаж и уход за телом в SPA-салоне Buddha Spa — тепло подлинной тайской традиции рядом с вами.')}
+            {branch.comingSoon
+              ? t('Скоро BuddhaSpa открывается в вашем городе. Оставьте контакты — сообщим об открытии и специальных условиях первыми.')
+              : t('Тайский массаж и уход за телом в SPA-салоне Buddha Spa — тепло подлинной тайской традиции рядом с вами.')}
           </p>
           <div className="br-hero__actions">
-            <button className="btn" onClick={() => setLead({})}>{t('Записаться')}</button>
+            <button className="btn" onClick={() => setLead({})}>
+              {branch.comingSoon ? t('Узнать об открытии') : t('Записаться')}
+            </button>
             <a className="btn btn-ghost" href={wa} target="_blank" rel="noopener noreferrer">{t('Написать в WhatsApp')}</a>
             {branch.vrTour && (
               <a className="btn btn-ghost" href={branch.vrTour} target="_blank" rel="noopener noreferrer">{t('Пройти VR-тур')}</a>
@@ -87,7 +94,23 @@ export default function BranchDetail({ branch }) {
         </div>
       </header>
 
-      {branch.needsData && (
+      {branch.comingSoon ? (
+        <section className="sec br-sec" id="coming-soon">
+          <div className="wrap">
+            <div className="br-booking rv">
+              <div className="br-booking__text">
+                <p className="eyebrow">{t('Скоро открытие')}</p>
+                <h2 className="h2 serif">{t('BuddhaSpa скоро в')} {t(branch.city)}</h2>
+                <p className="br-booking__meta">{t(branch.aboutText)}</p>
+              </div>
+              <div className="br-booking__actions">
+                <button className="btn" onClick={() => setLead({})}>{t('Узнать об открытии')}</button>
+                <a className="btn btn-ghost" href={wa} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : branch.needsData && (
         <div className="br-notice wrap">
           {t('Страница филиала наполняется. Актуальные цены и состав программ уточняйте у администратора или в WhatsApp.')}
         </div>
@@ -197,6 +220,7 @@ export default function BranchDetail({ branch }) {
       )}
 
       {/* 06 · АБОНЕМЕНТЫ */}
+      {!branch.comingSoon && (
       <section className="sec br-sec" id="memberships">
         <div className="wrap">
           <p className="eyebrow rv">{t('Выгода')}</p>
@@ -215,8 +239,10 @@ export default function BranchDetail({ branch }) {
           </div>
         </div>
       </section>
+      )}
 
       {/* 07 · СЕРТИФИКАТ */}
+      {!branch.comingSoon && (
       <section className="sec br-sec br-bg2" id="certificate">
         <div className="wrap br-cert">
           <div className="br-cert__text rv">
@@ -230,6 +256,7 @@ export default function BranchDetail({ branch }) {
           </div>
         </div>
       </section>
+      )}
 
       {/* 08 · VR-ТУР */}
       {branch.vrTour && (
@@ -292,18 +319,9 @@ export default function BranchDetail({ branch }) {
       </section>
 
       {/* 12 · КОНТАКТЫ / ЗАПИСЬ */}
-      <section className="sec br-sec br-contacts" id="contacts">
-        <div className="wrap br-contacts__inner rv">
-          <div>
-            <h2 className="h2 serif">{t('Записаться в')} Buddha Spa</h2>
-            <p className="lead">{branch.fullAddress} · {t(branch.hours)}</p>
-          </div>
-          <div className="br-contacts__actions">
-            <button className="btn" onClick={() => setLead({})}>{t('Записаться')}</button>
-            <a className="btn btn-ghost" href={wa} target="_blank" rel="noopener noreferrer">WhatsApp</a>
-            <a className="btn btn-ghost" href={telHref(branch.phone)}>{branch.phone}</a>
-            <a className="btn btn-ghost" href={`https://yandex.ru/maps/?text=${encodeURIComponent('Buddha Spa ' + branch.fullAddress)}`} target="_blank" rel="noopener noreferrer">{t('На карте')}</a>
-          </div>
+      <section className="sec br-sec" id="contacts">
+        <div className="wrap">
+          <BranchBookingCard branch={branch} onBook={() => setLead({})} />
         </div>
       </section>
 
@@ -389,7 +407,7 @@ function ProgramCard({ p, t, onDetail, onBook }) {
 
 // Branch-scoped accordion reusing the shared guest-info content.
 function GuestAccordion({ t }) {
-  const [open, setOpen] = useState(0)
+  const [open, setOpen] = useState(-1)
   return (
     <div className="br-acc rv">
       {GUEST_INFO.map((item, i) => {

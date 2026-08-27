@@ -6,6 +6,7 @@ import LegalModal from './components/LegalModal.jsx'
 import HomePage from './pages/HomePage.jsx'
 import BranchPage from './pages/BranchPage.jsx'
 import FranchisePage from './pages/FranchisePage.jsx'
+import AboutPage from './pages/AboutPage.jsx'
 
 // Scrolls to top on route change, or to the #anchor when a hash is present.
 function ScrollManager() {
@@ -38,6 +39,7 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/franchise" element={<FranchisePage />} />
           <Route path="/:slug" element={<BranchPage />} />
         </Routes>

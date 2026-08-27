@@ -19,7 +19,7 @@ export default function About() {
           </a>
         </div>
         <div className="about__frame">
-          <img src={ABOUT_IMAGE} alt="Интерьер спа-салона Buddha Spa" loading="lazy" />
+          <img src={ABOUT_IMAGE} alt="Интерьер спа-салона BuddhaSpa" loading="lazy" />
         </div>
       </div>
     </section>

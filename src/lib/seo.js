@@ -3,8 +3,8 @@
 // block for a branch, and restores the site defaults on unmount.
 
 const SITE = 'https://buddhaspa.kz'
-const DEFAULT_TITLE = 'Buddha Spa — тайский массаж и уход за телом'
-const DEFAULT_DESC = 'Buddha Spa — сеть спа-салонов тайского массажа и оздоровительных процедур в Казахстане. Шымкент, Тараз, Астана.'
+const DEFAULT_TITLE = 'BuddhaSpa — тайский массаж и уход за телом'
+const DEFAULT_DESC = 'BuddhaSpa — сеть спа-салонов тайского массажа и оздоровительных процедур в Казахстане. Шымкент, Тараз, Астана.'
 
 function setMeta(attr, key, content) {
   if (!content) return
@@ -34,8 +34,8 @@ function setJsonLd(id, data) {
 
 export function applyBranchSeo(branch) {
   const priceFrom = cheapest(branch.services)
-  const title = `Buddha Spa — тайский массаж и SPA в ${branch.city} · ${branch.address}`
-  const desc = `Тайский массаж, SPA-программы и уход за телом в Buddha Spa, ${branch.fullAddress}. ${branch.hours}. Запись онлайн и в WhatsApp.`
+  const title = `BuddhaSpa — тайский массаж и SPA в ${branch.city} · ${branch.address}`
+  const desc = `Тайский массаж, SPA-программы и уход за телом в BuddhaSpa, ${branch.fullAddress}. ${branch.hours}. Запись онлайн и в WhatsApp.`
   const url = `${SITE}/${branch.slug}`
   const image = SITE + branch.hero
 
@@ -51,7 +51,7 @@ export function applyBranchSeo(branch) {
   setJsonLd('ld-branch', {
     '@context': 'https://schema.org',
     '@type': 'HealthAndBeautyBusiness',
-    name: `Buddha Spa — ${branch.city}, ${branch.address}`,
+    name: `BuddhaSpa — ${branch.city}, ${branch.address}`,
     image,
     url,
     telephone: branch.phone,

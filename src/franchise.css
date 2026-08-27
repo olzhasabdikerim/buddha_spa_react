@@ -103,12 +103,12 @@
 .fr-mobile-menu a:hover { color: var(--fr-gold); }
 
 /* Hero */
-.fr-hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; }
+.fr-hero { position: relative; min-height: 80vh; display: flex; align-items: flex-end; overflow: hidden; }
 .fr-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); transform: scale(1.08); will-change: transform; }
 .fr-hero-grad { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 16, 11, 0.7) 0%, rgba(20, 16, 11, 0.12) 16%, transparent 40%, rgba(20, 16, 11, 0.6) 74%, rgba(20, 16, 11, 0.96) 100%); }
-.fr-hero-inner { position: relative; z-index: 2; width: 100%; padding-bottom: clamp(60px, 10vh, 110px); padding-top: 140px; }
-.fr-hero h1 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: clamp(3rem, 8vw, 7rem); line-height: 0.98; letter-spacing: -0.02em; color: var(--fr-cream); max-width: 16ch; margin: 26px 0 24px; }
-.fr-hero-sub { font-size: 17px; color: rgba(251, 247, 240, 0.8); max-width: 520px; line-height: 1.8; margin: 0 0 38px; }
+.fr-hero-inner { position: relative; z-index: 2; width: 100%; padding-bottom: clamp(48px, 7vh, 84px); padding-top: 132px; }
+.fr-hero h1 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: clamp(2.3rem, 5vw, 4.4rem); line-height: 1.04; letter-spacing: -0.015em; color: var(--fr-cream); max-width: 15ch; margin: 20px 0 20px; }
+.fr-hero-sub { font-size: 16px; color: rgba(251, 247, 240, 0.8); max-width: 500px; line-height: 1.75; margin: 0 0 30px; }
 .fr-hero-eyebrow { display: inline-flex; align-items: center; gap: 14px; color: var(--fr-gold2); }
 .fr-hero-eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--fr-gold2); }
 .fr-hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
@@ -299,7 +299,7 @@
   .fr-why-grid, .fr-qa, .fr-step, .fr-step.rev { grid-template-columns: 1fr !important; gap: 22px; }
   .fr-why-sticky { position: static; }
   .fr-step.rev .fr-step-img, .fr-step.rev .fr-step-txt { order: 0; }
-  .fr-hero { min-height: 86vh; }
+  .fr-hero { min-height: 68vh; }
   .fr-imm { min-height: auto; padding: 80px 0; }
 }
 

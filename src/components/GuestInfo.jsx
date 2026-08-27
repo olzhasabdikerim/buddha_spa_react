@@ -4,7 +4,7 @@ import { GUEST_INFO as ITEMS } from '../data/company.js'
 
 export default function GuestInfo() {
   const t = useT()
-  const [openIndex, setOpenIndex] = useState(0)
+  const [openIndex, setOpenIndex] = useState(-1)
 
   return (
     <section id="guest-info" className="guest-info">

@@ -9,7 +9,7 @@ const MAIN_TR = {
   ru: {},
   kk: {
     // nav
-    'Филиалы': 'Филиалдар', 'О спа': 'Спа туралы', 'Гостям': 'Қонақтарға',
+    'Филиалы': 'Филиалдар', 'О спа': 'Спа туралы', 'О BuddhaSpa': 'BuddhaSpa туралы', 'Гостям': 'Қонақтарға',
     'Франшиза': 'Франшиза', 'Контакты': 'Байланыс', 'Записаться': 'Жазылу',
     // hero
     'Тайский спа · Казахстан': 'Тай спа · Қазақстан',
@@ -17,6 +17,7 @@ const MAIN_TR = {
     'Порадуйте себя и своих близких — Buddha Spa встречает вас теплом подлинной тайской традиции.':
       'Өзіңізді және жақындарыңызды қуантыңыз — Buddha Spa сізді нағыз тай дәстүрінің жылуымен қарсы алады.',
     'Выбрать филиал': 'Филиал таңдау', 'Записаться на спа': 'Спаға жазылу',
+    'Записаться в BuddhaSpa': 'BuddhaSpa-ға жазылу',
     // branch selector
     'Наши адреса': 'Мекенжайларымыз',
     'Выберите удобный для вас филиал': 'Өзіңізге ыңғайлы филиалды таңдаңыз',
@@ -94,13 +95,14 @@ const MAIN_TR = {
     'Оформить': 'Рәсімдеу', 'год': 'жыл',
   },
   en: {
-    'Филиалы': 'Locations', 'О спа': 'About', 'Гостям': 'Guests',
+    'Филиалы': 'Locations', 'О спа': 'About', 'О BuddhaSpa': 'About BuddhaSpa', 'Гостям': 'Guests',
     'Франшиза': 'Franchise', 'Контакты': 'Contacts', 'Записаться': 'Book now',
     'Тайский спа · Казахстан': 'Thai spa · Kazakhstan',
     'Тайский массаж': 'Thai massage', 'и уход': 'and body', 'за телом': 'care',
     'Порадуйте себя и своих близких — Buddha Spa встречает вас теплом подлинной тайской традиции.':
       'Treat yourself and your loved ones — Buddha Spa welcomes you with the warmth of authentic Thai tradition.',
     'Выбрать филиал': 'Choose a location', 'Записаться на спа': 'Book a spa session',
+    'Записаться в BuddhaSpa': 'Book at BuddhaSpa',
     'Наши адреса': 'Our locations',
     'Выберите удобный для вас филиал': 'Choose the location that suits you',
     'Сеть спа-салонов в городах Казахстана — в каждом та же тайская забота, приветливые мастера и спокойная атмосфера.':
@@ -206,12 +208,21 @@ export function useLang() {
   return useContext(LangContext)
 }
 
+// Enforce the single official brand spelling everywhere in the UI: any of
+// "Buddha Spa", "Buddha SPA", "Buddha-spa", "buddha spa" → "BuddhaSpa".
+// Applied to every translated/source string at render time so we never have to
+// touch the (Russian-keyed) translation dictionaries.
+const BRAND_RE = /buddha[\s -]?spa/gi
+export function brandName(text) {
+  return typeof text === 'string' ? text.replace(BRAND_RE, 'BuddhaSpa') : text
+}
+
 // Translate a Russian source string for the current language; falls back to the source.
 export function useT() {
   const { lang } = useLang()
   return (text) => {
-    if (lang === 'ru') return text
+    if (lang === 'ru') return brandName(text)
     const dict = { ...MAIN_TR[lang], ...(SERVICE_TR[lang] || {}), ...(EXTRA_TR[lang] || {}), ...(FRANCHISE_TR[lang] || {}), ...(LEAD_TR[lang] || {}) }
-    return dict[text] !== undefined ? dict[text] : text
+    return brandName(dict[text] !== undefined ? dict[text] : text)
   }
 }
