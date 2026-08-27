@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
-import { BRAND_EMBLEM } from './Header.jsx'
+
+const FOOTER_LOGO = '/images/footer-logo-mark.png'
 
 export default function Footer({ onOpenLegal }) {
   const t = useT()
@@ -9,7 +10,8 @@ export default function Footer({ onOpenLegal }) {
       <div className="wrap">
         <div className="site-footer__top">
           <div className="site-footer__brand">
-            <img className="site-footer__logo" src={BRAND_EMBLEM} alt="BuddhaSpa" />
+            <img className="site-footer__logo" src={FOOTER_LOGO} alt="BuddhaSpa" />
+            <span className="site-footer__name">Buddha<span className="site-footer__name-accent">Spa</span></span>
             <p className="site-footer__tagline">{t('Тайский массаж и уход за телом в спа-салоне.')}</p>
           </div>
 
@@ -40,8 +42,6 @@ export default function Footer({ onOpenLegal }) {
             </div>
           </div>
         </div>
-
-        <div className="site-footer__wordmark serif" aria-hidden="true">BuddhaSpa</div>
 
         <div className="site-footer__bottom">
           <span>© All Rights Reserved. BuddhaSpa.</span>

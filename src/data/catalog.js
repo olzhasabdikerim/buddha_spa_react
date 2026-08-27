@@ -111,34 +111,23 @@ const KIND_FALLBACK = {
   program: '/images/franchise/lp/format-2.jpg',
 }
 
-// Curated pool of professional, brand-safe photos for the service cards:
-// salon interiors, tea zones, décor details and masters in uniform. Chosen to
-// replace the previous per-service stock photos (some read as too suggestive
-// for a premium SPA). Every card now shows atmosphere / professionalism.
-const INTERIOR_POOL = [
-  '/images/franchise/lp/philosophy.jpg',   // lounge / tea zone
-  '/images/franchise/lp/format-2.jpg',     // lounge with Buddha relief
-  '/images/franchise/lp/it.jpg',           // tea zone details
-  '/images/franchise/lp/manage-1.jpg',     // reception interior
-  '/images/franchise/lp/format-1.jpg',     // Buddha statue + candle
-  '/images/franchise/lp/immersive.jpg',    // masters in uniform
-  '/images/franchise/gallery-1.jpg',       // guest (in towel) with a master
-  '/images/franchise/gallery-2.jpg',       // masters welcoming a guest
-]
-
-// Stable hash so each service name always maps to the same pool image, while
-// the whole menu spreads evenly across the pool.
-function hashStr(s) {
-  let h = 0
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0
-  return Math.abs(h)
-}
-
 function imageFor(name, kind) {
-  // Distribute deterministically across the curated interior/atmosphere pool,
-  // nudged by kind so massages / procedures / programs don't all collide.
-  const salt = kind === 'program' ? 3 : kind === 'procedure' ? 5 : 0
-  return INTERIOR_POOL[(hashStr(name) + salt) % INTERIOR_POOL.length]
+  // 1) exact per-service photo
+  const exact = photoByName(name)
+  if (exact) return exact
+  // 2) relaxed match (handles spelling variants like "воротниковой/воротниковый")
+  const key = norm(name)
+  let best = null
+  let bestLcp = 0
+  for (const [nk, path] of PHOTO_BY_NORM) {
+    const l = lcp(key, nk)
+    if (l >= 14 && l > bestLcp) { best = path; bestLcp = l }
+  }
+  if (best) return best
+  // 3) keyword fallback to the closest real photo
+  for (const [re, path] of FALLBACK_RULES) if (path && re.test(name)) return path
+  // 4) per-kind default
+  return KIND_FALLBACK[kind] || '/images/hero-main.jpg'
 }
 
 // ── Program goals (quick filter over SPA-программы) ──────────────────────────
