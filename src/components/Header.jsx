@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
 import LanguageSwitcher from './LanguageSwitcher.jsx'
+import { handleHashNav } from '../lib/hashNav.js'
 
 // Brand emblem downloaded from the Tilda CDN into public/images.
 export const BRAND_EMBLEM = '/images/brand-emblem.png'
@@ -28,16 +29,16 @@ export default function Header() {
         </Link>
 
         <nav className={`site-nav ${open ? 'is-open' : ''}`}>
-          <Link to="/#branches" onClick={close}>{t('Филиалы')}</Link>
+          <Link to="/#branches" onClick={(e) => { close(); handleHashNav(e, '/#branches') }}>{t('Филиалы')}</Link>
           <Link to="/about" onClick={close}>{t('О BuddhaSpa')}</Link>
-          <Link to="/#faq" onClick={close}>FAQ</Link>
+          <Link to="/#faq" onClick={(e) => { close(); handleHashNav(e, '/#faq') }}>FAQ</Link>
           <Link to="/franchise" onClick={close}>{t('Франшиза')}</Link>
-          <Link to="/#contacts" onClick={close}>{t('Контакты')}</Link>
+          <Link to="/#contacts" onClick={(e) => { close(); handleHashNav(e, '/#contacts') }}>{t('Контакты')}</Link>
         </nav>
 
         <div className="site-header__actions">
           <LanguageSwitcher />
-          <Link to="/#branches" className="btn btn-coral site-header__cta" onClick={close}>
+          <Link to="/#branches" className="btn btn-coral site-header__cta" onClick={(e) => { close(); handleHashNav(e, '/#branches') }}>
             {t('Записаться')}
           </Link>
           <button

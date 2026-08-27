@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
+import { handleHashNav } from '../lib/hashNav.js'
 
 const HERO_IMAGE = '/images/hero-main.jpg'
 const HERO_VIDEO = '/video/hero.mp4'
@@ -50,8 +51,8 @@ export default function Hero() {
           {t('Порадуйте себя и своих близких — Buddha Spa встречает вас теплом подлинной тайской традиции.')}
         </p>
         <div className="hero__actions">
-          <Link to="/#branches" className="btn btn-coral">{t('Выбрать филиал')}</Link>
-          <Link to="/#branches" className="btn btn-line">{t('Записаться в BuddhaSpa')}</Link>
+          <Link to="/#branches" className="btn btn-coral" onClick={(e) => handleHashNav(e, '/#branches')}>{t('Выбрать филиал')}</Link>
+          <Link to="/#branches" className="btn btn-line" onClick={(e) => handleHashNav(e, '/#branches')}>{t('Записаться в BuddhaSpa')}</Link>
         </div>
       </div>
       <Link to="/#branches" className="hero__scroll" aria-label="Пролистать вниз">

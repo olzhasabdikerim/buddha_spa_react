@@ -429,13 +429,11 @@ button { font-family: inherit; }
 @media (max-width: 760px) { .membership-grid { grid-template-columns: 1fr; } }
 
 /* ---------- Footer ---------- */
-.site-footer { color: var(--text); padding: clamp(72px, 9vw, 112px) 0 34px; background: linear-gradient(180deg, var(--bg) 0%, #100b06 42%); }
-.site-footer__top { display: grid; grid-template-columns: 1.1fr 2fr; gap: clamp(40px, 5vw, 80px); align-items: start; }
+.site-footer { color: var(--text); padding: clamp(72px, 9vw, 112px) 0 34px; background: linear-gradient(180deg, var(--bg) 0%, #080604 100%); }
+.site-footer__top { display: grid; grid-template-columns: 1.15fr 2fr; gap: clamp(40px, 5vw, 80px); align-items: start; }
 .site-footer__brand { display: flex; flex-direction: column; align-items: flex-start; }
-.site-footer__logo { width: clamp(78px, 9vw, 104px); height: auto; object-fit: contain; }
-.site-footer__name { font-family: var(--font-display); font-size: 1.85rem; font-weight: 600; letter-spacing: 0.02em; color: var(--ink); margin: 14px 0 0; }
-.site-footer__name-accent { color: var(--gold-500); }
-.site-footer__tagline { color: var(--muted); font-size: 14.5px; line-height: 1.75; margin: 14px 0 0; max-width: 32ch; }
+.site-footer__logo { width: clamp(210px, 26vw, 300px); height: auto; max-width: 100%; object-fit: contain; }
+.site-footer__tagline { color: var(--muted); font-size: 14.5px; line-height: 1.75; margin: 20px 0 0; max-width: 34ch; }
 .site-footer__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 .site-footer__col h4 { font: 600 11px/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-400); margin: 0 0 18px; }
 .site-footer__col a { display: block; text-decoration: none; color: var(--text); font-size: 15px; margin-bottom: 12px; transition: color 0.2s ease; }

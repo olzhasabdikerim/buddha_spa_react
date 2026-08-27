@@ -6,7 +6,6 @@ import { applyBranchSeo } from '../lib/seo.js'
 import { useT } from '../i18n.jsx'
 import LeadModal from './LeadModal.jsx'
 import ServiceDetailModal from './ServiceDetailModal.jsx'
-import BranchBookingCard from './BranchBookingCard.jsx'
 
 function telHref(phone) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`
@@ -315,13 +314,6 @@ export default function BranchDetail({ branch }) {
           <p className="eyebrow rv">{t('Перед визитом')}</p>
           <h2 className="h2 serif rv">{t('Информация для гостей')}</h2>
           <GuestAccordion t={t} />
-        </div>
-      </section>
-
-      {/* 12 · КОНТАКТЫ / ЗАПИСЬ */}
-      <section className="sec br-sec" id="contacts">
-        <div className="wrap">
-          <BranchBookingCard branch={branch} onBook={() => setLead({})} />
         </div>
       </section>
 

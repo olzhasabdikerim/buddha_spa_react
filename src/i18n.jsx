@@ -5,6 +5,7 @@ import { EXTRA_TR } from './data/extraTranslations.js'
 import { LEAD_TR } from './data/leadTranslations.js'
 import { FAQ_TR } from './data/faqTranslations.js'
 import { BRANCH_TR } from './data/branchTranslations.js'
+import { COMPOSITION_TR } from './data/compositionTranslations.js'
 
 // Main-site UI strings. Keys are the Russian source text.
 const MAIN_TR = {
@@ -224,7 +225,7 @@ export function useT() {
   const { lang } = useLang()
   return (text) => {
     if (lang === 'ru') return brandName(text)
-    const dict = { ...MAIN_TR[lang], ...(SERVICE_TR[lang] || {}), ...(EXTRA_TR[lang] || {}), ...(FRANCHISE_TR[lang] || {}), ...(LEAD_TR[lang] || {}), ...(FAQ_TR[lang] || {}), ...(BRANCH_TR[lang] || {}) }
+    const dict = { ...MAIN_TR[lang], ...(SERVICE_TR[lang] || {}), ...(EXTRA_TR[lang] || {}), ...(FRANCHISE_TR[lang] || {}), ...(LEAD_TR[lang] || {}), ...(FAQ_TR[lang] || {}), ...(BRANCH_TR[lang] || {}), ...(COMPOSITION_TR[lang] || {}) }
     return brandName(dict[text] !== undefined ? dict[text] : text)
   }
 }

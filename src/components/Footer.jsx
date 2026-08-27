@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
+import { handleHashNav } from '../lib/hashNav.js'
 
-const FOOTER_LOGO = '/images/footer-logo-mark.png'
+const FOOTER_LOGO = '/images/footer-brand-trim.png'
 
 export default function Footer({ onOpenLegal }) {
   const t = useT()
@@ -10,8 +11,7 @@ export default function Footer({ onOpenLegal }) {
       <div className="wrap">
         <div className="site-footer__top">
           <div className="site-footer__brand">
-            <img className="site-footer__logo" src={FOOTER_LOGO} alt="BuddhaSpa" />
-            <span className="site-footer__name">Buddha<span className="site-footer__name-accent">Spa</span></span>
+            <img className="site-footer__logo" src={FOOTER_LOGO} alt="BuddhaSpa Premium — relaxation centre" />
             <p className="site-footer__tagline">{t('Тайский массаж и уход за телом в спа-салоне.')}</p>
           </div>
 
@@ -30,7 +30,7 @@ export default function Footer({ onOpenLegal }) {
 
             <div className="site-footer__col">
               <h4>{t('Информация')}</h4>
-              <Link to="/#branches">{t('Филиалы')}</Link>
+              <Link to="/#branches" onClick={(e) => handleHashNav(e, '/#branches')}>{t('Филиалы')}</Link>
               <Link to="/about">{t('О BuddhaSpa')}</Link>
               <Link to="/franchise">{t('Франшиза')}</Link>
               <button type="button" className="footer-link-btn" onClick={() => onOpenLegal('oferta')}>
