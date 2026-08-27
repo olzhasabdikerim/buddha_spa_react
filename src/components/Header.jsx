@@ -30,7 +30,7 @@ export default function Header() {
         <nav className={`site-nav ${open ? 'is-open' : ''}`}>
           <Link to="/#branches" onClick={close}>{t('Филиалы')}</Link>
           <Link to="/about" onClick={close}>{t('О BuddhaSpa')}</Link>
-          <Link to="/#guest-info" onClick={close}>{t('Гостям')}</Link>
+          <Link to="/#faq" onClick={close}>FAQ</Link>
           <Link to="/franchise" onClick={close}>{t('Франшиза')}</Link>
           <Link to="/#contacts" onClick={close}>{t('Контакты')}</Link>
         </nav>
