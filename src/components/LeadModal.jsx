@@ -21,6 +21,21 @@ function money(n) {
   return `${Number(n || 0).toLocaleString('ru-RU')} ₸`
 }
 
+// Booking time slots across the salon's working hours (11:00–23:00), every 30 min.
+const TIME_SLOTS = (() => {
+  const out = []
+  for (let m = 11 * 60; m <= 22 * 60 + 30; m += 30) {
+    out.push(`${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`)
+  }
+  return out
+})()
+
+// Local (not UTC) YYYY-MM-DD for the date input's min.
+function todayStr() {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
 // Premium booking drawer. Opened from a service card or a generic "Записаться"
 // button. Shows the chosen service with a quantity stepper and a live total,
 // then collects name / phone / comment. Posts to /api/lead (Telegram).
@@ -70,6 +85,9 @@ export default function LeadModal({ branch, service, onClose }) {
       branchLabel: branch ? `${branch.city}, ${branch.address}` : '',
       service: service?.name || '',
       duration: service?.duration || '',
+      // Native date input gives YYYY-MM-DD → show DD.MM.YYYY in the notification.
+      date: (fd.get('date') || '').split('-').reverse().join('.'),
+      time: fd.get('time') || '',
       pageUrl: typeof window !== 'undefined' ? window.location.href : '',
       source: (typeof document !== 'undefined' && document.referrer) || 'Прямой переход',
     }
@@ -150,6 +168,20 @@ export default function LeadModal({ branch, service, onClose }) {
             <form className="lead-form" onSubmit={onSubmit}>
               {/* honeypot */}
               <input type="text" name="company" tabIndex={-1} autoComplete="off" className="lead-form__hp" aria-hidden="true" />
+
+              <div className="lead-when">
+                <label className="lead-form__field">
+                  <span>{t('Дата')}</span>
+                  <input type="date" name="date" min={todayStr()} />
+                </label>
+                <label className="lead-form__field">
+                  <span>{t('Время')}</span>
+                  <select name="time" defaultValue="">
+                    <option value="">{t('Выберите время')}</option>
+                    {TIME_SLOTS.map((s) => <option key={s} value={s}>{s}</option>)}
+                  </select>
+                </label>
+              </div>
 
               <label className="lead-form__field">
                 <span>{t('Имя')}</span>
