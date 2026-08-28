@@ -15,7 +15,7 @@ export default function BranchSelector() {
 
         <div className="branch-select__grid">
           {BRANCHES.map((b) => {
-            const soon = b.comingSoon || b.needsData
+            const soon = b.comingSoon
             const cls = soon ? 'branch-card--soon' : b.premium ? 'branch-card--premium' : 'branch-card--silver'
             return (
               <Link to={`/${b.slug}`} className={`branch-card ${cls}`} key={b.slug}>

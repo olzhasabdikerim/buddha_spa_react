@@ -4,6 +4,7 @@ import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import LegalModal from './components/LegalModal.jsx'
 import LeadModal from './components/LeadModal.jsx'
+import { BookingProvider } from './booking.jsx'
 import { BRANCHES } from './data/branches.js'
 import HomePage from './pages/HomePage.jsx'
 import BranchPage from './pages/BranchPage.jsx'
@@ -39,7 +40,7 @@ export default function App() {
   const isFranchise = pathname === '/franchise'
 
   return (
-    <>
+    <BookingProvider open={() => setBookOpen(true)}>
       <ScrollManager />
       {!isFranchise && <Header onBook={() => setBookOpen(true)} />}
       <main>
@@ -55,6 +56,6 @@ export default function App() {
       {!isFranchise && <Footer onOpenLegal={setLegalSlug} />}
       {legalSlug && <LegalModal slug={legalSlug} onClose={() => setLegalSlug(null)} />}
       {bookOpen && <LeadModal branches={BRANCHES} onClose={() => setBookOpen(false)} />}
-    </>
+    </BookingProvider>
   )
 }

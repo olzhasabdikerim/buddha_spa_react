@@ -22,7 +22,6 @@ export default function About() {
       <div className="wrap brandintro__grid">
         <figure className="brandintro__media">
           <img src={ABOUT_IMAGE} alt="Интерьер зоны отдыха BuddhaSpa" loading="lazy" />
-          <figcaption>{t('Интерьер зоны отдыха')}</figcaption>
         </figure>
 
         <div className="brandintro__text">

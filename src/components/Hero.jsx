@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
-import { handleHashNav } from '../lib/hashNav.js'
+import { useBooking } from '../booking.jsx'
 
 const HERO_IMAGE = '/images/hero-main.jpg'
 const HERO_VIDEO = '/video/hero.mp4'
 
 export default function Hero() {
   const t = useT()
+  const openBooking = useBooking()
   const videoRef = useRef(null)
   const [playing, setPlaying] = useState(false)
 
@@ -51,8 +51,8 @@ export default function Hero() {
           {t('Порадуйте себя и своих близких — Buddha Spa встречает вас теплом подлинной тайской традиции.')}
         </p>
         <div className="hero__actions">
-          <Link to="/#branches" className="btn btn-coral" onClick={(e) => handleHashNav(e, '/#branches')}>{t('Выбрать филиал')}</Link>
-          <Link to="/#branches" className="btn btn-line" onClick={(e) => handleHashNav(e, '/#branches')}>{t('Записаться в BuddhaSpa')}</Link>
+          <button type="button" className="btn btn-coral" onClick={openBooking}>{t('Выбрать филиал')}</button>
+          <button type="button" className="btn btn-line" onClick={openBooking}>{t('Записаться в BuddhaSpa')}</button>
         </div>
       </div>
     </section>

@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
 import { FAQ_ITEMS } from '../data/faq.js'
-import { handleHashNav } from '../lib/hashNav.js'
+import { useBooking } from '../booking.jsx'
 
 // Homepage FAQ — a two-column block: a sticky intro aside on the left and a
 // numbered accordion of question cards on the right (one open at a time).
 export default function FAQ() {
   const t = useT()
+  const openBooking = useBooking()
   const [open, setOpen] = useState(-1)
 
   return (
@@ -19,13 +19,9 @@ export default function FAQ() {
           <p className="faq__sub">
             {t('Собрали ответы на самые популярные вопросы. Не нашли нужный — напишите нам, и мы поможем.')}
           </p>
-          <Link
-            to="/#branches"
-            className="btn btn-gold faq__cta"
-            onClick={(e) => handleHashNav(e, '/#branches')}
-          >
+          <button type="button" className="btn btn-gold faq__cta" onClick={openBooking}>
             {t('Записаться')}
-          </Link>
+          </button>
         </aside>
 
         <div className="faq__list">
