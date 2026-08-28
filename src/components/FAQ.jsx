@@ -8,7 +8,7 @@ import { handleHashNav } from '../lib/hashNav.js'
 // numbered accordion of question cards on the right (one open at a time).
 export default function FAQ() {
   const t = useT()
-  const [open, setOpen] = useState(0)
+  const [open, setOpen] = useState(-1)
 
   return (
     <section id="faq" className="faq">
@@ -46,6 +46,16 @@ export default function FAQ() {
                 <div className="faq__panel">
                   <div className="faq__panel-inner">
                     <p>{t(item.a)}</p>
+                    {item.cta && (
+                      <a
+                        className="faq__answer-cta"
+                        href={item.cta.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t(item.cta.label)} <span aria-hidden="true">→</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

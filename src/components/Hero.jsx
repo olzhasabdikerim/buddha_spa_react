@@ -55,9 +55,6 @@ export default function Hero() {
           <Link to="/#branches" className="btn btn-line" onClick={(e) => handleHashNav(e, '/#branches')}>{t('Записаться в BuddhaSpa')}</Link>
         </div>
       </div>
-      <Link to="/#branches" className="hero__scroll" aria-label="Пролистать вниз">
-        <span />
-      </Link>
     </section>
   )
 }

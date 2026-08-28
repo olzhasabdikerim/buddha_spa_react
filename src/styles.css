@@ -288,7 +288,10 @@ button { font-family: inherit; }
 .faq__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.32s ease; }
 .faq__item.is-open .faq__panel { grid-template-rows: 1fr; }
 .faq__panel-inner { overflow: hidden; }
-.faq__panel-inner p { margin: 0; padding: 0 24px 24px 68px; color: var(--muted); line-height: 1.8; font-size: 14.5px; max-width: 64ch; }
+.faq__panel-inner p { margin: 0; padding: 0 24px 18px 68px; color: var(--muted); line-height: 1.8; font-size: 14.5px; max-width: 64ch; }
+.faq__answer-cta { display: inline-flex; align-items: center; gap: 8px; margin: 0 24px 24px 68px; padding: 11px 22px; border-radius: 40px; background: linear-gradient(135deg, #e4cfa6, var(--gold-500)); color: #2a2018; font: 600 11px/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.faq__answer-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(201, 169, 110, 0.34); }
+@media (max-width: 860px) { .faq__answer-cta { margin-left: 24px; } }
 @media (max-width: 860px) {
   .faq__wrap { grid-template-columns: 1fr; gap: 30px; }
   .faq__aside { position: static; }
@@ -532,7 +535,7 @@ body {
 }
 
 /* Let the living background show through the major dark sections. */
-.brandintro, .journey, .faq, .guest-info { background: transparent; }
+.brandintro, .faq, .guest-info { background: transparent; }
 
 /* Shimmering gold gradient on italic accents — clearly visible "переливание". */
 .hero__title em, .section-title em, .accent,
