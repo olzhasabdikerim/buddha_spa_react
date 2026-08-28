@@ -171,18 +171,23 @@ button { font-family: inherit; }
 .branch-card__body h3 { font-family: var(--font-display); font-size: 24px; font-weight: 600; margin: 0 0 6px; color: var(--ink); }
 .branch-card__body p { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
 
-/* Tier-tinted card bodies (gold = Premium, silver = Эконом) instead of a top badge */
-.branch-card--premium .branch-card__body { background: linear-gradient(165deg, #f3e2b6 0%, #e2c789 52%, #cdac72 100%); }
-.branch-card--premium .branch-card__city { color: #8a6a2e; }
-.branch-card--premium .branch-card__body h3 { color: #2c2113; }
-.branch-card--premium .branch-card__body p { color: rgba(44, 33, 19, 0.72); }
-.branch-card--premium .branch-card__link { color: #7a5a26; }
+/* Tier accents (gold = Premium, silver = Эконом) — a tinted body glow that
+   stays within the dark premium palette, with a coloured top hairline. */
+.branch-card--premium .branch-card__body {
+  background: linear-gradient(180deg, rgba(201,169,110,0.20) 0%, rgba(201,169,110,0.05) 40%, transparent 100%);
+  box-shadow: inset 0 1px 0 rgba(228,207,166,0.5);
+}
+.branch-card--premium .branch-card__city { color: var(--gold-300); }
+.branch-card--premium .branch-card__link { color: var(--gold-300); }
 
-.branch-card--silver .branch-card__body { background: linear-gradient(165deg, #f2f4f7 0%, #d7dde3 52%, #bcc5ce 100%); }
-.branch-card--silver .branch-card__city { color: #5a6672; }
-.branch-card--silver .branch-card__body h3 { color: #23272d; }
-.branch-card--silver .branch-card__body p { color: rgba(35, 39, 45, 0.68); }
-.branch-card--silver .branch-card__link { color: #4a5560; }
+.branch-card--silver .branch-card__body {
+  background: linear-gradient(180deg, rgba(197,209,221,0.16) 0%, rgba(197,209,221,0.04) 40%, transparent 100%);
+  box-shadow: inset 0 1px 0 rgba(210,220,230,0.45);
+}
+.branch-card--silver .branch-card__city { color: #cbd6e0; }
+.branch-card--silver .branch-card__link { color: #cbd6e0; }
+.branch-card--premium:hover { border-color: rgba(201,169,110,0.45); }
+.branch-card--silver:hover { border-color: rgba(197,209,221,0.4); }
 .branch-card__link { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font: 600 11px/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-400); }
 
 @media (max-width: 900px) { .branch-select__grid { grid-template-columns: 1fr 1fr; } }
@@ -503,39 +508,60 @@ button { font-family: inherit; }
 @media (max-width: 720px) { .wrap { padding: 0 22px; } }
 
 /* ---------- Colour & shimmer accents (site-wide warmth) ---------- */
-/* Shimmering gold gradient on italic accents — subtle "переливание". */
+/* Site-wide living background — layered warm-gold + jade glows over the dark
+   base, fixed so it reads as depth across the whole page. */
+body {
+  background:
+    radial-gradient(58vw 40vw at 10% 0%, rgba(201,169,110,0.14), transparent 58%),
+    radial-gradient(52vw 44vw at 100% 14%, rgba(120,150,120,0.09), transparent 60%),
+    radial-gradient(60vw 50vw at 50% 100%, rgba(201,169,110,0.10), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+/* Let the living background show through the major dark sections. */
+.about, .journey, .faq, .guest-info { background: transparent; }
+
+/* Shimmering gold gradient on italic accents — clearly visible "переливание". */
 .hero__title em, .section-title em, .accent, .about .section-title em,
-.br-hero__title .ital, .faq__title,
+.br-hero__title .ital, .faq__title, .h2 .ital,
 .brand__name-accent {
-  background: linear-gradient(100deg, var(--gold-500) 0%, #f2e0b6 35%, var(--gold-300) 55%, var(--gold-500) 100%);
-  background-size: 220% 100%;
+  background: linear-gradient(100deg, #9c7b34 0%, #f6e8bf 30%, #ffffff 44%, #e4cfa6 58%, #9c7b34 100%);
+  background-size: 250% 100%;
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
-  animation: shimmerText 7s ease-in-out infinite;
+  animation: shimmerText 5.5s linear infinite;
 }
-@keyframes shimmerText { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@keyframes shimmerText { 0% { background-position: 120% 50%; } 100% { background-position: -20% 50%; } }
 
-/* Warmer, less "flat" section grounds — soft radial glows layered over the dark base. */
+/* Warmer, less "flat" section grounds — stronger radial glows over the dark base. */
 .branch-select { position: relative; }
 .branch-select > .wrap { position: relative; z-index: 1; }
-.branch-select::before { content: ''; position: absolute; top: 6%; left: 50%; transform: translateX(-50%); width: 90vw; max-width: 1100px; height: 420px; background: radial-gradient(ellipse at center, rgba(201,169,110,0.10), transparent 66%); pointer-events: none; }
+.branch-select::before { content: ''; position: absolute; top: 4%; left: 50%; transform: translateX(-50%); width: 92vw; max-width: 1150px; height: 460px; background: radial-gradient(ellipse at center, rgba(201,169,110,0.18), transparent 64%); pointer-events: none; }
 
 .about { position: relative; overflow: hidden; }
-.about::before { content: ''; position: absolute; top: -12%; right: -6%; width: 44vw; height: 44vw; max-width: 560px; max-height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(183,203,160,0.10), transparent 70%); pointer-events: none; }
+.about::before { content: ''; position: absolute; top: -12%; right: -6%; width: 46vw; height: 46vw; max-width: 600px; max-height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(183,203,160,0.16), transparent 68%); pointer-events: none; }
 .about > .wrap { position: relative; z-index: 1; }
 
 .journey { position: relative; overflow: hidden; }
-.journey::before { content: ''; position: absolute; bottom: -10%; left: -8%; width: 46vw; height: 46vw; max-width: 600px; max-height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(201,169,110,0.09), transparent 70%); pointer-events: none; }
+.journey::before { content: ''; position: absolute; bottom: -10%; left: -8%; width: 48vw; height: 48vw; max-width: 640px; max-height: 640px; border-radius: 50%; background: radial-gradient(circle, rgba(201,169,110,0.15), transparent 68%); pointer-events: none; }
 .journey > .wrap { position: relative; z-index: 1; }
+
+/* Gold gradient hairline under section titles — a small but visible flourish. */
+.section-title::after, .about .section-title::after {
+  content: ''; display: block; width: 68px; height: 2px; margin-top: 20px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold-300), var(--gold-500) 55%, transparent);
+}
 
 /* Golden gradient sweep on the eyebrow tick — small living detail. */
 .eyebrow::before { background: linear-gradient(90deg, transparent, var(--gold-400)); }
 
-/* Card hover warmth: a faint gold wash blooms in on branch + membership cards. */
+/* Card hover warmth: a gold wash blooms in on branch + membership cards. */
 .branch-card, .membership { position: relative; }
-.branch-card::after { content: ''; position: absolute; inset: 0; border-radius: 16px; background: radial-gradient(120% 80% at 50% 0%, rgba(201,169,110,0.14), transparent 60%); opacity: 0; transition: opacity 0.35s ease; pointer-events: none; }
+.branch-card::after { content: ''; position: absolute; inset: 0; border-radius: 16px; background: radial-gradient(120% 80% at 50% 0%, rgba(201,169,110,0.18), transparent 60%); opacity: 0; transition: opacity 0.35s ease; pointer-events: none; z-index: 2; }
 .branch-card:hover::after { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__title em, .section-title em, .accent, .br-hero__title .ital, .faq__title, .brand__name-accent { animation: none; }
+  body::before { animation: none; }
 }
