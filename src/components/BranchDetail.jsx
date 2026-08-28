@@ -63,10 +63,9 @@ export default function BranchDetail({ branch }) {
         <div className="br-hero__grad" />
         <div className="wrap br-hero__inner">
           <Link to="/#branches" className="br-back">← {t('Все филиалы')}</Link>
-          <p className="eyebrow br-hero__eyebrow">
-            {t(branch.city)} · BuddhaSpa
-            {branch.premium && <span className="br-premium">Premium</span>}
-          </p>
+          {branch.premium && (
+            <p className="eyebrow br-hero__eyebrow"><span className="br-premium">Premium</span></p>
+          )}
           <h1 className="br-hero__title serif">
             {branch.comingSoon ? t('Филиал готовится к открытию') : t('Тайский массаж и уход за телом')}
             <br /><span className="ital">{branch.fullAddress}</span>
