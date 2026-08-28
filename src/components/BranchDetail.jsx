@@ -68,7 +68,6 @@ export default function BranchDetail({ branch }) {
           )}
           <h1 className="br-hero__title serif">
             {branch.comingSoon ? t('Филиал готовится к открытию') : t('Тайский массаж и уход за телом')}
-            <br /><span className="ital">{branch.fullAddress}</span>
           </h1>
           {branch.comingSoon && (
             <p className="br-hero__sub">
@@ -80,9 +79,6 @@ export default function BranchDetail({ branch }) {
               {branch.comingSoon ? t('Узнать об открытии') : t('Записаться')}
             </button>
             <a className="btn btn-ghost" href={wa} target="_blank" rel="noopener noreferrer">{t('Написать в WhatsApp')}</a>
-            {branch.vrTour && (
-              <a className="btn btn-ghost" href={branch.vrTour} target="_blank" rel="noopener noreferrer">{t('Пройти VR-тур')}</a>
-            )}
           </div>
           <div className="br-hero__meta">
             <span><b>{t('Адрес')}</b> {branch.fullAddress}</span>

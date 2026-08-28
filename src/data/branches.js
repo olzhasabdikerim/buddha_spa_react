@@ -72,6 +72,8 @@ export const BRANCHES = [
   {
     slug: 'nursat',
     city: 'Шымкент',
+    name: 'Нурсат',
+    premium: true,
     address: 'Нурсат, 173Б',
     fullAddress: 'Шымкент, Нурсат 173Б',
     phone: '+7 (702) 651 80 99',
@@ -96,6 +98,7 @@ export const BRANCHES = [
     // реальные данные Тулеметова, когда они появятся.
     slug: 'tulpar',
     city: 'Шымкент',
+    name: 'Тулпар',
     premium: true,
     address: 'Тулеметова',
     fullAddress: 'Шымкент, Тулеметова',
@@ -115,6 +118,7 @@ export const BRANCHES = [
   {
     slug: 'kunaeva',
     city: 'Шымкент',
+    name: 'Иляева',
     address: 'Иляева, 37',
     fullAddress: 'Шымкент, Иляева 37',
     phone: '+7 (702) 222 31 00',
@@ -141,6 +145,7 @@ export const BRANCHES = [
   {
     slug: 'taukehana',
     city: 'Шымкент',
+    name: 'Таукехан',
     address: 'Тауке хана, 95А',
     fullAddress: 'Шымкент, Тауке хана 95А',
     phone: '+7 (778) 779 43 09',
@@ -165,6 +170,8 @@ export const BRANCHES = [
   {
     slug: 'taraz',
     city: 'Тараз',
+    name: 'Тараз',
+    premium: true,
     address: 'Толе би, 93Б',
     fullAddress: 'г. Тараз, Толе Би 93Б',
     phone: '+7 (705) 888 76 50',
@@ -255,6 +262,8 @@ export const BRANCHES = [
   {
     slug: 'turan',
     city: 'Астана',
+    name: 'Астана',
+    premium: true,
     address: 'Туран, 54',
     fullAddress: 'Астана, Туран 54',
     phone: '+7 (700) 529 80 01',
@@ -326,6 +335,7 @@ export const BRANCHES = [
     // на реальные данные Актобе, когда они появятся.
     slug: 'aktobe',
     city: 'Актобе',
+    name: 'Актобе',
     premium: true,
     address: 'Тауелсиздык, 5',
     fullAddress: 'Актобе, Тауелсиздык 5',

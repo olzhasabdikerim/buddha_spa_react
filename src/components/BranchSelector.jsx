@@ -15,17 +15,14 @@ export default function BranchSelector() {
 
         <div className="branch-select__grid">
           {BRANCHES.map((b) => (
-            <Link to={`/${b.slug}`} className="branch-card" key={b.slug}>
+            <Link to={`/${b.slug}`} className={`branch-card ${b.premium ? 'branch-card--premium' : 'branch-card--silver'}`} key={b.slug}>
               <div
                 className="branch-card__image"
                 style={{ backgroundImage: `url(/images/overview/${b.overview || b.slug}.jpg)` }}
-              >
-                <span className={`branch-card__badge ${b.premium ? 'branch-card__badge--premium' : ''}`}>
-                  {b.premium ? `${b.city} · Premium` : b.city}
-                </span>
-              </div>
+              />
               <div className="branch-card__body">
-                <h3>{b.address}</h3>
+                <span className="branch-card__city">{t(b.city)}</span>
+                <h3>{b.name || b.address}</h3>
                 <p>{t(b.hours)}</p>
                 <span className="branch-card__link">
                   {t('Перейти')} <span aria-hidden="true">→</span>

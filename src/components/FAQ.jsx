@@ -1,20 +1,32 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
 import { FAQ_ITEMS } from '../data/faq.js'
+import { handleHashNav } from '../lib/hashNav.js'
 
-// Homepage FAQ — replaces the old "Гостям" block. Big "FAQ" heading + a
-// minimalist accordion (one open at a time, closed by default).
+// Homepage FAQ — a two-column block: a sticky intro aside on the left and a
+// numbered accordion of question cards on the right (one open at a time).
 export default function FAQ() {
   const t = useT()
-  const [open, setOpen] = useState(-1)
+  const [open, setOpen] = useState(0)
 
   return (
     <section id="faq" className="faq">
-      <div className="wrap">
-        <div className="faq__head">
-          <h2 className="faq__title serif">FAQ</h2>
-          <p className="faq__sub">{t('Часто задаваемые вопросы')}</p>
-        </div>
+      <div className="wrap faq__wrap">
+        <aside className="faq__aside">
+          <p className="eyebrow">FAQ</p>
+          <h2 className="faq__title serif">{t('Часто задаваемые вопросы')}</h2>
+          <p className="faq__sub">
+            {t('Собрали ответы на самые популярные вопросы. Не нашли нужный — напишите нам, и мы поможем.')}
+          </p>
+          <Link
+            to="/#branches"
+            className="btn btn-gold faq__cta"
+            onClick={(e) => handleHashNav(e, '/#branches')}
+          >
+            {t('Записаться')}
+          </Link>
+        </aside>
 
         <div className="faq__list">
           {FAQ_ITEMS.map((item, i) => {
@@ -27,7 +39,8 @@ export default function FAQ() {
                   aria-expanded={isOpen}
                   onClick={() => setOpen(isOpen ? -1 : i)}
                 >
-                  <span>{t(item.q)}</span>
+                  <span className="faq__num">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="faq__q">{t(item.q)}</span>
                   <span className="faq__icon" aria-hidden="true" />
                 </button>
                 <div className="faq__panel">
