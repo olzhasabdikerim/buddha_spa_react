@@ -1,25 +1,47 @@
+import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
+import { BRANCHES } from '../data/branches.js'
 
 const ABOUT_IMAGE = '/images/branches/kunaeva/gallery-1.jpg'
 
+// "О бренде" — compact brand intro placed right after the branch selector.
+// Photo + short story + headline stats + a link through to the full About page.
 export default function About() {
   const t = useT()
+  const masters = BRANCHES.reduce((n, b) => n + (b.team?.length || 0), 0)
+
+  const stats = [
+    ['4', 'города Казахстана'],
+    ['6+', 'лет на рынке'],
+    ['50 000+', 'клиентов в сети'],
+    [`${masters}`, 'мастера из Таиланда и Индонезии'],
+  ]
+
   return (
-    <section id="about" className="about">
-      <div className="wrap about__grid">
-        <div className="about__text">
-          <p className="eyebrow section-label">{t('Роскошь для души и тела')}</p>
-          <h2 className="section-title">
-            {t('Большой спа-салон тайского массажа и ухода за собой')}
-          </h2>
-          <p>{t('Buddha Spa объединяет оздоровительные массажи, программы для релаксации, спа-ритуалы для похудения и пилинги для тонуса кожи — услуги на любой вкус в одном месте.')}</p>
-          <p>{t('Вас встретят приветливые сотрудники и предложат чай или воду. Вы познакомитесь с опытными массажистами — мастерами своего дела — и почувствуете заряд энергии благодаря их уникальной технике.')}</p>
-          <a href="#branches" className="btn btn-line-dark">
-            {t('Выбрать филиал')}
-          </a>
-        </div>
-        <div className="about__frame">
-          <img src={ABOUT_IMAGE} alt="Интерьер спа-салона BuddhaSpa" loading="lazy" />
+    <section id="about" className="brandintro">
+      <div className="wrap brandintro__grid">
+        <figure className="brandintro__media">
+          <img src={ABOUT_IMAGE} alt="Интерьер зоны отдыха BuddhaSpa" loading="lazy" />
+          <figcaption>{t('Интерьер зоны отдыха')}</figcaption>
+        </figure>
+
+        <div className="brandintro__text">
+          <p className="eyebrow section-label">{t('О бренде')}</p>
+          <h2 className="section-title">{t('Забота, которая стала сетью спа-салонов')}</h2>
+          <p className="brandintro__lead">
+            {t('BuddhaSpa начинался с одного салона и желания подарить казахстанцам подлинную тайскую традицию заботы о теле. Сегодня это развивающаяся сеть с едиными стандартами сервиса и мастерами из Юго-Восточной Азии в каждом городе.')}
+          </p>
+
+          <div className="brandintro__stats">
+            {stats.map(([n, l]) => (
+              <div className="brandintro__stat" key={l}>
+                <div className="brandintro__num">{n}</div>
+                <div className="brandintro__lbl">{t(l)}</div>
+              </div>
+            ))}
+          </div>
+
+          <Link to="/about" className="btn btn-gold brandintro__cta">{t('Подробнее о нас')}</Link>
         </div>
       </div>
     </section>

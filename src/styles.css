@@ -167,7 +167,8 @@ button { font-family: inherit; }
 .branch-card__image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(var(--dark-rgb), 0.85)); }
 .branch-card__badge { position: absolute; top: 16px; left: 16px; z-index: 1; background: rgba(var(--dark-rgb), 0.55); backdrop-filter: blur(6px); color: var(--gold-soft); font: 600 10px/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 12px; border-radius: 40px; border: 1px solid rgba(255, 255, 255, 0.14); }
 .branch-card__body { padding: 24px 26px 28px; flex: 1; display: flex; flex-direction: column; }
-.branch-card__city { font: 600 10px/1 var(--font-body); letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-500); margin: 0 0 8px; }
+.branch-card__city { display: flex; align-items: center; gap: 10px; font: 600 10px/1 var(--font-body); letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-500); margin: 0 0 8px; }
+.branch-card__tier { padding: 4px 9px; border-radius: 40px; background: rgba(255, 255, 255, 0.22); color: #fff; letter-spacing: 0.16em; font-size: 9px; }
 .branch-card__body h3 { font-family: var(--font-display); font-size: 24px; font-weight: 600; margin: 0 0 6px; color: var(--ink); }
 .branch-card__body p { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
 
@@ -194,15 +195,25 @@ button { font-family: inherit; }
 @media (max-width: 900px) { .branch-select__grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) { .branch-select__grid { grid-template-columns: 1fr; } }
 
-/* ---------- About ---------- */
-.about { padding: clamp(90px, 12vw, 150px) 0; background: var(--bg); }
-.about__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 80px); align-items: center; }
-.about .section-title { color: var(--ink); }
-.about__text p { color: var(--muted); line-height: 1.9; font-size: 16px; margin-bottom: 18px; }
-.about__frame { position: relative; padding: 16px; }
-.about__frame::before { content: ''; position: absolute; inset: 0; border: 1px solid var(--gold-500); border-radius: 14px; transform: translate(16px, 16px); z-index: 0; }
-.about__frame img { position: relative; z-index: 1; width: 100%; height: 440px; object-fit: cover; border-radius: 12px; }
-@media (max-width: 860px) { .about__grid { grid-template-columns: 1fr; } .about__frame { order: -1; } }
+/* ---------- Brand intro "О бренде" (home, after branches) ---------- */
+.brandintro { padding: clamp(80px, 11vw, 140px) 0; }
+.brandintro__grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(36px, 5vw, 72px); align-items: center; }
+.brandintro__media { position: relative; margin: 0; }
+.brandintro__media::before { content: ''; position: absolute; inset: 0; border: 1px solid var(--gold-500); border-radius: 16px; transform: translate(16px, 16px); z-index: 0; opacity: 0.7; }
+.brandintro__media img { position: relative; z-index: 1; width: 100%; height: clamp(320px, 42vw, 470px); object-fit: cover; border-radius: 14px; }
+.brandintro__media figcaption { position: relative; z-index: 1; margin-top: 12px; font: 500 11px/1 var(--font-body); letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted-soft); }
+.brandintro .section-title { color: var(--ink); margin-top: 16px; }
+.brandintro__lead { color: var(--muted); line-height: 1.9; font-size: 16px; margin: 0 0 8px; }
+.brandintro__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 32px; margin: 34px 0 36px; }
+.brandintro__stat { border-left: 2px solid; border-image: linear-gradient(180deg, var(--gold-300), transparent) 1; padding-left: 18px; }
+.brandintro__num { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.9rem, 3.4vw, 2.6rem); line-height: 1; color: var(--gold-300); }
+.brandintro__lbl { margin-top: 10px; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+.brandintro__cta { margin-top: 4px; }
+@media (max-width: 860px) {
+  .brandintro__grid { grid-template-columns: 1fr; }
+  .brandintro__media { order: -1; }
+}
+@media (max-width: 440px) { .brandintro__stats { grid-template-columns: 1fr 1fr; gap: 22px 18px; } }
 
 /* ---------- Journey — «Три момента вашего визита» (vertical connected path) ---------- */
 .journey { padding: clamp(90px, 12vw, 150px) 0; background: var(--bg); }
@@ -475,19 +486,19 @@ button { font-family: inherit; }
 @media (max-width: 760px) { .membership-grid { grid-template-columns: 1fr; } }
 
 /* ---------- Footer (gold, buddhaspa.kz style) ---------- */
-.site-footer { position: relative; background: linear-gradient(160deg, #b08a4c 0%, #a17c44 45%, #8f6b39 100%); color: #fff; padding: clamp(52px, 6vw, 82px) 0 30px; overflow: hidden; }
-.site-footer::before { content: ''; position: absolute; top: -40%; right: -10%; width: 50vw; height: 50vw; max-width: 620px; max-height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(255,244,214,0.18), transparent 68%); pointer-events: none; }
+.site-footer { position: relative; background: linear-gradient(160deg, #b08a4c 0%, #a17c44 45%, #8f6b39 100%); color: #fff; padding: clamp(38px, 4vw, 54px) 0 22px; overflow: hidden; }
+.site-footer::before { content: ''; position: absolute; top: -40%; right: -10%; width: 50vw; height: 50vw; max-width: 620px; max-height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(255,244,214,0.16), transparent 68%); pointer-events: none; }
 .site-footer .wrap { position: relative; z-index: 1; }
-.site-footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: clamp(30px, 4vw, 70px); align-items: start; }
-.site-footer__brand { max-width: 360px; }
-.site-footer__logo { width: clamp(180px, 20vw, 250px); height: auto; object-fit: contain; margin-bottom: 20px; }
-.site-footer__tag { color: rgba(255, 255, 255, 0.9); font-size: 15px; line-height: 1.7; margin: 0; }
-.site-footer__col h4 { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; color: #fff; margin: 2px 0 18px; letter-spacing: 0.01em; text-transform: none; }
-.site-footer__col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-.site-footer__col a, .site-footer__col span { color: rgba(255, 255, 255, 0.88); text-decoration: none; font-size: 14.5px; transition: color 0.2s ease, padding 0.2s ease; }
+.site-footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: clamp(26px, 3vw, 52px); align-items: start; }
+.site-footer__brand { max-width: 340px; }
+.site-footer__logo { width: clamp(150px, 16vw, 200px); height: auto; object-fit: contain; margin-bottom: 14px; }
+.site-footer__tag { color: rgba(255, 255, 255, 0.9); font-size: 14px; line-height: 1.6; margin: 0; }
+.site-footer__col h4 { font-family: var(--font-display); font-weight: 600; font-size: 1.12rem; color: #fff; margin: 0 0 12px; letter-spacing: 0.01em; text-transform: none; }
+.site-footer__col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.site-footer__col a, .site-footer__col span { color: rgba(255, 255, 255, 0.88); text-decoration: none; font-size: 14px; transition: color 0.2s ease, padding 0.2s ease; }
 .site-footer__col a:hover { color: #fff; padding-left: 4px; }
-.site-footer__divider { height: 1px; background: rgba(255, 255, 255, 0.3); margin: clamp(36px, 5vw, 56px) 0 22px; }
-.site-footer__bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 28px; font-size: 13.5px; color: rgba(255, 255, 255, 0.85); }
+.site-footer__divider { height: 1px; background: rgba(255, 255, 255, 0.3); margin: clamp(24px, 3vw, 36px) 0 18px; }
+.site-footer__bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 28px; font-size: 13px; color: rgba(255, 255, 255, 0.82); }
 .site-footer__legal { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; }
 .footer-link-btn { color: rgba(255, 255, 255, 0.85); background: none; border: none; padding: 0; cursor: pointer; font-family: inherit; font-size: 13.5px; transition: color 0.2s ease; }
 .footer-link-btn:hover { color: #fff; }
@@ -521,10 +532,10 @@ body {
 }
 
 /* Let the living background show through the major dark sections. */
-.about, .journey, .faq, .guest-info { background: transparent; }
+.brandintro, .journey, .faq, .guest-info { background: transparent; }
 
 /* Shimmering gold gradient on italic accents — clearly visible "переливание". */
-.hero__title em, .section-title em, .accent, .about .section-title em,
+.hero__title em, .section-title em, .accent,
 .br-hero__title .ital, .faq__title, .h2 .ital,
 .brand__name-accent {
   background: linear-gradient(100deg, #9c7b34 0%, #f6e8bf 30%, #ffffff 44%, #e4cfa6 58%, #9c7b34 100%);
@@ -540,9 +551,9 @@ body {
 .branch-select > .wrap { position: relative; z-index: 1; }
 .branch-select::before { content: ''; position: absolute; top: 4%; left: 50%; transform: translateX(-50%); width: 92vw; max-width: 1150px; height: 460px; background: radial-gradient(ellipse at center, rgba(201,169,110,0.18), transparent 64%); pointer-events: none; }
 
-.about { position: relative; overflow: hidden; }
-.about::before { content: ''; position: absolute; top: -12%; right: -6%; width: 46vw; height: 46vw; max-width: 600px; max-height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(183,203,160,0.16), transparent 68%); pointer-events: none; }
-.about > .wrap { position: relative; z-index: 1; }
+.brandintro { position: relative; overflow: hidden; }
+.brandintro::before { content: ''; position: absolute; top: -12%; right: -6%; width: 46vw; height: 46vw; max-width: 600px; max-height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(183,203,160,0.16), transparent 68%); pointer-events: none; }
+.brandintro > .wrap { position: relative; z-index: 1; }
 
 .journey { position: relative; overflow: hidden; }
 .journey::before { content: ''; position: absolute; bottom: -10%; left: -8%; width: 48vw; height: 48vw; max-width: 640px; max-height: 640px; border-radius: 50%; background: radial-gradient(circle, rgba(201,169,110,0.15), transparent 68%); pointer-events: none; }
