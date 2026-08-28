@@ -308,15 +308,6 @@ export default function BranchDetail({ branch }) {
         </div>
       </section>
 
-      {/* 11 · ИНФОРМАЦИЯ ДЛЯ ГОСТЕЙ */}
-      <section className="sec br-sec br-bg2" id="guest-info">
-        <div className="wrap">
-          <p className="eyebrow rv">{t('Перед визитом')}</p>
-          <h2 className="h2 serif rv">{t('Информация для гостей')}</h2>
-          <GuestAccordion t={t} />
-        </div>
-      </section>
-
       {/* Sticky mobile CTA */}
       <div className="br-sticky">
         <button className="btn" onClick={() => setLead({})}>{t('Записаться')}</button>
