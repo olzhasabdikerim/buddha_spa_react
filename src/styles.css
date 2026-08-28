@@ -509,7 +509,8 @@ button { font-family: inherit; }
 .site-footer { position: relative; background: linear-gradient(160deg, #b08a4c 0%, #a17c44 45%, #8f6b39 100%); color: #fff; padding: clamp(38px, 4vw, 54px) 0 22px; overflow: hidden; }
 .site-footer::before { content: ''; position: absolute; top: -40%; right: -10%; width: 50vw; height: 50vw; max-width: 620px; max-height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(255,244,214,0.16), transparent 68%); pointer-events: none; }
 .site-footer .wrap { position: relative; z-index: 1; }
-.site-footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: clamp(26px, 3vw, 52px); align-items: start; }
+.site-footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.1fr; gap: clamp(24px, 2.6vw, 46px); align-items: start; }
+@media (max-width: 960px) and (min-width: 761px) { .site-footer__grid { grid-template-columns: 1fr 1fr 1fr; } .site-footer__brand { grid-column: 1 / -1; } }
 .site-footer__brand { max-width: 340px; }
 .site-footer__logo { width: clamp(120px, 14vw, 160px); height: auto; object-fit: contain; margin-bottom: 16px; }
 .site-footer__tag { color: rgba(255, 255, 255, 0.9); font-size: 14px; line-height: 1.6; margin: 0; }

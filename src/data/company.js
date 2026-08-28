@@ -1,3 +1,5 @@
+import { LEGAL_SPA_PAGES } from './legalSpa.js'
+
 export const COMPANY = {
   name: 'Buddha Spa',
   logo: '/images/logo.png',
@@ -276,4 +278,6 @@ export const LEGAL_PAGES = [
 010000
 Юридический адрес: город Астана, Керей Жанибек хандары, 18`,
   },
+  // Оферта СПА, Правила СПА, Платежи — перенесены с buddhaspa.kz, хранятся локально.
+  ...LEGAL_SPA_PAGES,
 ]

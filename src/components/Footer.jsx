@@ -34,6 +34,17 @@ export default function Footer({ onOpenLegal }) {
             </ul>
           </nav>
 
+          {/* Services */}
+          <nav className="site-footer__col">
+            <h4>{t('Услуги')}</h4>
+            <ul>
+              <li><Link to="/nursat#programs">{t('SPA-программы')}</Link></li>
+              <li><Link to="/nursat#massages">{t('Массаж всего тела')}</Link></li>
+              <li><Link to="/nursat#zones">{t('Массаж по зонам')}</Link></li>
+              <li><Link to="/nursat#procedures">{t('Уход за телом')}</Link></li>
+            </ul>
+          </nav>
+
           {/* Contacts */}
           <div className="site-footer__col">
             <h4>{t('Контакты')}</h4>
@@ -54,15 +65,15 @@ export default function Footer({ onOpenLegal }) {
             <button type="button" className="footer-link-btn" onClick={() => onOpenLegal('oferta')}>
               {t('Оферта')}
             </button>
-            <a className="footer-link-btn" href="https://buddhaspa.kz/pravila/spa/ru" target="_blank" rel="noopener noreferrer">
+            <button type="button" className="footer-link-btn" onClick={() => onOpenLegal('pravila-spa')}>
               {t('Правила СПА')}
-            </a>
-            <a className="footer-link-btn" href="https://buddhaspa.kz/oferta/spa/ru" target="_blank" rel="noopener noreferrer">
+            </button>
+            <button type="button" className="footer-link-btn" onClick={() => onOpenLegal('oferta-spa')}>
               {t('Оферта СПА')}
-            </a>
-            <a className="footer-link-btn" href="https://buddhaspa.kz/platezhi/ru" target="_blank" rel="noopener noreferrer">
+            </button>
+            <button type="button" className="footer-link-btn" onClick={() => onOpenLegal('platezhi')}>
               {t('Платежи')}
-            </a>
+            </button>
           </div>
         </div>
       </div>
