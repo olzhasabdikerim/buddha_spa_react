@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
 import { handleHashNav } from '../lib/hashNav.js'
 
-const FOOTER_LOGO = '/images/footer-brand-trim.png'
+const FOOTER_LOGO = '/images/footer-lotus.png'
 
 export default function Footer({ onOpenLegal }) {
   const t = useT()
@@ -11,7 +11,8 @@ export default function Footer({ onOpenLegal }) {
       <div className="wrap">
         <div className="site-footer__top">
           <div className="site-footer__brand">
-            <img className="site-footer__logo" src={FOOTER_LOGO} alt="BuddhaSpa Premium — relaxation centre" />
+            <img className="site-footer__logo" src={FOOTER_LOGO} alt="BuddhaSpa" />
+            <span className="site-footer__name">Buddha<span className="site-footer__name-accent">Spa</span></span>
             <p className="site-footer__tagline">{t('Тайский массаж и уход за телом в спа-салоне.')}</p>
           </div>
 

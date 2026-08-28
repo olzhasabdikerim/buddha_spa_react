@@ -21,15 +21,6 @@ function money(n) {
   return `${Number(n || 0).toLocaleString('ru-RU')} ₸`
 }
 
-// Booking time slots across the salon's working hours (11:00–23:00), every 30 min.
-const TIME_SLOTS = (() => {
-  const out = []
-  for (let m = 11 * 60; m <= 22 * 60 + 30; m += 30) {
-    out.push(`${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`)
-  }
-  return out
-})()
-
 // Local (not UTC) YYYY-MM-DD for the date input's min.
 function todayStr() {
   const d = new Date()
@@ -87,7 +78,6 @@ export default function LeadModal({ branch, service, onClose }) {
       duration: service?.duration || '',
       // Native date input gives YYYY-MM-DD → show DD.MM.YYYY in the notification.
       date: (fd.get('date') || '').split('-').reverse().join('.'),
-      time: fd.get('time') || '',
       pageUrl: typeof window !== 'undefined' ? window.location.href : '',
       source: (typeof document !== 'undefined' && document.referrer) || 'Прямой переход',
     }
@@ -122,7 +112,7 @@ export default function LeadModal({ branch, service, onClose }) {
           <div className="lead-modal__done">
             <div className="lead-modal__done-ring"><span /></div>
             <h3>{t('Заявка принята')}</h3>
-            <p>{t('Мы свяжемся с вами в ближайшее время в рабочее время салона.')}</p>
+            <p>{t('С вами скоро свяжется менеджер.')}</p>
             <button type="button" className="btn btn-gold" onClick={onClose}>{t('Хорошо')}</button>
           </div>
         ) : (
@@ -169,19 +159,10 @@ export default function LeadModal({ branch, service, onClose }) {
               {/* honeypot */}
               <input type="text" name="company" tabIndex={-1} autoComplete="off" className="lead-form__hp" aria-hidden="true" />
 
-              <div className="lead-when">
-                <label className="lead-form__field">
-                  <span>{t('Дата')}</span>
-                  <input type="date" name="date" min={todayStr()} />
-                </label>
-                <label className="lead-form__field">
-                  <span>{t('Время')}</span>
-                  <select name="time" defaultValue="">
-                    <option value="">{t('Выберите время')}</option>
-                    {TIME_SLOTS.map((s) => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                </label>
-              </div>
+              <label className="lead-form__field">
+                <span>{t('Желаемая дата')}</span>
+                <input type="date" name="date" min={todayStr()} />
+              </label>
 
               <label className="lead-form__field">
                 <span>{t('Имя')}</span>

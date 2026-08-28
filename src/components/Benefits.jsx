@@ -9,11 +9,21 @@ const STEPS = [
   },
   {
     n: '02',
+    title: 'Чай и настрой',
+    text: 'Вы устроитесь в уютной чайной зоне, выдохнете и настроитесь на отдых перед процедурой.',
+  },
+  {
+    n: '03',
     title: 'Мастера своего дела',
     text: 'Вы познакомитесь с опытными массажистами, годами оттачивавшими искусство тайского массажа.',
   },
   {
-    n: '03',
+    n: '04',
+    title: 'Ритуал заботы',
+    text: 'Мастера проведут выбранную программу — прогрев, массаж и уход по тайским традициям.',
+  },
+  {
+    n: '05',
     title: 'Заряд энергии',
     text: 'Вы почувствуете бодрость и лёгкость — мастера применяют уникальную, проверенную технику.',
   },
@@ -44,7 +54,7 @@ export default function Benefits() {
     <section className="journey">
       <div className="wrap">
         <p className="eyebrow section-label">{t('Почему Buddha Spa — лучшая идея')}</p>
-        <h2 className="section-title">{t('Три момента вашего визита')}</h2>
+        <h2 className="section-title">{t('Как проходит ваш визит')}</h2>
 
         <ol className="journey__track" ref={trackRef}>
           <span className="journey__spine" aria-hidden="true" />

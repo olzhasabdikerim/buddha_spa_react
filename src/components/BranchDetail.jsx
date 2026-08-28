@@ -71,11 +71,11 @@ export default function BranchDetail({ branch }) {
             {branch.comingSoon ? t('Филиал готовится к открытию') : t('Тайский массаж и уход за телом')}
             <br /><span className="ital">{branch.fullAddress}</span>
           </h1>
-          <p className="br-hero__sub">
-            {branch.comingSoon
-              ? t('Скоро BuddhaSpa открывается в вашем городе. Оставьте контакты — сообщим об открытии и специальных условиях первыми.')
-              : t('Тайский массаж и уход за телом в SPA-салоне Buddha Spa — тепло подлинной тайской традиции рядом с вами.')}
-          </p>
+          {branch.comingSoon && (
+            <p className="br-hero__sub">
+              {t('Скоро BuddhaSpa открывается в вашем городе. Оставьте контакты — сообщим об открытии и специальных условиях первыми.')}
+            </p>
+          )}
           <div className="br-hero__actions">
             <button className="btn" onClick={() => setLead({})}>
               {branch.comingSoon ? t('Узнать об открытии') : t('Записаться')}

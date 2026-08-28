@@ -268,7 +268,10 @@ export default function Franchise() {
             onClick={(e) => { e.stopPropagation(); setLangOpen((v) => !v) }}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setLangOpen((v) => !v) } }}
           >
-            <span className="globe">🌐</span>
+            <svg className="globe" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.4" />
+              <path d="M3 12h18M12 3c2.6 2.5 2.6 15.5 0 18M12 3c-2.6 2.5-2.6 15.5 0 18" fill="none" stroke="currentColor" strokeWidth="1.4" />
+            </svg>
             <span>{currentLabel}</span>
             <span className="arrow">▾</span>
             <div className={`fr-lang-dd ${langOpen ? 'open' : ''}`}>
