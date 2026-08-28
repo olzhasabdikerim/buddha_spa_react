@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://buddhaspareact.vercel.app/sitemap.xml

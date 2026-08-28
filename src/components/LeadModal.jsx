@@ -241,10 +241,12 @@ export default function LeadModal({ branch, branches, service, onClose }) {
                 </p>
               )}
 
-              <div className="lead-total">
-                <span className="lead-total__label">{t('Итого')}</span>
-                <span className="lead-total__value">{hasPrice ? money(total) : t('по запросу')}</span>
-              </div>
+              {service && (
+                <div className="lead-total">
+                  <span className="lead-total__label">{t('Итого')}</span>
+                  <span className="lead-total__value">{hasPrice ? money(total) : t('по запросу')}</span>
+                </div>
+              )}
 
               <button type="submit" className="btn btn-gold lead-form__submit" disabled={status === 'sending'}>
                 {status === 'sending' ? t('Отправляем…') : t('Записаться в BuddhaSpa')}

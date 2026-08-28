@@ -2,7 +2,7 @@
 // Sets <title>, meta description, Open Graph tags and a JSON-LD LocalBusiness
 // block for a branch, and restores the site defaults on unmount.
 
-const SITE = 'https://buddhaspa.kz'
+const SITE = 'https://buddhaspareact.vercel.app'
 const DEFAULT_TITLE = 'BuddhaSpa — тайский массаж и уход за телом'
 const DEFAULT_DESC = 'BuddhaSpa — сеть спа-салонов тайского массажа и оздоровительных процедур в Казахстане. Шымкент, Тараз, Астана.'
 

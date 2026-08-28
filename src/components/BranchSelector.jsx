@@ -2,6 +2,18 @@ import { Link } from 'react-router-dom'
 import { BRANCHES } from '../data/branches.js'
 import { useT } from '../i18n.jsx'
 
+// Interior shots for the home cards (instead of massage photos). Temporary set
+// from existing branch galleries — only 4 people-free interiors exist, so two
+// are reused; replace per branch when the real per-branch photos are supplied.
+const CARD_IMG = {
+  nursat: '/images/branches/nursat/gallery-1.jpeg',   // white lounge
+  taukehana: '/images/branches/taraz/gallery-2.jpg',  // white candle room
+  kunaeva: '/images/branches/kunaeva/gallery-2.jpg',  // black buddha statue
+  tulpar: '/images/branches/taraz/gallery-1.jpg',     // hammam
+  turan: '/images/branches/taraz/gallery-2.jpg',      // white candle room
+  taraz: '/images/branches/taraz/gallery-1.jpg',      // hammam
+}
+
 export default function BranchSelector() {
   const t = useT()
   return (
@@ -21,7 +33,7 @@ export default function BranchSelector() {
               <Link to={`/${b.slug}`} className={`branch-card ${cls}`} key={b.slug}>
                 <div
                   className="branch-card__image"
-                  style={soon ? undefined : { backgroundImage: `url(/images/overview/${b.overview || b.slug}.jpg)` }}
+                  style={soon ? undefined : { backgroundImage: `url(${CARD_IMG[b.slug] || `/images/overview/${b.overview || b.slug}.jpg`})` }}
                 >
                   {soon ? (
                     <span className="branch-card__soon-badge">{t('Скоро откроется')}</span>
