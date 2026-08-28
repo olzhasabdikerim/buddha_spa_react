@@ -171,23 +171,24 @@ button { font-family: inherit; }
 .branch-card__body h3 { font-family: var(--font-display); font-size: 24px; font-weight: 600; margin: 0 0 6px; color: var(--ink); }
 .branch-card__body p { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
 
-/* Tier accents (gold = Premium, silver = Эконом) — a tinted body glow that
-   stays within the dark premium palette, with a coloured top hairline. */
+/* Tier fills (gold = Premium, gunmetal = Эконом) — solid gradient body with
+   white text, matching the reference. */
 .branch-card--premium .branch-card__body {
-  background: linear-gradient(180deg, rgba(201,169,110,0.20) 0%, rgba(201,169,110,0.05) 40%, transparent 100%);
-  box-shadow: inset 0 1px 0 rgba(228,207,166,0.5);
+  background: linear-gradient(145deg, #cba86a 0%, #b18f4c 50%, #96742f 100%);
 }
-.branch-card--premium .branch-card__city { color: var(--gold-300); }
-.branch-card--premium .branch-card__link { color: var(--gold-300); }
-
 .branch-card--silver .branch-card__body {
-  background: linear-gradient(180deg, rgba(197,209,221,0.16) 0%, rgba(197,209,221,0.04) 40%, transparent 100%);
-  box-shadow: inset 0 1px 0 rgba(210,220,230,0.45);
+  background: linear-gradient(145deg, #7f8286 0%, #676a6e 50%, #53555a 100%);
 }
-.branch-card--silver .branch-card__city { color: #cbd6e0; }
-.branch-card--silver .branch-card__link { color: #cbd6e0; }
-.branch-card--premium:hover { border-color: rgba(201,169,110,0.45); }
-.branch-card--silver:hover { border-color: rgba(197,209,221,0.4); }
+.branch-card--premium .branch-card__city,
+.branch-card--silver .branch-card__city { color: rgba(255, 255, 255, 0.82); }
+.branch-card--premium .branch-card__body h3,
+.branch-card--silver .branch-card__body h3 { color: #fff; }
+.branch-card--premium .branch-card__body p,
+.branch-card--silver .branch-card__body p { color: rgba(255, 255, 255, 0.8); }
+.branch-card--premium .branch-card__link,
+.branch-card--silver .branch-card__link { color: #fff; }
+.branch-card--premium:hover { border-color: rgba(203, 168, 106, 0.5); }
+.branch-card--silver:hover { border-color: rgba(160, 166, 172, 0.5); }
 .branch-card__link { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font: 600 11px/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-400); }
 
 @media (max-width: 900px) { .branch-select__grid { grid-template-columns: 1fr 1fr; } }
@@ -558,7 +559,7 @@ body {
 
 /* Card hover warmth: a gold wash blooms in on branch + membership cards. */
 .branch-card, .membership { position: relative; }
-.branch-card::after { content: ''; position: absolute; inset: 0; border-radius: 16px; background: radial-gradient(120% 80% at 50% 0%, rgba(201,169,110,0.18), transparent 60%); opacity: 0; transition: opacity 0.35s ease; pointer-events: none; z-index: 2; }
+.branch-card::after { content: ''; position: absolute; inset: 0; border-radius: 16px; background: radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,0.10), transparent 55%); opacity: 0; transition: opacity 0.35s ease; pointer-events: none; z-index: 2; }
 .branch-card:hover::after { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
