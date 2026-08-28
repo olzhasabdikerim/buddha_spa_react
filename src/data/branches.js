@@ -408,7 +408,7 @@ export const BRANCHES = [
     // на реальные данные Актобе, когда они появятся.
     slug: 'aktobe',
     city: 'Актобе',
-    name: 'Актобе',
+    name: 'Тауелсыздык',
     premium: true,
     address: 'Тауелсиздык, 5',
     fullAddress: 'Актобе, Тауелсиздык 5',
