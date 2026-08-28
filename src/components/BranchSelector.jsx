@@ -14,24 +14,32 @@ export default function BranchSelector() {
         </p>
 
         <div className="branch-select__grid">
-          {BRANCHES.map((b) => (
-            <Link to={`/${b.slug}`} className={`branch-card ${b.premium ? 'branch-card--premium' : 'branch-card--silver'}`} key={b.slug}>
-              <div
-                className="branch-card__image"
-                style={{ backgroundImage: `url(/images/overview/${b.overview || b.slug}.jpg)` }}
-              >
-                {b.premium && <span className="branch-card__premium-tag">Premium</span>}
-              </div>
-              <div className="branch-card__body">
-                <span className="branch-card__city">{t(b.city)}</span>
-                <h3>{b.name || b.address}</h3>
-                <p>{t(b.hours)}</p>
-                <span className="branch-card__link">
-                  {t('Перейти')} <span aria-hidden="true">→</span>
-                </span>
-              </div>
-            </Link>
-          ))}
+          {BRANCHES.map((b) => {
+            const soon = b.comingSoon || b.needsData
+            const cls = soon ? 'branch-card--soon' : b.premium ? 'branch-card--premium' : 'branch-card--silver'
+            return (
+              <Link to={`/${b.slug}`} className={`branch-card ${cls}`} key={b.slug}>
+                <div
+                  className="branch-card__image"
+                  style={soon ? undefined : { backgroundImage: `url(/images/overview/${b.overview || b.slug}.jpg)` }}
+                >
+                  {soon ? (
+                    <span className="branch-card__soon-badge">{t('Скоро откроется')}</span>
+                  ) : (
+                    b.premium && <span className="branch-card__premium-tag">Premium</span>
+                  )}
+                </div>
+                <div className="branch-card__body">
+                  <span className="branch-card__city">{t(b.city)}</span>
+                  <h3>{b.name || b.address}</h3>
+                  <p>{soon ? t('Открытие совсем скоро') : t(b.hours)}</p>
+                  <span className="branch-card__link">
+                    {soon ? t('Скоро') : t('Перейти')} <span aria-hidden="true">→</span>
+                  </span>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </div>
     </section>

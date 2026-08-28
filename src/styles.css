@@ -48,6 +48,7 @@ button { font-family: inherit; }
 ::selection { background: var(--gold-500); color: #2a2018; }
 
 .wrap { max-width: var(--container); margin: 0 auto; padding: 0 clamp(24px, 5vw, 64px); }
+.route-fallback { min-height: 100vh; }
 
 /* Reveal-on-scroll */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -190,6 +191,20 @@ button { font-family: inherit; }
 .branch-card--silver .branch-card__link { color: #fff; }
 .branch-card--premium:hover { border-color: rgba(203, 168, 106, 0.5); }
 .branch-card--silver:hover { border-color: rgba(160, 166, 172, 0.5); }
+
+/* "Скоро откроется" placeholder card (branches being prepared) */
+.branch-card--soon .branch-card__image {
+  background: repeating-linear-gradient(135deg, rgba(201,169,110,0.12) 0 16px, rgba(201,169,110,0.03) 16px 32px), var(--bg2);
+  display: flex; align-items: center; justify-content: center;
+}
+.branch-card--soon .branch-card__image::after { display: none; }
+.branch-card__soon-badge {
+  position: relative; z-index: 1; padding: 12px 22px; border-radius: 40px;
+  border: 1px solid var(--gold-500); color: var(--gold-300);
+  font: 600 11px/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase;
+  background: rgba(20, 16, 11, 0.5);
+}
+.branch-card--soon:hover { border-color: rgba(201, 169, 110, 0.4); }
 .branch-card__link { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font: 600 11px/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-400); }
 
 @media (max-width: 900px) { .branch-select__grid { grid-template-columns: 1fr 1fr; } }
@@ -221,10 +236,8 @@ button { font-family: inherit; }
 /* the connecting path down the centre — soft golden trajectory that starts at
    the first node and ends at the last (node 5); no line runs past it */
 .journey__spine { position: absolute; top: 40px; bottom: 40px; left: 50%; width: 2px; transform: translateX(-50%);
-  background: linear-gradient(180deg, transparent, rgba(201,169,110,0.55) 7%, rgba(201,169,110,0.55) 100%);
+  background: linear-gradient(180deg, transparent, rgba(201,169,110,0.55) 7%, rgba(201,169,110,0.55) 80%, transparent 96%);
   box-shadow: 0 0 18px rgba(201,169,110,0.25); border-radius: 2px; }
-/* cover any spine tail below the final node so the path clearly ends at node 5 */
-.journey__step:last-of-type .journey__node::before { content: ''; position: absolute; left: 50%; top: 50%; width: 10px; height: 260px; transform: translateX(-50%); background: var(--bg); z-index: -1; }
 .journey__step { position: relative; display: grid; grid-template-columns: 1fr 64px 1fr; align-items: center;
   opacity: 0; transform: translateY(26px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); }
 .journey__step.is-in { opacity: 1; transform: none; }
@@ -400,6 +413,10 @@ button { font-family: inherit; }
 .lead-order__body { flex: 1; min-width: 0; }
 .lead-order__name { font-family: var(--font-display); font-weight: 500; font-size: 1.02rem; color: var(--ink); line-height: 1.25; }
 .lead-order__dur { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.lead-order__variants { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
+.lead-var { padding: 6px 12px; border-radius: 40px; border: 1px solid var(--line-strong); background: transparent; color: var(--muted); font: 600 11.5px/1 var(--font-body); cursor: pointer; transition: all 0.2s ease; }
+.lead-var:hover { color: var(--gold-300); border-color: var(--gold-500); }
+.lead-var.is-active { background: linear-gradient(135deg, #e4cfa6, var(--gold-500)); border-color: transparent; color: #2a2018; }
 .lead-order__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; }
 .lead-order__price { color: var(--gold-300); font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; }
 .lead-qty { display: inline-flex; align-items: center; gap: 2px; border: 1px solid var(--line-strong); border-radius: 40px; padding: 3px; }

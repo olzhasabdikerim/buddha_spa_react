@@ -30,15 +30,27 @@ function todayStr() {
 // Premium booking drawer. Opened from a service card or a generic "Записаться"
 // button. Shows the chosen service with a quantity stepper and a live total,
 // then collects name / phone / comment. Posts to /api/lead (Telegram).
-export default function LeadModal({ branch, service, onClose }) {
+export default function LeadModal({ branch, branches, service, onClose }) {
   const t = useT()
   const [status, setStatus] = useState('idle') // idle | sending | ok | error
   const [error, setError] = useState('')
   const [qty, setQty] = useState(1)
   const [phone, setPhone] = useState('')
+  const [pickSlug, setPickSlug] = useState('')
+  const [variantIdx, setVariantIdx] = useState(0)
   const nameRef = useRef(null)
 
-  const unitPrice = service?.priceNum || 0
+  // When opened without a fixed branch (the header "Записаться"), the guest
+  // picks a branch inside the form.
+  const needBranchPick = !branch && Array.isArray(branches) && branches.length > 0
+  const activeBranch = branch || (needBranchPick ? branches.find((b) => b.slug === pickSlug) : null) || null
+
+  // Duration variants (60 / 90 / 120 мин) — the guest chooses one, price follows.
+  const variants = service?.variants || []
+  const hasVariants = variants.length > 1
+  const activeVariant = hasVariants ? variants[variantIdx] : null
+  const unitPrice = (activeVariant?.priceNum ?? service?.priceNum) || 0
+  const shownDuration = activeVariant?.duration || service?.duration || ''
   const total = useMemo(() => unitPrice * qty, [unitPrice, qty])
   const hasPrice = unitPrice > 0
 
@@ -56,14 +68,20 @@ export default function LeadModal({ branch, service, onClose }) {
   async function onSubmit(e) {
     e.preventDefault()
     if (status === 'sending') return
+    if (needBranchPick && !pickSlug) {
+      setError(t('Пожалуйста, выберите филиал'))
+      setStatus('error')
+      return
+    }
     const form = e.currentTarget
     const fd = new FormData(form)
     const userComment = String(fd.get('comment') || '').trim()
-    // Fold the order (qty + total) into the comment so it reaches Telegram
-    // without changing the serverless API contract.
+    // Fold the order (qty + total) into the comment so it reaches Telegram/Bitrix
+    // without changing the serverless API contract. Without a chosen service we
+    // flag the lead for a call-back so staff can consult and recommend.
     const orderLine = service
-      ? `Услуга: ${service.name}${qty > 1 ? ` × ${qty}` : ''}${hasPrice ? ` · Итого: ${money(total)}` : ''}`
-      : ''
+      ? `Услуга: ${service.name}${shownDuration ? ` (${shownDuration})` : ''}${qty > 1 ? ` × ${qty}` : ''}${hasPrice ? ` · Итого: ${money(total)}` : ''}`
+      : 'Услуга не выбрана — записался напрямую, требуется консультация и подбор программы'
     const comment = [orderLine, userComment].filter(Boolean).join('\n')
 
     const payload = {
@@ -71,11 +89,11 @@ export default function LeadModal({ branch, service, onClose }) {
       phone: fd.get('phone'),
       comment,
       company: fd.get('company'), // honeypot
-      city: branch?.city || '',
-      branchSlug: branch?.slug || '',
-      branchLabel: branch ? `${branch.city}, ${branch.address}` : '',
+      city: activeBranch?.city || '',
+      branchSlug: activeBranch?.slug || '',
+      branchLabel: activeBranch ? `${activeBranch.city}, ${activeBranch.address}` : '',
       service: service?.name || '',
-      duration: service?.duration || '',
+      duration: shownDuration,
       // Native date input gives YYYY-MM-DD → show DD.MM.YYYY in the notification.
       date: (fd.get('date') || '').split('-').reverse().join('.'),
       pageUrl: typeof window !== 'undefined' ? window.location.href : '',
@@ -118,7 +136,7 @@ export default function LeadModal({ branch, service, onClose }) {
         ) : (
           <div className="lead-modal__scroll">
             <p className="eyebrow lead-modal__eyebrow">
-              {branch ? `${t(branch.city)}, ${branch.address}` : 'BuddhaSpa'}
+              {activeBranch ? `${t(activeBranch.city)}, ${activeBranch.address}` : 'BuddhaSpa'}
             </p>
             <h2 className="lead-modal__title">{t('Записаться в BuddhaSpa')}</h2>
 
@@ -131,7 +149,22 @@ export default function LeadModal({ branch, service, onClose }) {
                 />
                 <div className="lead-order__body">
                   <div className="lead-order__name">{t(service.name)}</div>
-                  {service.duration && <div className="lead-order__dur">{service.duration}</div>}
+                  {hasVariants ? (
+                    <div className="lead-order__variants" role="group" aria-label={t('Длительность')}>
+                      {variants.map((v, i) => (
+                        <button
+                          type="button"
+                          key={(v.duration || v.price) + i}
+                          className={`lead-var ${i === variantIdx ? 'is-active' : ''}`}
+                          onClick={() => setVariantIdx(i)}
+                        >
+                          {v.duration || v.price}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    service.duration && <div className="lead-order__dur">{service.duration}</div>
+                  )}
                   <div className="lead-order__row">
                     <div className="lead-qty" role="group" aria-label={t('Количество')}>
                       <button
@@ -158,6 +191,18 @@ export default function LeadModal({ branch, service, onClose }) {
             <form className="lead-form" onSubmit={onSubmit}>
               {/* honeypot */}
               <input type="text" name="company" tabIndex={-1} autoComplete="off" className="lead-form__hp" aria-hidden="true" />
+
+              {needBranchPick && (
+                <label className="lead-form__field">
+                  <span>{t('Филиал')}</span>
+                  <select value={pickSlug} onChange={(e) => setPickSlug(e.target.value)} required>
+                    <option value="" disabled>{t('Выберите филиал')}</option>
+                    {branches.map((b) => (
+                      <option key={b.slug} value={b.slug}>{`${t(b.city)} — ${b.name || b.address}`}</option>
+                    ))}
+                  </select>
+                </label>
+              )}
 
               <label className="lead-form__field">
                 <span>{t('Желаемая дата')}</span>

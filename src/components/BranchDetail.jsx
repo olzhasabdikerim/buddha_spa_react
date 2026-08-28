@@ -29,7 +29,11 @@ export default function BranchDetail({ branch }) {
   const t = useT()
   const { programs, massagesFull, massagesPremium, massagesZone, procedures, goalsPresent } =
     buildBranchCatalog(branch.services || [])
-  const wa = `https://wa.me/${branch.whatsapp}`
+  const branchLabel = branch.name || branch.address
+  const waText = (msg) => `https://wa.me/${branch.whatsapp}?text=${encodeURIComponent(msg)}`
+  const wa = waText(`Здравствуйте! Пишу с сайта BuddhaSpa — ${branch.city}, ${branchLabel}.`)
+  const waCert = waText(`Здравствуйте! Хочу оформить подарочный сертификат BuddhaSpa — ${branch.city}, ${branchLabel}.`)
+  const waMember = waText(`Здравствуйте! Хочу оформить годовой абонемент BuddhaSpa — ${branch.city}, ${branchLabel}.`)
   const [lead, setLead] = useState(null)          // null | {} | { service }
   const [detail, setDetail] = useState(null)      // null | service  (Подробнее)
   const [goal, setGoal] = useState('all')         // program filter
@@ -46,6 +50,7 @@ export default function BranchDetail({ branch }) {
     price: s.priceFromLabel,
     image: s.image,
     priceNum: s.priceFromNum,
+    variants: s.variants || [],
   })
   const openDetail = (s) => setDetail(s)
   const openLead = (s) => setLead({ service: bookService(s) })
@@ -224,7 +229,7 @@ export default function BranchDetail({ branch }) {
                 <div className="br-tier__name">{m.name}</div>
                 <div className="br-tier__price serif">{m.price.replace(' тг.', '')}<small>₸</small></div>
                 <div className="br-tier__period">/ {t(m.period)}</div>
-                <a className="btn btn-sm" href={wa} target="_blank" rel="noopener noreferrer">{t('Оформить абонемент')}</a>
+                <a className="btn btn-sm" href={waMember} target="_blank" rel="noopener noreferrer">{t('Оформить абонемент')}</a>
               </div>
             ))}
           </div>
@@ -241,8 +246,8 @@ export default function BranchDetail({ branch }) {
             <h2 className="h2 serif">{t('Подарочный сертификат')}</h2>
             <p className="lead">{t('Универсальный подарок для близких, друзей и коллег — сертификат действует на все услуги салона Buddha Spa. Выберите номинал и подарите заботу.')}</p>
             <div className="br-cert__actions">
-              <a className="btn" href={wa} target="_blank" rel="noopener noreferrer">{t('Купить сертификат')}</a>
-              <a className="btn btn-ghost" href={wa} target="_blank" rel="noopener noreferrer">{t('Оформить сертификат')}</a>
+              <a className="btn" href={waCert} target="_blank" rel="noopener noreferrer">{t('Купить сертификат')}</a>
+              <a className="btn btn-ghost" href={waCert} target="_blank" rel="noopener noreferrer">{t('Оформить сертификат')}</a>
             </div>
           </div>
         </div>

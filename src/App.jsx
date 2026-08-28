@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import LegalModal from './components/LegalModal.jsx'
+import LeadModal from './components/LeadModal.jsx'
+import { BRANCHES } from './data/branches.js'
 import HomePage from './pages/HomePage.jsx'
 import BranchPage from './pages/BranchPage.jsx'
-import FranchisePage from './pages/FranchisePage.jsx'
-import AboutPage from './pages/AboutPage.jsx'
+
+// Route-level code splitting: home and branch pages load eagerly (they're the
+// main ad-landing targets); the heavier, secondary pages are fetched on demand.
+const FranchisePage = lazy(() => import('./pages/FranchisePage.jsx'))
+const AboutPage = lazy(() => import('./pages/AboutPage.jsx'))
 
 // Scrolls to top on route change, or to the #anchor when a hash is present.
 function ScrollManager() {
@@ -28,6 +33,7 @@ function ScrollManager() {
 
 export default function App() {
   const [legalSlug, setLegalSlug] = useState(null)
+  const [bookOpen, setBookOpen] = useState(false)
   const { pathname } = useLocation()
   // The franchise page is a self-contained landing with its own nav & footer.
   const isFranchise = pathname === '/franchise'
@@ -35,17 +41,20 @@ export default function App() {
   return (
     <>
       <ScrollManager />
-      {!isFranchise && <Header />}
+      {!isFranchise && <Header onBook={() => setBookOpen(true)} />}
       <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/franchise" element={<FranchisePage />} />
-          <Route path="/:slug" element={<BranchPage />} />
-        </Routes>
+        <Suspense fallback={<div className="route-fallback" aria-busy="true" />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/franchise" element={<FranchisePage />} />
+            <Route path="/:slug" element={<BranchPage />} />
+          </Routes>
+        </Suspense>
       </main>
       {!isFranchise && <Footer onOpenLegal={setLegalSlug} />}
       {legalSlug && <LegalModal slug={legalSlug} onClose={() => setLegalSlug(null)} />}
+      {bookOpen && <LeadModal branches={BRANCHES} onClose={() => setBookOpen(false)} />}
     </>
   )
 }

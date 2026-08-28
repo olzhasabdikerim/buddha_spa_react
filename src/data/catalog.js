@@ -241,7 +241,7 @@ function decorate(entry, kind, premium = false) {
     priceFromNum: min === Infinity ? 0 : min,
     priceFrom: fmtPrice(cheapest?.price || ''),
     priceFromLabel: (anyFrom ? 'от ' : '') + fmtPrice(cheapest?.price || ''),
-    variants: entry.variants.map((v) => ({ ...v, price: fmtPrice(v.price) })),
+    variants: entry.variants.map((v) => ({ ...v, priceNum: priceNum(v.price), price: fmtPrice(v.price) })),
   }
 }
 

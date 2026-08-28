@@ -50,8 +50,9 @@ export default function FAQ() {
                       <a
                         className="faq__answer-cta"
                         href={item.cta.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        {...(/^https?:/i.test(item.cta.href)
+                          ? { target: '_blank', rel: 'noopener noreferrer' }
+                          : {})}
                       >
                         {t(item.cta.label)} <span aria-hidden="true">→</span>
                       </a>

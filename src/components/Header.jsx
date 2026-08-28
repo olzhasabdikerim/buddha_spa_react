@@ -7,7 +7,7 @@ import { handleHashNav } from '../lib/hashNav.js'
 // Brand emblem downloaded from the Tilda CDN into public/images.
 export const BRAND_EMBLEM = '/images/brand-emblem.png'
 
-export default function Header() {
+export default function Header({ onBook }) {
   const t = useT()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -38,9 +38,9 @@ export default function Header() {
 
         <div className="site-header__actions">
           <LanguageSwitcher />
-          <Link to="/#branches" className="btn btn-coral site-header__cta" onClick={(e) => { close(); handleHashNav(e, '/#branches') }}>
+          <button type="button" className="btn btn-coral site-header__cta" onClick={() => { close(); onBook?.() }}>
             {t('Записаться')}
-          </Link>
+          </button>
           <button
             type="button"
             className="burger"
