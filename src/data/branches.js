@@ -243,7 +243,7 @@ export const BRANCHES = [
   {
     slug: 'taraz',
     city: 'Тараз',
-    name: 'Тараз',
+    name: 'Толе би',
     premium: true,
     address: 'Толе би, 93Б',
     fullAddress: 'г. Тараз, Толе Би 93Б',
@@ -335,7 +335,7 @@ export const BRANCHES = [
   {
     slug: 'turan',
     city: 'Астана',
-    name: 'Астана',
+    name: 'Туран',
     premium: true,
     address: 'Туран, 54',
     fullAddress: 'Астана, Туран 54',
