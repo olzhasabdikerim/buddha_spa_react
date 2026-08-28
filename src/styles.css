@@ -511,7 +511,7 @@ button { font-family: inherit; }
 .site-footer .wrap { position: relative; z-index: 1; }
 .site-footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: clamp(26px, 3vw, 52px); align-items: start; }
 .site-footer__brand { max-width: 340px; }
-.site-footer__logo { width: clamp(200px, 22vw, 280px); height: auto; object-fit: contain; margin-bottom: 16px; }
+.site-footer__logo { width: clamp(120px, 14vw, 160px); height: auto; object-fit: contain; margin-bottom: 16px; }
 .site-footer__tag { color: rgba(255, 255, 255, 0.9); font-size: 14px; line-height: 1.6; margin: 0; }
 .site-footer__col h4 { font-family: var(--font-display); font-weight: 600; font-size: 1.12rem; color: #fff; margin: 0 0 12px; letter-spacing: 0.01em; text-transform: none; }
 .site-footer__col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }

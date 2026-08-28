@@ -3,7 +3,7 @@ import { useT } from '../i18n.jsx'
 import { COMPANY } from '../data/company.js'
 import { handleHashNav } from '../lib/hashNav.js'
 
-const FOOTER_LOGO = '/images/footer-brand-premium.png'
+const FOOTER_LOGO = '/images/footer-brand-stacked.png'
 
 export default function Footer({ onOpenLegal }) {
   const t = useT()

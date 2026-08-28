@@ -9,7 +9,7 @@ const CARD_IMG = {
   nursat: '/images/branches/nursat/gallery-1.jpeg',   // white lounge
   taukehana: '/images/branches/taraz/gallery-2.jpg',  // white candle room
   kunaeva: '/images/branches/kunaeva/gallery-2.jpg',  // black buddha statue
-  tulpar: '/images/branches/taraz/gallery-1.jpg',     // hammam
+  tulpar: '/images/branches/interior-warm.jpg',       // warm massage room
   turan: '/images/branches/taraz/gallery-2.jpg',      // white candle room
   taraz: '/images/branches/taraz/gallery-1.jpg',      // hammam
 }
