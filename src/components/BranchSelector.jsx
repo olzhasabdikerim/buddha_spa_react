@@ -2,16 +2,14 @@ import { Link } from 'react-router-dom'
 import { BRANCHES } from '../data/branches.js'
 import { useT } from '../i18n.jsx'
 
-// Interior shots for the home cards (instead of massage photos). Temporary set
-// from existing branch galleries — only 4 people-free interiors exist, so two
-// are reused; replace per branch when the real per-branch photos are supplied.
+// Real per-branch interior photos supplied by the owner (one per branch).
 const CARD_IMG = {
-  nursat: '/images/branches/nursat/gallery-1.jpeg',   // white lounge
-  taukehana: '/images/branches/taraz/gallery-2.jpg',  // white candle room
-  kunaeva: '/images/branches/kunaeva/gallery-2.jpg',  // black buddha statue
-  tulpar: '/images/branches/interior-warm.jpg',       // warm massage room
-  turan: '/images/branches/taraz/gallery-2.jpg',      // white candle room
-  taraz: '/images/branches/taraz/gallery-1.jpg',      // hammam
+  nursat: '/images/branches/cards/nursat.jpg',        // ресепшн
+  taukehana: '/images/branches/cards/taukehana.jpg',  // статуэтка Будды
+  kunaeva: '/images/branches/cards/kunaeva.jpg',      // серое лицо Будды (Иляева)
+  tulpar: '/images/branches/cards/tulpar.jpg',        // массажная
+  turan: '/images/branches/cards/turan.jpg',          // чёрная голова Будды (Астана)
+  taraz: '/images/branches/cards/taraz.jpg',          // лаунж-зона
 }
 
 export default function BranchSelector() {
