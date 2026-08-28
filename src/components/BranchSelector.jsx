@@ -19,12 +19,11 @@ export default function BranchSelector() {
               <div
                 className="branch-card__image"
                 style={{ backgroundImage: `url(/images/overview/${b.overview || b.slug}.jpg)` }}
-              />
+              >
+                {b.premium && <span className="branch-card__premium-tag">Premium</span>}
+              </div>
               <div className="branch-card__body">
-                <span className="branch-card__city">
-                  {t(b.city)}
-                  {b.premium && <span className="branch-card__tier">Premium</span>}
-                </span>
+                <span className="branch-card__city">{t(b.city)}</span>
                 <h3>{b.name || b.address}</h3>
                 <p>{t(b.hours)}</p>
                 <span className="branch-card__link">

@@ -51,12 +51,18 @@ export default function Footer({ onOpenLegal }) {
         <div className="site-footer__bottom">
           <span className="site-footer__copy">© {new Date().getFullYear()} BuddhaSpa. {t('Все права защищены.')}</span>
           <div className="site-footer__legal">
-            <button type="button" className="footer-link-btn" onClick={() => onOpenLegal('privacy')}>
-              {t('Политика конфиденциальности')}
-            </button>
             <button type="button" className="footer-link-btn" onClick={() => onOpenLegal('oferta')}>
-              {t('Оферта СПА')}
+              {t('Оферта')}
             </button>
+            <a className="footer-link-btn" href="https://buddhaspa.kz/pravila/spa/ru" target="_blank" rel="noopener noreferrer">
+              {t('Правила СПА')}
+            </a>
+            <a className="footer-link-btn" href="https://buddhaspa.kz/oferta/spa/ru" target="_blank" rel="noopener noreferrer">
+              {t('Оферта СПА')}
+            </a>
+            <a className="footer-link-btn" href="https://buddhaspa.kz/platezhi/ru" target="_blank" rel="noopener noreferrer">
+              {t('Платежи')}
+            </a>
           </div>
         </div>
       </div>
