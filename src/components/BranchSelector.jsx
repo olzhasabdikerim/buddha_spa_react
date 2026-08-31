@@ -7,7 +7,7 @@ const CARD_IMG = {
   nursat: '/images/branches/cards/nursat.jpg',        // ресепшн
   taukehana: '/images/branches/cards/taukehana.jpg',  // статуэтка Будды
   kunaeva: '/images/branches/cards/kunaeva.jpg',      // серое лицо Будды (Иляева)
-  tulpar: '/images/branches/cards/tulpar.jpg',        // массажная
+  tulpar: '/images/branches/cards/tulpar.jpg?v=2',    // ресепшн со статуэткой Будды
   turan: '/images/branches/cards/turan.jpg',          // чёрная голова Будды (Астана)
   taraz: '/images/branches/cards/taraz.jpg',          // лаунж-зона
   aktobe: '/images/branches/interior-warm.jpg',       // «Скоро» — интерьер под затемнением
