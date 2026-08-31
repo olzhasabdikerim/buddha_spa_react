@@ -267,8 +267,10 @@ button { font-family: inherit; }
   border: 1px solid var(--line-strong); box-shadow: 0 0 0 6px rgba(20,16,11,0.9), 0 8px 24px rgba(0,0,0,0.4); position: relative; z-index: 1; }
 .journey__node::after { content: ''; position: absolute; inset: 7px; border-radius: 50%; border: 1px solid rgba(201,169,110,0.35); }
 .journey__num { font-family: var(--font-display); font-style: italic; font-size: 1.4rem; color: var(--gold-300); }
-.journey__card { grid-column: 1; text-align: right; padding: 22px 26px; background: var(--bg); border: 1px solid var(--line);
-  border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.18); }
+.journey__card { grid-column: 1; text-align: right; padding: 0; overflow: hidden; background: var(--bg2); border: 1px solid var(--line);
+  border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.28); }
+.journey__photo { height: clamp(150px, 20vw, 200px); background-size: cover; background-position: center; }
+.journey__card-body { padding: 20px 26px 22px; }
 .journey__step:nth-of-type(even) .journey__card { grid-column: 3; text-align: left; }
 .journey__card h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; margin: 0 0 10px; color: var(--ink); }
 .journey__card p { color: var(--muted); line-height: 1.75; font-size: 14.5px; margin: 0; }

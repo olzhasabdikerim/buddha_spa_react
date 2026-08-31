@@ -145,6 +145,7 @@ const economServices = [
 export const BRANCHES = [
   {
     slug: 'nursat',
+    gis: 'https://go.2gis.com/UdjyT',
     city: 'Шымкент',
     name: 'Нурсат',
     premium: true,
@@ -171,6 +172,7 @@ export const BRANCHES = [
     // наполнение». Каталог временно взят из шымкентского набора — заменить на
     // реальные данные Тулеметова, когда они появятся.
     slug: 'tulpar',
+    gis: 'https://go.2gis.com/NStpN',
     city: 'Шымкент',
     name: 'Тулпар',
     premium: true,
@@ -190,6 +192,7 @@ export const BRANCHES = [
   },
   {
     slug: 'kunaeva',
+    gis: 'https://go.2gis.com/6FQxX',
     city: 'Шымкент',
     name: 'Иляева',
     address: 'Иляева, 37',
@@ -217,6 +220,7 @@ export const BRANCHES = [
   },
   {
     slug: 'taukehana',
+    gis: 'https://go.2gis.com/6rOdB',
     city: 'Шымкент',
     name: 'Таукехан',
     address: 'Тауке хана, 95А',
@@ -242,6 +246,7 @@ export const BRANCHES = [
   },
   {
     slug: 'taraz',
+    gis: 'https://2gis.kz/taraz/firm/70000001093524192',
     city: 'Тараз',
     name: 'Толе би',
     premium: true,
@@ -334,6 +339,7 @@ export const BRANCHES = [
   },
   {
     slug: 'turan',
+    gis: 'https://2gis.kz/astana/firm/70000001082832139',
     city: 'Астана',
     name: 'Туран',
     premium: true,
@@ -407,6 +413,7 @@ export const BRANCHES = [
     // «идёт наполнение». Каталог временно взят из шымкентского набора — заменить
     // на реальные данные Актобе, когда они появятся.
     slug: 'aktobe',
+    gis: 'https://go.2gis.com/gvpiP',
     city: 'Актобе',
     name: 'Тауелсыздык',
     premium: true,
