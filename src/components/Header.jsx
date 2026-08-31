@@ -18,6 +18,15 @@ export default function Header({ onBook }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // While the mobile menu is open: lock body scroll and close on Escape.
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => e.key === 'Escape' && setOpen(false)
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
+  }, [open])
+
   const close = () => setOpen(false)
 
   return (
@@ -28,7 +37,13 @@ export default function Header({ onBook }) {
           <span className="brand__name">Buddha<span className="brand__name-accent">Spa</span></span>
         </Link>
 
+        {open && <div className="site-nav__backdrop" onClick={close} aria-hidden="true" />}
         <nav className={`site-nav ${open ? 'is-open' : ''}`}>
+          <button type="button" className="site-nav__close" aria-label={t('Закрыть')} onClick={close}>
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </button>
           <Link to="/#branches" onClick={(e) => { close(); handleHashNav(e, '/#branches') }}>{t('Филиалы')}</Link>
           <Link to="/about" onClick={close}>{t('О нас')}</Link>
           <Link to="/#faq" onClick={(e) => { close(); handleHashNav(e, '/#faq') }}>FAQ</Link>
@@ -43,8 +58,8 @@ export default function Header({ onBook }) {
           </button>
           <button
             type="button"
-            className="burger"
-            aria-label="Открыть меню"
+            className={`burger ${open ? 'is-open' : ''}`}
+            aria-label={open ? t('Закрыть') : 'Меню'}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
