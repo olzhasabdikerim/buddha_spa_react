@@ -28,7 +28,6 @@ export default function Footer({ onOpenLegal }) {
             <ul>
               <li><Link to="/">{t('Главная')}</Link></li>
               <li><Link to="/#branches" onClick={(e) => handleHashNav(e, '/#branches')}>{t('Филиалы')}</Link></li>
-              <li><Link to="/about">{t('О нас')}</Link></li>
               <li><Link to="/#faq" onClick={(e) => handleHashNav(e, '/#faq')}>FAQ</Link></li>
               <li><Link to="/franchise">{t('Франшиза')}</Link></li>
             </ul>

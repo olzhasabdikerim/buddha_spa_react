@@ -6,31 +6,31 @@ const STEPS = [
     n: '01',
     title: 'Тёплая встреча',
     text: 'Вас встретят приветливые сотрудники, которые предложат лучшие спа-процедуры на выбор, а также чай или воду.',
-    img: '/images/branches/cards/nursat.jpg',
+    img: '/images/journey/masters.jpg',
   },
   {
     n: '02',
     title: 'Чай и настрой',
     text: 'Вы устроитесь в уютной чайной зоне, выдохнете и настроитесь на отдых перед процедурой.',
-    img: '/images/journey/tea.jpg',
+    img: '/images/journey/tea.jpg?v=2',
   },
   {
     n: '03',
     title: 'Мастера своего дела',
     text: 'Вы познакомитесь с опытными массажистами, годами оттачивавшими искусство тайского массажа.',
-    img: '/images/journey/masters.jpg',
+    img: '/images/journey/ritual.jpg',
   },
   {
     n: '04',
     title: 'Ритуал заботы',
     text: 'Мастера проведут выбранную программу — прогрев, массаж и уход по тайским традициям.',
-    img: '/images/journey/ritual.jpg',
+    img: '/images/journey/care.jpg',
   },
   {
     n: '05',
     title: 'Заряд энергии',
     text: 'Вы почувствуете бодрость и лёгкость — мастера применяют уникальную, проверенную технику.',
-    img: '/images/branches/cards/taraz.jpg',
+    img: '/images/journey/energy.jpg',
   },
 ]
 

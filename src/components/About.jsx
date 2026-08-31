@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
 import { BRANCHES } from '../data/branches.js'
 
@@ -39,8 +38,6 @@ export default function About() {
               </div>
             ))}
           </div>
-
-          <Link to="/about" className="btn btn-gold brandintro__cta">{t('Подробнее о нас')}</Link>
         </div>
       </div>
     </section>

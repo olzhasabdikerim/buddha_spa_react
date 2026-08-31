@@ -45,7 +45,6 @@ export default function Header({ onBook }) {
             </svg>
           </button>
           <Link to="/#branches" onClick={(e) => { close(); handleHashNav(e, '/#branches') }}>{t('Филиалы')}</Link>
-          <Link to="/about" onClick={close}>{t('О нас')}</Link>
           <Link to="/#faq" onClick={(e) => { close(); handleHashNav(e, '/#faq') }}>FAQ</Link>
           <Link to="/franchise" onClick={close}>{t('Франшиза')}</Link>
           <Link to="/#contacts" onClick={(e) => { close(); handleHashNav(e, '/#contacts') }}>{t('Контакты')}</Link>
