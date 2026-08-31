@@ -32,6 +32,7 @@ export default function BranchDetail({ branch }) {
   const branchLabel = branch.name || branch.address
   const waText = (msg) => `https://wa.me/${branch.whatsapp}?text=${encodeURIComponent(msg)}`
   const wa = waText(`Здравствуйте! Пишу с сайта BuddhaSpa — ${branch.city}, ${branchLabel}.`)
+  const gisUrl = branch.gis || `https://2gis.kz/search/${encodeURIComponent('Buddha Spa ' + branch.city + ' ' + branchLabel)}`
   const waCert = waText(`Здравствуйте! Хочу оформить подарочный сертификат BuddhaSpa — ${branch.city}, ${branchLabel}.`)
   const waMember = waText(`Здравствуйте! Хочу оформить годовой абонемент BuddhaSpa — ${branch.city}, ${branchLabel}.`)
   const [lead, setLead] = useState(null)          // null | {} | { service }
@@ -81,6 +82,7 @@ export default function BranchDetail({ branch }) {
               {branch.comingSoon ? t('Узнать об открытии') : t('Записаться')}
             </button>
             <a className="btn btn-ghost" href={wa} target="_blank" rel="noopener noreferrer">{t('Написать в WhatsApp')}</a>
+            <a className="btn btn-ghost" href={gisUrl} target="_blank" rel="noopener noreferrer">{t('Мы в 2ГИС')}</a>
           </div>
           <div className="br-hero__meta">
             <span><b>{t('Адрес')}</b> {branch.fullAddress}</span>

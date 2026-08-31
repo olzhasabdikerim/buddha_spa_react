@@ -42,7 +42,7 @@ export default function BranchSelector() {
                 </div>
                 <div className="branch-card__body">
                   <span className="branch-card__city">{t(b.city)}</span>
-                  <h3>{b.name || b.address}</h3>
+                  <h3>{b.name ? t(b.name) : b.address}</h3>
                   <p>{soon ? t('Открытие совсем скоро') : t(b.hours)}</p>
                   <span className="branch-card__link">
                     {soon ? t('Скоро') : t('Перейти')} <span aria-hidden="true">→</span>

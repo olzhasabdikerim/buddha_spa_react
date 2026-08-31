@@ -51,7 +51,7 @@ export default function Hero() {
           {t('Порадуйте себя и своих близких — Buddha Spa встречает вас теплом подлинной тайской традиции.')}
         </p>
         <div className="hero__actions">
-          <button type="button" className="btn btn-coral" onClick={openBooking}>{t('Выбрать филиал')}</button>
+          <a href="#branches" className="btn btn-coral">{t('Выбрать филиал')}</a>
           <button type="button" className="btn btn-line" onClick={openBooking}>{t('Записаться в BuddhaSpa')}</button>
         </div>
       </div>

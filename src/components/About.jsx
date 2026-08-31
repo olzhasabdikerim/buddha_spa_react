@@ -13,7 +13,7 @@ export default function About() {
   const stats = [
     ['4', 'города Казахстана'],
     ['6+', 'лет на рынке'],
-    ['50 000+', 'клиентов в сети'],
+    ['80 000+', 'клиентов в сети'],
     [`${masters}`, 'мастера из Таиланда и Индонезии'],
   ]
 
@@ -25,7 +25,7 @@ export default function About() {
         </figure>
 
         <div className="brandintro__text">
-          <p className="eyebrow section-label">{t('О бренде')}</p>
+          <p className="eyebrow section-label">{t('О нас')}</p>
           <h2 className="section-title">{t('Забота, которая стала сетью спа-салонов')}</h2>
           <p className="brandintro__lead">
             {t('BuddhaSpa начинался с одного салона и желания подарить казахстанцам подлинную тайскую традицию заботы о теле. Сегодня это развивающаяся сеть с едиными стандартами сервиса и мастерами из Юго-Восточной Азии в каждом городе.')}
