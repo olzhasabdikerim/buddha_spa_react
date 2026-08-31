@@ -50,6 +50,25 @@ button { font-family: inherit; }
 .wrap { max-width: var(--container); margin: 0 auto; padding: 0 clamp(24px, 5vw, 64px); }
 .route-fallback { min-height: 100vh; }
 
+/* ---------- Floating "Связаться с нами" (WhatsApp branch picker) ---------- */
+.contact-fab { position: fixed; right: clamp(14px, 3vw, 28px); bottom: clamp(14px, 3vw, 28px); z-index: 90; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+.contact-fab__btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 20px; border: none; border-radius: 40px; cursor: pointer; background: linear-gradient(135deg, #25d366, #1eb04a); color: #fff; font: 600 13px/1 var(--font-body); box-shadow: 0 12px 30px rgba(37, 211, 102, 0.42); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.contact-fab__btn:hover { transform: translateY(-2px); box-shadow: 0 16px 38px rgba(37, 211, 102, 0.55); }
+.contact-fab__btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.contact-fab__label { white-space: nowrap; }
+.contact-fab__menu { background: var(--bg2); border: 1px solid var(--line-strong); border-radius: 16px; padding: 12px; width: 290px; max-width: 80vw; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); animation: leadIn 0.18s ease; }
+.contact-fab__title { margin: 2px 6px 10px; font: 600 11px/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-400); }
+.contact-fab__menu ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.contact-fab__menu a { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 12px; border-radius: 10px; text-decoration: none; color: var(--text); font-size: 14px; transition: background 0.15s ease, color 0.15s ease; }
+.contact-fab__menu a:hover { background: var(--bg3); color: var(--gold-300); }
+.contact-fab__wa { color: #25d366; flex-shrink: 0; }
+@media (max-width: 560px) {
+  .contact-fab { bottom: 86px; }
+  .contact-fab__label { display: none; }
+  .contact-fab__btn { padding: 15px; border-radius: 50%; }
+}
+@media (prefers-reduced-motion: reduce) { .contact-fab__btn { transition: none; } }
+
 /* Reveal-on-scroll */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
 .reveal.is-in { opacity: 1; transform: none; }
@@ -192,19 +211,21 @@ button { font-family: inherit; }
 .branch-card--premium:hover { border-color: rgba(203, 168, 106, 0.5); }
 .branch-card--silver:hover { border-color: rgba(160, 166, 172, 0.5); }
 
-/* "Скоро откроется" placeholder card (branches being prepared) */
-.branch-card--soon .branch-card__image {
-  background: repeating-linear-gradient(135deg, rgba(201,169,110,0.12) 0 16px, rgba(201,169,110,0.03) 16px 32px), var(--bg2);
-  display: flex; align-items: center; justify-content: center;
+/* "Скоро откроется" card — interior photo dimmed with a dark veil + centred badge */
+.branch-card--soon .branch-card__image { display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+.branch-card--soon .branch-card__image::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(12,9,6,0.55), rgba(12,9,6,0.72));
 }
-.branch-card--soon .branch-card__image::after { display: none; }
 .branch-card__soon-badge {
-  position: relative; z-index: 1; padding: 12px 22px; border-radius: 40px;
-  border: 1px solid var(--gold-500); color: var(--gold-300);
-  font: 600 11px/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase;
-  background: rgba(20, 16, 11, 0.5);
+  position: relative; z-index: 1; padding: 13px 24px; border-radius: 40px;
+  border: 1px solid var(--gold-400); color: var(--cream);
+  font: 600 12px/1 var(--font-body); letter-spacing: 0.18em; text-transform: uppercase;
+  background: rgba(20, 16, 11, 0.4); backdrop-filter: blur(2px);
+  box-shadow: 0 8px 26px rgba(0,0,0,0.4);
 }
 .branch-card--soon:hover { border-color: rgba(201, 169, 110, 0.4); }
+.branch-card--soon:hover .branch-card__image::after { background: linear-gradient(180deg, rgba(12,9,6,0.45), rgba(12,9,6,0.66)); }
 .branch-card__link { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font: 600 11px/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-400); }
 
 @media (max-width: 900px) { .branch-select__grid { grid-template-columns: 1fr 1fr; } }

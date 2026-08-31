@@ -10,6 +10,7 @@ const CARD_IMG = {
   tulpar: '/images/branches/cards/tulpar.jpg',        // массажная
   turan: '/images/branches/cards/turan.jpg',          // чёрная голова Будды (Астана)
   taraz: '/images/branches/cards/taraz.jpg',          // лаунж-зона
+  aktobe: '/images/branches/interior-warm.jpg',       // «Скоро» — интерьер под затемнением
 }
 
 export default function BranchSelector() {
@@ -20,7 +21,7 @@ export default function BranchSelector() {
         <p className="eyebrow section-label">{t('Наши адреса')}</p>
         <h2 className="section-title">{t('Выберите удобный для вас филиал')}</h2>
         <p className="section-intro">
-          {t('Сеть спа-салонов в городах Казахстана — в каждом та же тайская забота, приветливые мастера и спокойная атмосфера.')}
+          {t('Сеть SPA-салонов, где тайская атмосфера и мастерство превращают массаж в полноценный отдых и восстановление.')}
         </p>
 
         <div className="branch-select__grid">
@@ -31,7 +32,7 @@ export default function BranchSelector() {
               <Link to={`/${b.slug}`} className={`branch-card ${cls}`} key={b.slug}>
                 <div
                   className="branch-card__image"
-                  style={soon ? undefined : { backgroundImage: `url(${CARD_IMG[b.slug] || `/images/overview/${b.overview || b.slug}.jpg`})` }}
+                  style={{ backgroundImage: `url(${CARD_IMG[b.slug] || `/images/overview/${b.overview || b.slug}.jpg`})` }}
                 >
                   {soon ? (
                     <span className="branch-card__soon-badge">{t('Скоро откроется')}</span>
