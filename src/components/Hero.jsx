@@ -54,6 +54,18 @@ export default function Hero() {
           <a href="#branches" className="btn btn-coral">{t('Выбрать филиал')}</a>
           <button type="button" className="btn btn-line" onClick={openBooking}>{t('Записаться в BuddhaSpa')}</button>
         </div>
+        <a
+          href="https://app.buddhaspa.kz/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hero__app-link"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
+            <rect x="5" y="2" width="14" height="20" rx="2"/>
+            <circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+          {t('Открыть веб-приложение')}
+        </a>
       </div>
     </section>
   )
