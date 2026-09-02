@@ -25,7 +25,7 @@ function useReveal(deps = []) {
   }, deps)
 }
 
-export default function BranchDetail({ branch }) {
+export default function BranchDetail({ branch, tab, setTab, bookOpen, setBookOpen }) {
   const t = useT()
   const { programs, massagesFull, massagesPremium, massagesZone, procedures, goalsPresent } =
     buildBranchCatalog(branch.services || [])
@@ -35,23 +35,14 @@ export default function BranchDetail({ branch }) {
   const gisUrl = branch.gis || `https://2gis.kz/search/${encodeURIComponent('Buddha Spa ' + branch.city + ' ' + branchLabel)}`
   const waCert = waText(`Здравствуйте! Хочу оформить подарочный сертификат BuddhaSpa — ${branch.city}, ${branchLabel}.`)
   const waMember = waText(`Здравствуйте! Хочу оформить годовой абонемент BuddhaSpa — ${branch.city}, ${branchLabel}.`)
-  const [lead, setLead] = useState(null)
+  const [lead, setLead] = useState(bookOpen ? {} : null)
   const [detail, setDetail] = useState(null)
   const [goal, setGoal] = useState('all')
   const [showAllMassages, setShowAllMassages] = useState(false)
 
-  const hasMassages = massagesFull.length > 0 || massagesPremium.length > 0 || massagesZone.length > 0 || procedures.length > 0
-  const defaultTab = programs.length > 0 ? 'programs' : hasMassages ? 'massages' : 'memberships'
-  const [tab, setTab] = useState(defaultTab)
-
-  const TABS = [
-    { key: 'programs',    label: 'Спа-программы', show: programs.length > 0 },
-    { key: 'massages',    label: 'Массажи',        show: hasMassages },
-    { key: 'memberships', label: 'Абонементы',     show: !branch.comingSoon },
-    { key: 'certificate', label: 'Сертификаты',    show: !branch.comingSoon },
-    { key: 'vr',          label: 'ВР-тур',         show: !!branch.vrTour },
-    { key: 'masters',     label: 'Мастера',        show: branch.team.length > 0 },
-  ].filter((tb) => tb.show)
+  useEffect(() => {
+    if (bookOpen) { setLead({}); setBookOpen(false) }
+  }, [bookOpen, setBookOpen])
 
   useEffect(() => applyBranchSeo(branch), [branch])
   useReveal([branch.slug, goal, showAllMassages, tab])
@@ -67,8 +58,6 @@ export default function BranchDetail({ branch }) {
   const shownPrograms = goal === 'all' ? programs : programs.filter((p) => p.goals.includes(goal))
   const POPULAR = 6
   const shownMassages = showAllMassages ? massagesFull : massagesFull.slice(0, POPULAR)
-
-  const switchTab = (key) => { setTab(key); window.scrollTo({ top: 0, behavior: 'smooth' }) }
 
   return (
     <div className="br-page">
@@ -99,23 +88,6 @@ export default function BranchDetail({ branch }) {
           </div>
         </div>
       </header>
-
-      {/* TAB BAR */}
-      {!branch.comingSoon && TABS.length > 1 && (
-        <div className="br-tabbar">
-          <div className="br-tabbar__inner">
-            {TABS.map((tb) => (
-              <button
-                key={tb.key}
-                className={`br-tabbar__btn ${tab === tb.key ? 'is-active' : ''}`}
-                onClick={() => switchTab(tb.key)}
-              >
-                {t(tb.label)}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
 
       {branch.comingSoon ? (
         <section className="sec br-sec" id="coming-soon">

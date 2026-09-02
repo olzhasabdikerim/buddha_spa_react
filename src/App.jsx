@@ -39,11 +39,13 @@ export default function App() {
   const { pathname } = useLocation()
   // The franchise page is a self-contained landing with its own nav & footer.
   const isFranchise = pathname === '/franchise'
+  // Branch pages render their own BranchHeader with section tabs.
+  const isBranch = BRANCHES.some((b) => pathname === `/${b.slug}`)
 
   return (
     <BookingProvider open={() => setBookOpen(true)}>
       <ScrollManager />
-      {!isFranchise && <Header onBook={() => setBookOpen(true)} />}
+      {!isFranchise && !isBranch && <Header onBook={() => setBookOpen(true)} />}
       <main>
         <Suspense fallback={<div className="route-fallback" aria-busy="true" />}>
           <Routes>

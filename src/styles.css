@@ -127,6 +127,12 @@ button { font-family: inherit; }
 .site-nav { display: flex; gap: 32px; }
 .site-nav a { color: rgba(243, 233, 218, 0.72); text-decoration: none; font: 500 11px/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; transition: color 0.2s ease; }
 .site-nav a:hover { color: var(--gold-300); }
+/* Branch header tab buttons — same visual as nav links */
+.br-nav-tab { background: none; border: none; color: rgba(243, 233, 218, 0.72); font: 500 11px/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; padding: 0; transition: color 0.2s ease; position: relative; }
+.br-nav-tab:hover { color: var(--gold-300); }
+.br-nav-tab.is-active { color: var(--gold-300); }
+.br-nav-tab.is-active::after { content: ''; position: absolute; bottom: -22px; left: 0; right: 0; height: 2px; background: var(--gold-300); }
+.br-nav-back { color: rgba(243, 233, 218, 0.40) !important; font-size: 10px !important; }
 
 .site-header__actions { display: flex; align-items: center; gap: 16px; }
 /* Language switcher — globe + dropdown, muted bronze */
