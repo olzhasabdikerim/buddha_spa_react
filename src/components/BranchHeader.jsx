@@ -4,16 +4,33 @@ import { useT } from '../i18n.jsx'
 import LanguageSwitcher from './LanguageSwitcher.jsx'
 import { BRAND_EMBLEM } from './Header.jsx'
 
-export default function BranchHeader({ tabs, tab, setTab, onBook }) {
+export default function BranchHeader({ tabs, onBook }) {
   const t = useT()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState(tabs[0]?.id || null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Track which section is in view to highlight the active nav link
+  useEffect(() => {
+    const ids = tabs.map((tb) => tb.id)
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id) })
+      },
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+    )
+    ids.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) io.observe(el)
+    })
+    return () => io.disconnect()
+  }, [tabs])
 
   useEffect(() => {
     if (!open) return
@@ -24,7 +41,12 @@ export default function BranchHeader({ tabs, tab, setTab, onBook }) {
   }, [open])
 
   const close = () => setOpen(false)
-  const switchTab = (key) => { setTab(key); close() }
+
+  const scrollTo = (id) => {
+    close()
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   return (
     <header className={`site-header site-header--branch ${scrolled ? 'is-scrolled' : ''}`}>
@@ -43,10 +65,10 @@ export default function BranchHeader({ tabs, tab, setTab, onBook }) {
           </button>
           {tabs.map((tb) => (
             <button
-              key={tb.key}
+              key={tb.id}
               type="button"
-              className={`br-nav-tab ${tab === tb.key ? 'is-active' : ''}`}
-              onClick={() => switchTab(tb.key)}
+              className={`br-nav-tab ${active === tb.id ? 'is-active' : ''}`}
+              onClick={() => scrollTo(tb.id)}
             >
               {t(tb.label)}
             </button>

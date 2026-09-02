@@ -25,7 +25,7 @@ function useReveal(deps = []) {
   }, deps)
 }
 
-export default function BranchDetail({ branch, tab, setTab, bookOpen, setBookOpen }) {
+export default function BranchDetail({ branch, onBook }) {
   const t = useT()
   const { programs, massagesFull, massagesPremium, massagesZone, procedures, goalsPresent } =
     buildBranchCatalog(branch.services || [])
@@ -35,17 +35,18 @@ export default function BranchDetail({ branch, tab, setTab, bookOpen, setBookOpe
   const gisUrl = branch.gis || `https://2gis.kz/search/${encodeURIComponent('Buddha Spa ' + branch.city + ' ' + branchLabel)}`
   const waCert = waText(`Здравствуйте! Хочу оформить подарочный сертификат BuddhaSpa — ${branch.city}, ${branchLabel}.`)
   const waMember = waText(`Здравствуйте! Хочу оформить годовой абонемент BuddhaSpa — ${branch.city}, ${branchLabel}.`)
-  const [lead, setLead] = useState(bookOpen ? {} : null)
+  const [lead, setLead] = useState(null)
   const [detail, setDetail] = useState(null)
   const [goal, setGoal] = useState('all')
   const [showAllMassages, setShowAllMassages] = useState(false)
 
-  useEffect(() => {
-    if (bookOpen) { setLead({}); setBookOpen(false) }
-  }, [bookOpen, setBookOpen])
-
   useEffect(() => applyBranchSeo(branch), [branch])
-  useReveal([branch.slug, goal, showAllMassages, tab])
+  useReveal([branch.slug, goal, showAllMassages])
+
+  // Allow parent (BranchHeader) to open the booking modal
+  useEffect(() => {
+    if (onBook) onBook.open = () => setLead({})
+  }, [onBook])
 
   const bookService = (s) => ({
     name: s.name, description: s.description, duration: s.durationLabel,
@@ -111,8 +112,8 @@ export default function BranchDetail({ branch, tab, setTab, bookOpen, setBookOpe
         </div>
       )}
 
-      {/* TAB: СПА-ПРОГРАММЫ */}
-      {tab === 'programs' && programs.length > 0 && (
+      {/* СПА-ПРОГРАММЫ */}
+      {programs.length > 0 && (
         <section className="sec br-sec" id="programs">
           <div className="wrap">
             <p className="eyebrow rv">{t('Главное')}</p>
@@ -141,77 +142,79 @@ export default function BranchDetail({ branch, tab, setTab, bookOpen, setBookOpe
         </section>
       )}
 
-      {/* TAB: МАССАЖИ */}
-      {tab === 'massages' && (
-        <>
-          {massagesFull.length > 0 && (
-            <section className="sec br-sec br-bg2" id="massages">
-              <div className="wrap">
-                <p className="eyebrow rv">{t('Массаж')}</p>
-                <h2 className="h2 serif rv">{t('Массажи всего тела')}</h2>
-                <p className="lead rv br-sec__intro">{t('Классические тайские техники и авторские массажи — на выбор длительности и цены.')}</p>
-                <div className="br-svc-grid">
-                  {shownMassages.map((m) => (
-                    <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
-                  ))}
-                </div>
-                {massagesFull.length > POPULAR && (
-                  <div className="br-more rv">
-                    <button className="btn btn-ghost" onClick={() => setShowAllMassages((v) => !v)}>
-                      {showAllMassages ? t('Свернуть') : t('Смотреть все массажи')} ({massagesFull.length})
-                    </button>
-                  </div>
-                )}
+      {/* МАССАЖИ ВСЕГО ТЕЛА */}
+      {massagesFull.length > 0 && (
+        <section className="sec br-sec br-bg2" id="massages">
+          <div className="wrap">
+            <p className="eyebrow rv">{t('Массаж')}</p>
+            <h2 className="h2 serif rv">{t('Массажи всего тела')}</h2>
+            <p className="lead rv br-sec__intro">{t('Классические тайские техники и авторские массажи — на выбор длительности и цены.')}</p>
+            <div className="br-svc-grid">
+              {shownMassages.map((m) => (
+                <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
+              ))}
+            </div>
+            {massagesFull.length > POPULAR && (
+              <div className="br-more rv">
+                <button className="btn btn-ghost" onClick={() => setShowAllMassages((v) => !v)}>
+                  {showAllMassages ? t('Свернуть') : t('Смотреть все массажи')} ({massagesFull.length})
+                </button>
               </div>
-            </section>
-          )}
-          {massagesPremium.length > 0 && (
-            <section className="sec br-sec" id="premium">
-              <div className="wrap">
-                <p className="eyebrow rv">Premium</p>
-                <h2 className="h2 serif rv">Premium {t('массажи')}</h2>
-                <p className="lead rv br-sec__intro">{t('Особые ритуалы повышенного комфорта — работа в четыре руки, горячие камни и авторские техники.')}</p>
-                <div className="br-svc-grid">
-                  {massagesPremium.map((m) => (
-                    <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
-                  ))}
-                </div>
-              </div>
-            </section>
-          )}
-          {massagesZone.length > 0 && (
-            <section className="sec br-sec br-bg2" id="zones">
-              <div className="wrap">
-                <p className="eyebrow rv">{t('По зонам')}</p>
-                <h2 className="h2 serif rv">{t('Массажи по зонам')}</h2>
-                <p className="lead rv br-sec__intro">{t('Точечная проработка — голова, шея и воротниковая зона, спина и стопы. Идеально как дополнение к основному массажу.')}</p>
-                <div className="br-svc-grid">
-                  {massagesZone.map((m) => (
-                    <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
-                  ))}
-                </div>
-              </div>
-            </section>
-          )}
-          {procedures.length > 0 && (
-            <section className="sec br-sec" id="procedures">
-              <div className="wrap">
-                <p className="eyebrow rv">{t('Уход')}</p>
-                <h2 className="h2 serif rv">SPA-{t('процедуры')}</h2>
-                <p className="lead rv br-sec__intro">{t('Пилинги, обёртывания и омовения — тонус, мягкость и сияние кожи.')}</p>
-                <div className="br-svc-grid">
-                  {procedures.map((m) => (
-                    <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
-                  ))}
-                </div>
-              </div>
-            </section>
-          )}
-        </>
+            )}
+          </div>
+        </section>
       )}
 
-      {/* TAB: АБОНЕМЕНТЫ */}
-      {tab === 'memberships' && !branch.comingSoon && (
+      {/* PREMIUM МАССАЖИ */}
+      {massagesPremium.length > 0 && (
+        <section className="sec br-sec" id="premium">
+          <div className="wrap">
+            <p className="eyebrow rv">Premium</p>
+            <h2 className="h2 serif rv">Premium {t('массажи')}</h2>
+            <p className="lead rv br-sec__intro">{t('Особые ритуалы повышенного комфорта — работа в четыре руки, горячие камни и авторские техники.')}</p>
+            <div className="br-svc-grid">
+              {massagesPremium.map((m) => (
+                <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* МАССАЖИ ПО ЗОНАМ */}
+      {massagesZone.length > 0 && (
+        <section className="sec br-sec br-bg2" id="zones">
+          <div className="wrap">
+            <p className="eyebrow rv">{t('По зонам')}</p>
+            <h2 className="h2 serif rv">{t('Массажи по зонам')}</h2>
+            <p className="lead rv br-sec__intro">{t('Точечная проработка — голова, шея и воротниковая зона, спина и стопы. Идеально как дополнение к основному массажу.')}</p>
+            <div className="br-svc-grid">
+              {massagesZone.map((m) => (
+                <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* SPA-ПРОЦЕДУРЫ */}
+      {procedures.length > 0 && (
+        <section className="sec br-sec" id="procedures">
+          <div className="wrap">
+            <p className="eyebrow rv">{t('Уход')}</p>
+            <h2 className="h2 serif rv">SPA-{t('процедуры')}</h2>
+            <p className="lead rv br-sec__intro">{t('Пилинги, обёртывания и омовения — тонус, мягкость и сияние кожи.')}</p>
+            <div className="br-svc-grid">
+              {procedures.map((m) => (
+                <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* АБОНЕМЕНТЫ */}
+      {!branch.comingSoon && (
         <section className="sec br-sec" id="memberships">
           <div className="wrap">
             <p className="eyebrow rv">{t('Выгода')}</p>
@@ -232,8 +235,8 @@ export default function BranchDetail({ branch, tab, setTab, bookOpen, setBookOpe
         </section>
       )}
 
-      {/* TAB: СЕРТИФИКАТЫ */}
-      {tab === 'certificate' && !branch.comingSoon && (
+      {/* СЕРТИФИКАТ */}
+      {!branch.comingSoon && (
         <section className="sec br-sec br-bg2" id="certificate">
           <div className="wrap br-cert">
             <div className="br-cert__text rv">
@@ -248,8 +251,8 @@ export default function BranchDetail({ branch, tab, setTab, bookOpen, setBookOpe
         </section>
       )}
 
-      {/* TAB: ВР-ТУР */}
-      {tab === 'vr' && branch.vrTour && (
+      {/* VR-ТУР */}
+      {branch.vrTour && (
         <section className="sec br-sec" id="vr">
           <div className="wrap">
             <p className="eyebrow rv">{t('Загляните внутрь')}</p>
@@ -265,9 +268,9 @@ export default function BranchDetail({ branch, tab, setTab, bookOpen, setBookOpe
         </section>
       )}
 
-      {/* TAB: МАСТЕРА */}
-      {tab === 'masters' && branch.team.length > 0 && (
-        <section className="sec br-sec br-bg2" id="team">
+      {/* КОМАНДА */}
+      {branch.team.length > 0 && (
+        <section className="sec br-sec br-bg2" id="masters">
           <div className="wrap">
             <p className="eyebrow rv">{t('Мастера')}</p>
             <h2 className="h2 serif rv">{t('Наши мастера из Азии')}</h2>
@@ -283,7 +286,7 @@ export default function BranchDetail({ branch, tab, setTab, bookOpen, setBookOpe
         </section>
       )}
 
-      {/* ПОЧЕМУ BUDDHA SPA — always visible */}
+      {/* ПОЧЕМУ BUDDHA SPA */}
       <section className="sec br-sec">
         <div className="wrap br-why">
           <div className="br-why__text rv">

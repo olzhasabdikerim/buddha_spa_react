@@ -22,7 +22,7 @@
 .br-page .wrap { max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 64px); }
 .br-page .serif { font-family: 'Playfair Display', serif; }
 .br-page .ital { font-style: italic; color: var(--gold2); }
-.br-page .sec { padding: clamp(70px, 10vw, 130px) 0; }
+.br-page .sec { padding: clamp(70px, 10vw, 130px) 0; scroll-margin-top: 72px; }
 .br-page .sec-sm { padding: clamp(44px, 6vw, 72px) 0; }
 
 .br-page .eyebrow {

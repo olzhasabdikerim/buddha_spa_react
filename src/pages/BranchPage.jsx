@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { BRANCHES } from '../data/branches.js'
 import { buildBranchCatalog } from '../data/catalog.js'
@@ -11,31 +11,24 @@ function buildTabs(branch) {
   const hasMassages =
     massagesFull.length > 0 || massagesPremium.length > 0 || massagesZone.length > 0 || procedures.length > 0
   return [
-    { key: 'programs',    label: 'Спа-программы', show: programs.length > 0 },
-    { key: 'massages',    label: 'Массажи',        show: hasMassages },
-    { key: 'memberships', label: 'Абонементы',     show: !branch.comingSoon },
-    { key: 'certificate', label: 'Сертификаты',    show: !branch.comingSoon },
-    { key: 'vr',          label: 'ВР-тур',         show: !!branch.vrTour },
-    { key: 'masters',     label: 'Мастера',        show: branch.team.length > 0 },
+    { id: 'programs',    label: 'Спа-программы', show: programs.length > 0 },
+    { id: 'massages',    label: 'Массажи',        show: hasMassages },
+    { id: 'memberships', label: 'Абонементы',     show: !branch.comingSoon },
+    { id: 'certificate', label: 'Сертификаты',    show: !branch.comingSoon },
+    { id: 'vr',          label: 'ВР-тур',         show: !!branch.vrTour },
+    { id: 'masters',     label: 'Мастера',        show: branch.team.length > 0 },
   ].filter((tb) => tb.show)
 }
 
 function BranchPageInner({ branch }) {
   const tabs = buildTabs(branch)
-  const [tab, setTab] = useState(tabs[0]?.key || 'programs')
-  const [bookOpen, setBookOpen] = useState(false)
+  // onBook ref lets BranchHeader trigger the booking modal inside BranchDetail
+  const onBook = useRef({})
 
   return (
     <>
-      <BranchHeader tabs={tabs} tab={tab} setTab={setTab} onBook={() => setBookOpen(true)} />
-      <BranchDetail
-        branch={branch}
-        tab={tab}
-        setTab={setTab}
-        tabs={tabs}
-        bookOpen={bookOpen}
-        setBookOpen={setBookOpen}
-      />
+      <BranchHeader tabs={tabs} onBook={() => onBook.current.open?.()} />
+      <BranchDetail branch={branch} onBook={onBook.current} />
     </>
   )
 }
