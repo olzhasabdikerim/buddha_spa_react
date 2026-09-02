@@ -29,8 +29,8 @@ export const EXTRA_TR = {
     'Перейти в приложение': 'Қосымшаға өту',
     'Приложение': 'Қосымша',
     // AI chat
-    'Дана ИИ': 'AI-көмекші',
-    'AI-ассистент Buddha Spa': 'Buddha Spa AI-көмекшісі',
+    'Дана ИИ': 'Дана ИИ',
+    'AI-ассистент Buddha Spa': 'Buddha Spa Дана ИИ',
     'Закрыть чат': 'Чатты жабу',
     'Напишите вопрос...': 'Сұрақ жазыңыз...',
     'Отправить': 'Жіберу',
@@ -241,8 +241,8 @@ export const EXTRA_TR = {
     'Перейти в приложение': 'Open the App',
     'Приложение': 'App',
     // AI chat
-    'Дана ИИ': 'AI Assistant',
-    'AI-ассистент Buddha Spa': 'Buddha Spa AI Assistant',
+    'Дана ИИ': 'Дана ИИ',
+    'AI-ассистент Buddha Spa': 'Buddha Spa Дана ИИ',
     'Закрыть чат': 'Close chat',
     'Напишите вопрос...': 'Ask a question...',
     'Отправить': 'Send',
