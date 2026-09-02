@@ -46,6 +46,7 @@ export default function Header({ onBook }) {
           </button>
           <Link to="/#branches" onClick={(e) => { close(); handleHashNav(e, '/#branches') }}>{t('Филиалы')}</Link>
           <Link to="/#about" onClick={(e) => { close(); handleHashNav(e, '/#about') }}>{t('О нас')}</Link>
+          <Link to="/#app" onClick={(e) => { close(); handleHashNav(e, '/#app') }}>{t('Приложение')}</Link>
           <Link to="/#faq" onClick={(e) => { close(); handleHashNav(e, '/#faq') }}>FAQ</Link>
           <Link to="/franchise" onClick={close}>{t('Франшиза')}</Link>
           <Link to="/#contacts" onClick={(e) => { close(); handleHashNav(e, '/#contacts') }}>{t('Контакты')}</Link>

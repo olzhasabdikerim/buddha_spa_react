@@ -261,6 +261,49 @@ button { font-family: inherit; }
 .app-banner__btn:hover { background: var(--gold-soft); color: var(--bg); border-color: transparent; }
 @media (max-width: 640px) { .app-banner__inner { flex-wrap: wrap; } .app-banner__btn { width: 100%; justify-content: center; } }
 
+/* ---------- App section ---------- */
+.app-sec { padding: clamp(90px, 12vw, 150px) 0; background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 18%, var(--bg2) 82%, var(--bg) 100%); }
+.app-sec__head { text-align: center; max-width: 680px; margin: 0 auto 60px; }
+.app-sec__sub { font-size: 17px; line-height: 1.8; color: var(--muted); margin-top: 18px; }
+.app-sec__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.app-feat { display: flex; gap: 18px; align-items: flex-start; padding: 26px 24px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg); transition: border-color 0.3s, box-shadow 0.3s; }
+.app-feat:hover { border-color: var(--gold-400); box-shadow: 0 12px 36px rgba(201,169,110,0.12); }
+.app-feat__icon { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, rgba(201,169,110,0.15), rgba(201,169,110,0.06)); display: flex; align-items: center; justify-content: center; color: var(--gold-400); }
+.app-feat__body { display: flex; flex-direction: column; gap: 6px; }
+.app-feat__title { font: 600 15px/1.3 var(--font-body); color: var(--text); }
+.app-feat__desc { font: 400 13px/1.6 var(--font-body); color: var(--muted); }
+.app-sec__cta { display: flex; justify-content: center; margin-top: 52px; }
+.app-sec__btn { padding: 18px 48px; font-size: 13px; letter-spacing: 0.14em; }
+@media (max-width: 900px) { .app-sec__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .app-sec__grid { grid-template-columns: 1fr; } .app-feat { padding: 20px 18px; } }
+
+/* ---------- AI Chat widget (Taukekhana branch) ---------- */
+.ai-chat-wrap { position: fixed; right: clamp(14px, 3vw, 28px); bottom: calc(clamp(14px, 3vw, 28px) + 74px); z-index: 91; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.ai-chat-fab { width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; background: linear-gradient(135deg, #c9a96e, #b8935a); color: var(--bg, #14100b); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 28px rgba(201,169,110,0.40); transition: transform 0.25s, box-shadow 0.25s; }
+.ai-chat-fab:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(201,169,110,0.55); }
+.ai-chat-fab.is-open { background: linear-gradient(135deg, #444, #222); }
+.ai-chat-panel { width: 320px; max-width: calc(100vw - 28px); background: #1a1410; border: 1px solid rgba(201,169,110,0.2); border-radius: 18px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.55); display: flex; flex-direction: column; animation: leadIn 0.2s ease; }
+.ai-chat-panel__head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid rgba(201,169,110,0.12); background: rgba(201,169,110,0.06); }
+.ai-chat-panel__title { display: flex; align-items: center; gap: 8px; color: #c9a96e; font: 600 13px/1 var(--font-body, Manrope); letter-spacing: 0.06em; }
+.ai-chat-panel__close { background: none; border: none; cursor: pointer; color: rgba(243,233,218,0.45); padding: 4px; border-radius: 6px; display: flex; transition: color 0.2s; }
+.ai-chat-panel__close:hover { color: #f3e9da; }
+.ai-chat-panel__msgs { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; max-height: 340px; scrollbar-width: thin; scrollbar-color: rgba(201,169,110,0.2) transparent; }
+.ai-chat-msg { max-width: 88%; padding: 10px 14px; border-radius: 14px; font: 400 14px/1.6 var(--font-body, Manrope); word-break: break-word; }
+.ai-chat-msg--user { align-self: flex-end; background: linear-gradient(135deg, #c9a96e, #b8935a); color: #14100b; border-bottom-right-radius: 4px; }
+.ai-chat-msg--bot { align-self: flex-start; background: rgba(255,255,255,0.06); color: #f3e9da; border-bottom-left-radius: 4px; }
+.ai-chat-msg--typing { display: flex; align-items: center; gap: 5px; padding: 12px 16px; }
+.ai-chat-msg--typing span { width: 7px; height: 7px; border-radius: 50%; background: #c9a96e; animation: chatDot 1.2s ease-in-out infinite; }
+.ai-chat-msg--typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-chat-msg--typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes chatDot { 0%,80%,100% { opacity: 0.25; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1); } }
+.ai-chat-panel__input { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid rgba(201,169,110,0.12); }
+.ai-chat-panel__input input { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,169,110,0.15); border-radius: 10px; padding: 10px 12px; color: #f3e9da; font: 400 14px/1 var(--font-body, Manrope); outline: none; transition: border-color 0.2s; }
+.ai-chat-panel__input input::placeholder { color: rgba(243,233,218,0.35); }
+.ai-chat-panel__input input:focus { border-color: rgba(201,169,110,0.45); }
+.ai-chat-panel__input button { width: 38px; height: 38px; flex-shrink: 0; border: none; border-radius: 10px; cursor: pointer; background: linear-gradient(135deg, #c9a96e, #b8935a); color: #14100b; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s; }
+.ai-chat-panel__input button:disabled { opacity: 0.35; cursor: default; }
+@media (max-width: 560px) { .ai-chat-wrap { bottom: calc(86px + 74px); } }
+
 /* ---------- Brand intro "О бренде" (home, after branches) ---------- */
 .brandintro { padding: clamp(80px, 11vw, 140px) 0; }
 .brandintro__grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(36px, 5vw, 72px); align-items: center; }

@@ -4,6 +4,7 @@ import { BRANCHES } from '../data/branches.js'
 import { buildBranchCatalog } from '../data/catalog.js'
 import BranchHeader from '../components/BranchHeader.jsx'
 import BranchDetail from '../components/BranchDetail.jsx'
+import AiChat from '../components/AiChat.jsx'
 
 function buildTabs(branch) {
   const { programs, massagesFull, massagesPremium, massagesZone, procedures } =
@@ -29,6 +30,7 @@ function BranchPageInner({ branch }) {
     <>
       <BranchHeader tabs={tabs} onBook={() => onBook.current.open?.()} />
       <BranchDetail branch={branch} onBook={onBook.current} />
+      {branch.slug === 'taukehana' && <AiChat />}
     </>
   )
 }
