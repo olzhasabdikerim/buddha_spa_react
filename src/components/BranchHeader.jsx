@@ -27,7 +27,7 @@ export default function BranchHeader({ tabs, tab, setTab, onBook }) {
   const switchTab = (key) => { setTab(key); close() }
 
   return (
-    <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
+    <header className={`site-header site-header--branch ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="wrap site-header__row">
         <Link to="/" className="brand" onClick={close}>
           <img className="brand__logo" src={BRAND_EMBLEM} alt="BuddhaSpa" />
@@ -51,7 +51,6 @@ export default function BranchHeader({ tabs, tab, setTab, onBook }) {
               {t(tb.label)}
             </button>
           ))}
-          <Link to="/#branches" className="br-nav-back" onClick={close}>← {t('Все филиалы')}</Link>
         </nav>
 
         <div className="site-header__actions">
