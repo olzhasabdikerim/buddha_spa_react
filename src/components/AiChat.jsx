@@ -73,7 +73,7 @@ export default function AiChat() {
                 <circle cx="9" cy="13" r="1" fill="currentColor" stroke="none"/>
                 <circle cx="15" cy="13" r="1" fill="currentColor" stroke="none"/>
               </svg>
-              <span>{t('AI-ассистент')}</span>
+              <span>{t('Дана ИИ')}</span>
             </div>
             <button className="ai-chat-panel__close" onClick={() => setOpen(false)} aria-label={t('Закрыть чат')}>
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -85,7 +85,7 @@ export default function AiChat() {
           {/* Messages */}
           <div className="ai-chat-panel__msgs">
             <div className="ai-chat-msg ai-chat-msg--bot">
-              {t('Привет! Я AI-ассистент Buddha Spa. Задайте любой вопрос — помогу с записью, услугами и ценами.')}
+              {t('Привет! Я Дана ИИ — ассистент Buddha Spa. Задайте любой вопрос — помогу с записью, услугами и ценами.')}
             </div>
             {messages.map((m, i) => (
               <div key={i} className={`ai-chat-msg ai-chat-msg--${m.role}`}>{m.text}</div>
@@ -122,7 +122,7 @@ export default function AiChat() {
       <button
         className={`ai-chat-fab ${open ? 'is-open' : ''}`}
         onClick={() => setOpen((v) => !v)}
-        aria-label={t('AI-ассистент')}
+        aria-label={t('Дана ИИ')}
         aria-expanded={open}
       >
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
