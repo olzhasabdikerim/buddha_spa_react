@@ -1,7 +1,7 @@
 import { useT } from '../i18n.jsx'
 import { BRANCHES } from '../data/branches.js'
 
-const ABOUT_IMAGE = '/images/branches/kunaeva/gallery-1.jpg'
+const ABOUT_IMAGE = '/images/about-interior.jpg'
 
 // "О бренде" — compact brand intro placed right after the branch selector.
 // Photo + short story + headline stats + a link through to the full About page.

@@ -85,6 +85,33 @@
 
 .br-more { display: flex; justify-content: center; margin-top: 48px; }
 
+/* ── TAB BAR ─────────────────────────────────────────────────────────────── */
+.br-tabbar {
+  position: sticky; top: 64px; z-index: 90;
+  background: rgba(20,16,11,0.90); backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid var(--line);
+}
+.br-tabbar__inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px);
+  display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+}
+.br-tabbar__inner::-webkit-scrollbar { display: none; }
+.br-tabbar__btn {
+  flex-shrink: 0;
+  background: none; border: none; color: rgba(243,233,218,0.55);
+  font: 500 12px/1 Manrope; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 18px 22px; cursor: pointer; position: relative;
+  transition: color 0.25s;
+  white-space: nowrap;
+}
+.br-tabbar__btn::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px;
+  background: var(--gold); transform: scaleX(0); transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.br-tabbar__btn:hover { color: var(--text); }
+.br-tabbar__btn.is-active { color: var(--gold2); }
+.br-tabbar__btn.is-active::after { transform: scaleX(1); }
+
 /* ── SPA-программы — large photo cards ──────────────────────────────────── */
 .br-prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2.2vw, 28px); margin-top: 12px; }
 .br-pcard { display: flex; flex-direction: column; background: var(--bg2); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.4s, box-shadow 0.4s; }

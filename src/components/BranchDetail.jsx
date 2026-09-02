@@ -35,36 +35,44 @@ export default function BranchDetail({ branch }) {
   const gisUrl = branch.gis || `https://2gis.kz/search/${encodeURIComponent('Buddha Spa ' + branch.city + ' ' + branchLabel)}`
   const waCert = waText(`Здравствуйте! Хочу оформить подарочный сертификат BuddhaSpa — ${branch.city}, ${branchLabel}.`)
   const waMember = waText(`Здравствуйте! Хочу оформить годовой абонемент BuddhaSpa — ${branch.city}, ${branchLabel}.`)
-  const [lead, setLead] = useState(null)          // null | {} | { service }
-  const [detail, setDetail] = useState(null)      // null | service  (Подробнее)
-  const [goal, setGoal] = useState('all')         // program filter
+  const [lead, setLead] = useState(null)
+  const [detail, setDetail] = useState(null)
+  const [goal, setGoal] = useState('all')
   const [showAllMassages, setShowAllMassages] = useState(false)
 
-  useEffect(() => applyBranchSeo(branch), [branch])
-  useReveal([branch.slug, goal, showAllMassages])
+  const hasMassages = massagesFull.length > 0 || massagesPremium.length > 0 || massagesZone.length > 0 || procedures.length > 0
+  const defaultTab = programs.length > 0 ? 'programs' : hasMassages ? 'massages' : 'memberships'
+  const [tab, setTab] = useState(defaultTab)
 
-  // Booking payload built from an enriched catalog item.
+  const TABS = [
+    { key: 'programs',    label: 'Спа-программы', show: programs.length > 0 },
+    { key: 'massages',    label: 'Массажи',        show: hasMassages },
+    { key: 'memberships', label: 'Абонементы',     show: !branch.comingSoon },
+    { key: 'certificate', label: 'Сертификаты',    show: !branch.comingSoon },
+    { key: 'vr',          label: 'ВР-тур',         show: !!branch.vrTour },
+    { key: 'masters',     label: 'Мастера',        show: branch.team.length > 0 },
+  ].filter((tb) => tb.show)
+
+  useEffect(() => applyBranchSeo(branch), [branch])
+  useReveal([branch.slug, goal, showAllMassages, tab])
+
   const bookService = (s) => ({
-    name: s.name,
-    description: s.description,
-    duration: s.durationLabel,
-    price: s.priceFromLabel,
-    image: s.image,
-    priceNum: s.priceFromNum,
-    variants: s.variants || [],
+    name: s.name, description: s.description, duration: s.durationLabel,
+    price: s.priceFromLabel, image: s.image, priceNum: s.priceFromNum, variants: s.variants || [],
   })
   const openDetail = (s) => setDetail(s)
   const openLead = (s) => setLead({ service: bookService(s) })
-  // From the detail modal: swap it for the booking form.
   const bookFromDetail = (s) => { setDetail(null); openLead(s) }
 
   const shownPrograms = goal === 'all' ? programs : programs.filter((p) => p.goals.includes(goal))
   const POPULAR = 6
   const shownMassages = showAllMassages ? massagesFull : massagesFull.slice(0, POPULAR)
 
+  const switchTab = (key) => { setTab(key); window.scrollTo({ top: 0, behavior: 'smooth' }) }
+
   return (
     <div className="br-page">
-      {/* 01 · HERO */}
+      {/* HERO */}
       <header className="br-hero" style={{ backgroundImage: `url(${branch.hero})` }}>
         <div className="br-hero__grad" />
         <div className="wrap br-hero__inner">
@@ -92,6 +100,23 @@ export default function BranchDetail({ branch }) {
         </div>
       </header>
 
+      {/* TAB BAR */}
+      {!branch.comingSoon && TABS.length > 1 && (
+        <div className="br-tabbar">
+          <div className="br-tabbar__inner">
+            {TABS.map((tb) => (
+              <button
+                key={tb.key}
+                className={`br-tabbar__btn ${tab === tb.key ? 'is-active' : ''}`}
+                onClick={() => switchTab(tb.key)}
+              >
+                {t(tb.label)}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {branch.comingSoon ? (
         <section className="sec br-sec" id="coming-soon">
           <div className="wrap">
@@ -114,8 +139,8 @@ export default function BranchDetail({ branch }) {
         </div>
       )}
 
-      {/* 02 · SPA-ПРОГРАММЫ (headline block, right after hero) */}
-      {programs.length > 0 && (
+      {/* TAB: СПА-ПРОГРАММЫ */}
+      {tab === 'programs' && programs.length > 0 && (
         <section className="sec br-sec" id="programs">
           <div className="wrap">
             <p className="eyebrow rv">{t('Главное')}</p>
@@ -123,7 +148,6 @@ export default function BranchDetail({ branch }) {
             <p className="lead rv br-sec__intro">
               {t('Комплексные ритуалы: прогрев, пилинг, массаж и уход — от расслабления до перезагрузки. Выберите цель, остальное доверьте мастерам.')}
             </p>
-
             {goalsPresent.length > 0 && (
               <div className="br-filters rv">
                 <button className={`br-chip ${goal === 'all' ? 'is-active' : ''}`} onClick={() => setGoal('all')}>
@@ -136,7 +160,6 @@ export default function BranchDetail({ branch }) {
                 ))}
               </div>
             )}
-
             <div className="br-prog-grid">
               {shownPrograms.map((p) => (
                 <ProgramCard key={p.name} p={p} t={t} onDetail={openDetail} onBook={openLead} />
@@ -146,117 +169,115 @@ export default function BranchDetail({ branch }) {
         </section>
       )}
 
-      {/* 03 · МАССАЖИ ВСЕГО ТЕЛА */}
-      {massagesFull.length > 0 && (
-        <section className="sec br-sec br-bg2" id="massages">
-          <div className="wrap">
-            <p className="eyebrow rv">{t('Массаж')}</p>
-            <h2 className="h2 serif rv">{t('Массажи всего тела')}</h2>
-            <p className="lead rv br-sec__intro">{t('Классические тайские техники и авторские массажи — на выбор длительности и цены.')}</p>
-            <div className="br-svc-grid">
-              {shownMassages.map((m) => (
-                <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
-              ))}
-            </div>
-            {massagesFull.length > POPULAR && (
-              <div className="br-more rv">
-                <button className="btn btn-ghost" onClick={() => setShowAllMassages((v) => !v)}>
-                  {showAllMassages ? t('Свернуть') : t('Смотреть все массажи')} ({massagesFull.length})
-                </button>
+      {/* TAB: МАССАЖИ */}
+      {tab === 'massages' && (
+        <>
+          {massagesFull.length > 0 && (
+            <section className="sec br-sec br-bg2" id="massages">
+              <div className="wrap">
+                <p className="eyebrow rv">{t('Массаж')}</p>
+                <h2 className="h2 serif rv">{t('Массажи всего тела')}</h2>
+                <p className="lead rv br-sec__intro">{t('Классические тайские техники и авторские массажи — на выбор длительности и цены.')}</p>
+                <div className="br-svc-grid">
+                  {shownMassages.map((m) => (
+                    <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
+                  ))}
+                </div>
+                {massagesFull.length > POPULAR && (
+                  <div className="br-more rv">
+                    <button className="btn btn-ghost" onClick={() => setShowAllMassages((v) => !v)}>
+                      {showAllMassages ? t('Свернуть') : t('Смотреть все массажи')} ({massagesFull.length})
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* 04 · PREMIUM МАССАЖИ */}
-      {massagesPremium.length > 0 && (
-        <section className="sec br-sec" id="premium">
-          <div className="wrap">
-            <p className="eyebrow rv">Premium</p>
-            <h2 className="h2 serif rv">Premium {t('массажи')}</h2>
-            <p className="lead rv br-sec__intro">{t('Особые ритуалы повышенного комфорта — работа в четыре руки, горячие камни и авторские техники.')}</p>
-            <div className="br-svc-grid">
-              {massagesPremium.map((m) => (
-                <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 05 · МАССАЖИ ПО ЗОНАМ */}
-      {massagesZone.length > 0 && (
-        <section className="sec br-sec br-bg2" id="zones">
-          <div className="wrap">
-            <p className="eyebrow rv">{t('По зонам')}</p>
-            <h2 className="h2 serif rv">{t('Массажи по зонам')}</h2>
-            <p className="lead rv br-sec__intro">{t('Точечная проработка — голова, шея и воротниковая зона, спина и стопы. Идеально как дополнение к основному массажу.')}</p>
-            <div className="br-svc-grid">
-              {massagesZone.map((m) => (
-                <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 06 · SPA-ПРОЦЕДУРЫ */}
-      {procedures.length > 0 && (
-        <section className="sec br-sec" id="procedures">
-          <div className="wrap">
-            <p className="eyebrow rv">{t('Уход')}</p>
-            <h2 className="h2 serif rv">SPA-{t('процедуры')}</h2>
-            <p className="lead rv br-sec__intro">{t('Пилинги, обёртывания и омовения — тонус, мягкость и сияние кожи.')}</p>
-            <div className="br-svc-grid">
-              {procedures.map((m) => (
-                <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 06 · АБОНЕМЕНТЫ */}
-      {!branch.comingSoon && (
-      <section className="sec br-sec" id="memberships">
-        <div className="wrap">
-          <p className="eyebrow rv">{t('Выгода')}</p>
-          <h2 className="h2 serif rv">{t('Годовой абонемент')}</h2>
-          <p className="lead rv br-sec__intro">{t('Приобретая годовой абонемент, вы сможете наслаждаться массажем куда чаще и выгоднее.')}</p>
-          <div className="br-tiers">
-            {MEMBERSHIP_TIERS.map((m) => (
-              <div className={`br-tier rv ${m.name === 'Gold' ? 'is-featured' : ''}`} key={m.name}>
-                {m.name === 'Gold' && <span className="br-tier__badge">{t('Популярный')}</span>}
-                <div className="br-tier__name">{m.name}</div>
-                <div className="br-tier__price serif">{m.price.replace(' тг.', '')}<small>₸</small></div>
-                <div className="br-tier__period">/ {t(m.period)}</div>
-                <a className="btn btn-sm" href={waMember} target="_blank" rel="noopener noreferrer">{t('Оформить абонемент')}</a>
+            </section>
+          )}
+          {massagesPremium.length > 0 && (
+            <section className="sec br-sec" id="premium">
+              <div className="wrap">
+                <p className="eyebrow rv">Premium</p>
+                <h2 className="h2 serif rv">Premium {t('массажи')}</h2>
+                <p className="lead rv br-sec__intro">{t('Особые ритуалы повышенного комфорта — работа в четыре руки, горячие камни и авторские техники.')}</p>
+                <div className="br-svc-grid">
+                  {massagesPremium.map((m) => (
+                    <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </section>
+          )}
+          {massagesZone.length > 0 && (
+            <section className="sec br-sec br-bg2" id="zones">
+              <div className="wrap">
+                <p className="eyebrow rv">{t('По зонам')}</p>
+                <h2 className="h2 serif rv">{t('Массажи по зонам')}</h2>
+                <p className="lead rv br-sec__intro">{t('Точечная проработка — голова, шея и воротниковая зона, спина и стопы. Идеально как дополнение к основному массажу.')}</p>
+                <div className="br-svc-grid">
+                  {massagesZone.map((m) => (
+                    <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+          {procedures.length > 0 && (
+            <section className="sec br-sec" id="procedures">
+              <div className="wrap">
+                <p className="eyebrow rv">{t('Уход')}</p>
+                <h2 className="h2 serif rv">SPA-{t('процедуры')}</h2>
+                <p className="lead rv br-sec__intro">{t('Пилинги, обёртывания и омовения — тонус, мягкость и сияние кожи.')}</p>
+                <div className="br-svc-grid">
+                  {procedures.map((m) => (
+                    <ServiceCard key={m.name} s={m} t={t} onDetail={openDetail} onBook={openLead} />
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+        </>
       )}
 
-      {/* 07 · СЕРТИФИКАТ */}
-      {!branch.comingSoon && (
-      <section className="sec br-sec br-bg2" id="certificate">
-        <div className="wrap br-cert">
-          <div className="br-cert__text rv">
-            <p className="eyebrow">{t('Подарок')}</p>
-            <h2 className="h2 serif">{t('Подарочный сертификат')}</h2>
-            <p className="lead">{t('Универсальный подарок для близких, друзей и коллег — сертификат действует на все услуги салона Buddha Spa. Выберите номинал и подарите заботу.')}</p>
-            <div className="br-cert__actions">
-              <a className="btn" href={waCert} target="_blank" rel="noopener noreferrer">{t('Купить сертификат')}</a>
+      {/* TAB: АБОНЕМЕНТЫ */}
+      {tab === 'memberships' && !branch.comingSoon && (
+        <section className="sec br-sec" id="memberships">
+          <div className="wrap">
+            <p className="eyebrow rv">{t('Выгода')}</p>
+            <h2 className="h2 serif rv">{t('Годовой абонемент')}</h2>
+            <p className="lead rv br-sec__intro">{t('Приобретая годовой абонемент, вы сможете наслаждаться массажем куда чаще и выгоднее.')}</p>
+            <div className="br-tiers">
+              {MEMBERSHIP_TIERS.map((m) => (
+                <div className={`br-tier rv ${m.name === 'Gold' ? 'is-featured' : ''}`} key={m.name}>
+                  {m.name === 'Gold' && <span className="br-tier__badge">{t('Популярный')}</span>}
+                  <div className="br-tier__name">{m.name}</div>
+                  <div className="br-tier__price serif">{m.price.replace(' тг.', '')}<small>₸</small></div>
+                  <div className="br-tier__period">/ {t(m.period)}</div>
+                  <a className="btn btn-sm" href={waMember} target="_blank" rel="noopener noreferrer">{t('Оформить абонемент')}</a>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
       )}
 
-      {/* 08 · VR-ТУР */}
-      {branch.vrTour && (
+      {/* TAB: СЕРТИФИКАТЫ */}
+      {tab === 'certificate' && !branch.comingSoon && (
+        <section className="sec br-sec br-bg2" id="certificate">
+          <div className="wrap br-cert">
+            <div className="br-cert__text rv">
+              <p className="eyebrow">{t('Подарок')}</p>
+              <h2 className="h2 serif">{t('Подарочный сертификат')}</h2>
+              <p className="lead">{t('Универсальный подарок для близких, друзей и коллег — сертификат действует на все услуги салона Buddha Spa. Выберите номинал и подарите заботу.')}</p>
+              <div className="br-cert__actions">
+                <a className="btn" href={waCert} target="_blank" rel="noopener noreferrer">{t('Купить сертификат')}</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* TAB: ВР-ТУР */}
+      {tab === 'vr' && branch.vrTour && (
         <section className="sec br-sec" id="vr">
           <div className="wrap">
             <p className="eyebrow rv">{t('Загляните внутрь')}</p>
@@ -272,8 +293,8 @@ export default function BranchDetail({ branch }) {
         </section>
       )}
 
-      {/* 09 · КОМАНДА */}
-      {branch.team.length > 0 && (
+      {/* TAB: МАСТЕРА */}
+      {tab === 'masters' && branch.team.length > 0 && (
         <section className="sec br-sec br-bg2" id="team">
           <div className="wrap">
             <p className="eyebrow rv">{t('Мастера')}</p>
@@ -290,7 +311,7 @@ export default function BranchDetail({ branch }) {
         </section>
       )}
 
-      {/* 10 · ПОЧЕМУ BUDDHA SPA */}
+      {/* ПОЧЕМУ BUDDHA SPA — always visible */}
       <section className="sec br-sec">
         <div className="wrap br-why">
           <div className="br-why__text rv">
