@@ -5,6 +5,7 @@
 export const EXTRA_TR = {
   kk: {
     // ui / aria / alt
+    'О нас': 'Біз туралы',
     'Язык сайта': 'Сайт тілі',
     'Открыть меню': 'Мәзірді ашу',
     'Пролистать вниз': 'Төмен айналдыру',
@@ -178,6 +179,7 @@ export const EXTRA_TR = {
   },
   en: {
     // ui / aria / alt
+    'О нас': 'About us',
     'Язык сайта': 'Site language',
     'Открыть меню': 'Open menu',
     'Пролистать вниз': 'Scroll down',

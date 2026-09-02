@@ -249,7 +249,6 @@ export default function BranchDetail({ branch }) {
             <p className="lead">{t('Универсальный подарок для близких, друзей и коллег — сертификат действует на все услуги салона Buddha Spa. Выберите номинал и подарите заботу.')}</p>
             <div className="br-cert__actions">
               <a className="btn" href={waCert} target="_blank" rel="noopener noreferrer">{t('Купить сертификат')}</a>
-              <a className="btn btn-ghost" href={waCert} target="_blank" rel="noopener noreferrer">{t('Оформить сертификат')}</a>
             </div>
           </div>
         </div>
