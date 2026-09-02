@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useT } from '../i18n.jsx'
 
-const API_URL = 'https://buddha-spa-ai-agent-61309864094.europe-central2.run.app/api/app-chat'
+const API_URL = '/api/ai-chat'
 
 function getProfileId() {
   try {
@@ -15,7 +15,7 @@ function getProfileId() {
 
 export default function AiChat() {
   const t = useT()
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -39,10 +39,7 @@ export default function AiChat() {
     try {
       const res = await fetch(API_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_WEBSITE_CHAT_SECRET || ''}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           profile_id: getProfileId(),
           phone: '',
