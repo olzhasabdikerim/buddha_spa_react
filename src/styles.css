@@ -788,14 +788,36 @@ body {
 }
 @keyframes shimmerText { 0% { background-position: 120% 50%; } 100% { background-position: -20% 50%; } }
 
-/* Franchise-style section edge fades — fixed 64px blend at top/bottom */
-/* BranchSelector + AppSection are both --bg2 and sit adjacent — only outer edges get fades */
+/* Franchise-style section edge fades — eased multi-stop gradient, 120px */
+/* bg=#14100b  bg2=#1b160f — intermediate stops follow ease-in-out curve */
 .branch-select { position: relative; }
 .branch-select > .wrap { position: relative; z-index: 2; }
-.branch-select::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 64px; background: linear-gradient(180deg, var(--bg), var(--bg2)); pointer-events: none; z-index: 1; }
+.branch-select::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 120px;
+  background: linear-gradient(180deg,
+    #14100b 0%,
+    #15110b 12%,
+    #161208 30%,
+    #18130e 55%,
+    #1a150e 78%,
+    #1b160f 100%
+  );
+  pointer-events: none; z-index: 1;
+}
 
 /* app-sec sits directly after branch-select (same --bg2 bg) — only bottom gets a fade out */
-.app-sec::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 64px; background: linear-gradient(180deg, var(--bg2), var(--bg)); pointer-events: none; z-index: 1; }
+.app-sec::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 120px;
+  background: linear-gradient(180deg,
+    #1b160f 0%,
+    #1a150e 22%,
+    #18130e 45%,
+    #161208 70%,
+    #15110b 88%,
+    #14100b 100%
+  );
+  pointer-events: none; z-index: 1;
+}
 .app-sec > .wrap { position: relative; z-index: 2; }
 
 .brandintro { position: relative; overflow: hidden; }
