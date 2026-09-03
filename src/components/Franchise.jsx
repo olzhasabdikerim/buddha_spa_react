@@ -689,7 +689,15 @@ export default function Franchise() {
                     <div><label>{t('Ваше имя')}</label><input type="text" name="name" required placeholder={t('Как к вам обращаться?')} /></div>
                     <div><label>{t('Телефон / WhatsApp')}</label><input type="tel" name="phone" required placeholder="+7 ___ ___ __ __" /></div>
                     <div><label>{t('Ваш город')}</label>
-                      <select name="city">{['Выберите город', 'Алматы', 'Астана', 'Шымкент', 'Актобе', 'Другой город'].map((o) => (<option key={o}>{t(o)}</option>))}</select>
+                      <select name="city">{[
+                        'Выберите город',
+                        'Алматы', 'Астана', 'Шымкент', 'Актобе', 'Актау',
+                        'Атырау', 'Тараз', 'Семей', 'Павлодар', 'Усть-Каменогорск',
+                        'Костанай', 'Кызылорда', 'Петропавловск', 'Уральск',
+                        'Туркестан', 'Кокшетау', 'Талдыкорган', 'Темиртау',
+                        'Экибастуз', 'Жезказган', 'Балхаш', 'Рудный',
+                        'Жанаозен', 'Кентау', 'Другой город',
+                      ].map((o) => (<option key={o}>{t(o)}</option>))}</select>
                     </div>
                     <div><label>{t('Располагаемый капитал')}</label>
                       <select name="capital">{['Выберите диапазон', 'До 80 млн ₸', '80–120 млн ₸', '120–200 млн ₸', 'Более 200 млн ₸'].map((o) => (<option key={o}>{t(o)}</option>))}</select>
