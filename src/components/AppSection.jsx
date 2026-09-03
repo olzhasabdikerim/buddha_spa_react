@@ -148,11 +148,15 @@ export default function AppSection() {
         {/* Bonuses */}
         <div className="app-bonuses">
           <p className="app-bonuses__title eyebrow">{t('Предусмотрены бонусы')}</p>
-          <div className="app-bonus-cards">
+          <div className="app-bonus-grid">
             {BONUSES.map((b) => (
-              <div className="app-bonus-card" key={b.label}>
-                <div className="app-bonus-card__bc">{t(b.bc)}</div>
-                <div className="app-bonus-card__label">{t(b.label)}</div>
+              <div className="app-bonus-item" key={b.label}>
+                <div className="app-bonus-item__icon">{b.icon}</div>
+                <div className="app-bonus-item__body">
+                  <span className="app-bonus-item__bc">{t(b.bc)}</span>
+                  <span className="app-bonus-item__label">{t(b.label)}</span>
+                  <span className="app-bonus-item__note">{t(b.note)}</span>
+                </div>
               </div>
             ))}
           </div>
