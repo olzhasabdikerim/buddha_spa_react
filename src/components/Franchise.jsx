@@ -507,7 +507,7 @@ export default function Franchise() {
                 <div className="fr-partner-grid">
                   <div><div className="flabel">{t('Условия')}</div><div className="fvalue">50 / 50</div></div>
                   <div><div className="flabel">{t('Вовлечённость')}</div><div className="fvalue">{t('Минимальная')}</div></div>
-                  <div><div className="flabel">{t('Первоначальный взнос')}</div><div className="fvalue">0 ₸</div></div>
+                  <div><div className="flabel">{t('Паушальный взнос')}</div><div className="fvalue">0 ₸</div></div>
                 </div>
               </div>
             </div>
