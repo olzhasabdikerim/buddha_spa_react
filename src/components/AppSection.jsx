@@ -106,18 +106,13 @@ export default function AppSection() {
   return (
     <section id="app" className="app-sec">
       <div className="wrap app-sec__inner">
-        <div className="app-sec__head">
-          <p className="eyebrow section-label">{t('Веб-приложение')}</p>
-          <h2 className="section-title">{t('Приложение лояльности Buddha Spa')}</h2>
-          <p className="app-sec__sub">
-            {t('Ваш личный кабинет сети спа-салонов: записывайтесь на процедуры, копите и тратьте бонусы, дарите близким сертификаты — всё в одном приложении.')}
-          </p>
-        </div>
 
-        {/* Buddha Coins + Loyalty Levels */}
+        {/* Phones fan — visual anchor at the top */}
         <PhonesFan />
 
         <div className="app-coins-hero">
+          <p className="eyebrow section-label" style={{ marginBottom: 28 }}>{t('Веб-приложение')}</p>
+          <h2 className="section-title app-coins-title">{t('Приложение лояльности Buddha Spa')}</h2>
           <div className="app-coins-tag">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
               <circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 9.5C8 8.1 9.8 7 12 7s4 1.1 4 2.5-1.8 2.5-4 2.5-4 1.1-4 2.5S9.8 17 12 17s4-1.1 4-2.5"/>
@@ -148,15 +143,13 @@ export default function AppSection() {
         {/* Bonuses */}
         <div className="app-bonuses">
           <p className="app-bonuses__title eyebrow">{t('Предусмотрены бонусы')}</p>
-          <div className="app-bonus-grid">
-            {BONUSES.map((b) => (
-              <div className="app-bonus-item" key={b.label}>
-                <div className="app-bonus-item__icon">{b.icon}</div>
-                <div className="app-bonus-item__body">
-                  <span className="app-bonus-item__bc">{t(b.bc)}</span>
-                  <span className="app-bonus-item__label">{t(b.label)}</span>
-                  <span className="app-bonus-item__note">{t(b.note)}</span>
-                </div>
+          <div className="app-bonus-list">
+            {BONUSES.map((b, i) => (
+              <div className="app-bonus-row" key={b.label}>
+                <span className="app-bonus-row__n">{String(i + 1).padStart(2, '0')}</span>
+                <span className="app-bonus-row__bc">{t(b.bc)}</span>
+                <span className="app-bonus-row__label">{t(b.label)}</span>
+                <span className="app-bonus-row__note">{t(b.note)}</span>
               </div>
             ))}
           </div>
