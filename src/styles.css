@@ -392,7 +392,6 @@ button { font-family: inherit; }
   color: var(--muted-soft);
   margin-top: 3px;
 }
-.app-coins-title { margin-bottom: 28px; }
 @media (max-width: 640px) {
   .app-bonus-row { grid-template-columns: 24px 1fr; grid-template-rows: auto auto auto; }
   .app-bonus-row__label { grid-column: 2; }
