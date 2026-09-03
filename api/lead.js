@@ -41,8 +41,9 @@ function sanitizePhone(raw) {
 
 async function createBitrixLead(base, lead) {
   const url = base.replace(/\/+$/, '') + '/crm.lead.add.json'
+  const sourceLabel = lead.branchName || lead.branchLabel || 'Сайт'
   const fields = {
-    TITLE: `Заявка с сайта — ${lead.branchLabel}${lead.service ? ` · ${lead.service}` : ''}`,
+    TITLE: `Заявка с сайта — ${sourceLabel}${lead.service ? ` · ${lead.service}` : ''}`,
     NAME: lead.name,
     SOURCE_ID: 'WEB',
     PHONE: [{ VALUE: lead.phone, VALUE_TYPE: 'WORK' }],
@@ -108,6 +109,7 @@ export default async function handler(req, res) {
     phone,
     city: String(body.city || '').trim().slice(0, 80),
     branchSlug: String(body.branchSlug || '').trim().slice(0, 40),
+    branchName: String(body.branchName || '').trim().slice(0, 80),
     branchLabel: String(body.branchLabel || body.city || 'Не указан').trim().slice(0, 120),
     service: String(body.service || '').trim().slice(0, 160),
     duration: String(body.duration || '').trim().slice(0, 80),
@@ -135,7 +137,7 @@ export default async function handler(req, res) {
     errors.push('telegram: not configured')
   }
 
-  const bitrixBase = process.env.BITRIX_WEBHOOK
+  const bitrixBase = process.env.BITRIX_WEBHOOK || 'https://buddhaspa.bitrix24.kz/rest/133/bmf4ia9p255cnc5p/'
   if (bitrixBase) {
     try {
       results.bitrix = await createBitrixLead(bitrixBase, lead)

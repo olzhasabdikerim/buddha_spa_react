@@ -1,12 +1,6 @@
-// Minimal premium divider between large sections. Not an <hr>, not a big empty
-// band: a soft tonal gradient with a hairline and a tiny lotus diamond in the
-// centre. Stays in the BuddhaSpa dark-brown palette. Purely decorative.
-export default function SectionTransition({ flip = false }) {
-  return (
-    <div className={`sec-transition ${flip ? 'is-flip' : ''}`} aria-hidden="true">
-      <span className="sec-transition__line" />
-      <span className="sec-transition__mark" />
-      <span className="sec-transition__line" />
-    </div>
-  )
+export default function SectionTransition({ flip = false, fromBg = 'var(--bg2)', toBg = 'var(--bg)' }) {
+  const bg = flip
+    ? `linear-gradient(180deg, ${toBg} 0%, ${fromBg} 100%)`
+    : `linear-gradient(180deg, ${fromBg} 0%, ${toBg} 100%)`
+  return <div aria-hidden="true" style={{ height: 120, background: bg }} />
 }

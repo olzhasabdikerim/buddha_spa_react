@@ -2,72 +2,104 @@ import { useT } from '../i18n.jsx'
 
 const APP_URL = 'https://app.buddhaspa.kz/'
 
-const FEATURES = [
+const SCREENS = [
+  { src: '/images/app/screen-levels.jpg', alt: 'Уровни лояльности' },
+  { src: '/images/app/screen-chats.jpg',  alt: 'Чаты и поддержка' },
+  { src: '/images/app/screen-coins.jpg',  alt: 'Buddha Coins и бонусы' },
+  { src: '/images/app/screen-booking.jpg',alt: 'Запись на услугу' },
+  { src: '/images/app/screen-certs.jpg',  alt: 'Сертификаты' },
+]
+
+// rot=degrees, y=drop from center (px), z=stacking order
+const FAN = [
+  { rot: -18, y: 48, z: 1 },
+  { rot:  -9, y: 22, z: 2 },
+  { rot:   0, y:  0, z: 5 },
+  { rot:   9, y: 22, z: 3 },
+  { rot:  18, y: 48, z: 1 },
+]
+
+function PhonesFan() {
+  return (
+    <div className="phones-fan" aria-hidden="true">
+      {SCREENS.map((s, i) => (
+        <img
+          key={s.src}
+          src={s.src}
+          alt={s.alt}
+          loading="lazy"
+          className={`phones-fan__photo${i === 2 ? ' is-center' : ''}`}
+          style={{ transform: `rotate(${FAN[i].rot}deg) translateY(${FAN[i].y}px)`, zIndex: FAN[i].z }}
+        />
+      ))}
+    </div>
+  )
+}
+
+const LEVELS = [
+  { name: 'Bronze', xp: 0,   cashback: 5,  writeOff: 15, color: '#cd7f32' },
+  { name: 'Silver', xp: 100, cashback: 7,  writeOff: 20, color: '#a0a0a0' },
+  { name: 'Gold',   xp: 200, cashback: 10, writeOff: 25, color: '#c9a96e' },
+  { name: 'Platinum', xp: 300, cashback: 12, writeOff: 30, color: '#b0c4d8' },
+  { name: 'VIP',    xp: 400, cashback: 15, writeOff: 40, color: '#e4cfa6' },
+]
+
+const BONUSES = [
   {
-    key: 'booking',
+    bc: '+5 000 BC',
+    label: 'Регистрация в приложении',
+    note: '+ массаж головы 30 мин в первый визит · независимо от источника ссылки',
     icon: (
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-        <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
       </svg>
     ),
-    title: 'Онлайн-запись',
-    desc: 'Выбирайте услугу, мастера и удобное время без звонков администратору',
   },
   {
-    key: 'coins',
+    bc: '+1 000 / +2 000 BC',
+    label: 'Приглашение друга по реф. ссылке',
+    note: '+1 000 за регистрацию друга · +2 000 после его первой покупки',
     icon: (
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-        <circle cx="12" cy="12" r="10"/><path d="M12 6v2m0 8v2m-4-6h8"/>
-        <path d="M9 9.5C9 8.1 10.3 7 12 7s3 1.1 3 2.5c0 2.5-3 3-3 5"/>
-      </svg>
-    ),
-    title: 'Бонусная программа BuddhaCoins',
-    desc: 'Кэшбэк с каждого визита, бонус в честь дня рождения, приветственный подарок за регистрацию',
-  },
-  {
-    key: 'cert',
-    icon: (
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-        <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/>
-        <circle cx="12" cy="14" r="2"/><path d="M12 16v3"/>
-      </svg>
-    ),
-    title: 'Подарочные сертификаты',
-    desc: 'Оформите сертификат для близкого человека, оплатите картой онлайн',
-  },
-  {
-    key: 'ref',
-    icon: (
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
         <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
       </svg>
     ),
-    title: 'Реферальная программа',
-    desc: 'Приглашайте друзей и получайте бонусы за каждого',
   },
   {
-    key: 'health',
+    bc: '+5 000 BC + 1 000 ₸',
+    label: 'Регистрация по реф. ссылке друга',
+    note: '+5 000 за регистрацию · +1 000 ₸ бонусом за использование реферальной ссылки',
     icon: (
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-        <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
       </svg>
     ),
-    title: 'Анкета здоровья',
-    desc: 'Заполните один раз, чтобы мастер учёл противопоказания перед процедурой',
   },
   {
-    key: 'notif',
+    bc: '+1 000 BC',
+    label: 'Оценка визита',
+    note: 'Оставьте отзыв о посещении в приложении и получите бонус',
     icon: (
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
       </svg>
     ),
-    title: 'Уведомления',
-    desc: 'Напоминания о записи, статус бонусов, ответы администратора — всё в приложении',
+  },
+  {
+    bc: '+5 000 BC',
+    label: 'Подарок ко дню рождения',
+    note: 'Начисляются ко дню рождения каждый год',
+    icon: (
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+        <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/>
+        <path d="M12 22V7m0 0H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zm0 0h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+      </svg>
+    ),
   },
 ]
+
 
 export default function AppSection() {
   const t = useT()
@@ -82,16 +114,48 @@ export default function AppSection() {
           </p>
         </div>
 
-        <div className="app-sec__grid">
-          {FEATURES.map((f) => (
-            <div className="app-feat" key={f.key}>
-              <div className="app-feat__icon">{f.icon}</div>
-              <div className="app-feat__body">
-                <strong className="app-feat__title">{t(f.title)}</strong>
-                <p className="app-feat__desc">{t(f.desc)}</p>
-              </div>
+        {/* Buddha Coins + Loyalty Levels */}
+        <PhonesFan />
+
+        <div className="app-coins-hero">
+          <div className="app-coins-tag">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 9.5C8 8.1 9.8 7 12 7s4 1.1 4 2.5-1.8 2.5-4 2.5-4 1.1-4 2.5S9.8 17 12 17s4-1.1 4-2.5"/>
+            </svg>
+            <span>{t('Buddha Coins')}</span>
+            <span className="app-coins-rate">1 BC = 1 ₸</span>
+          </div>
+          <p className="app-coins-sub">{t('Копите баллы за каждый визит и тратьте их на услуги. Чем выше уровень — тем больше кэшбэк и возможность списания.')}</p>
+
+          <div className="app-levels">
+            <div className="app-levels__head">
+              <span>{t('Уровень')}</span>
+              <span>{t('от XP')}</span>
+              <span>{t('Кэшбэк')}</span>
+              <span>{t('Списание')}</span>
             </div>
-          ))}
+            {LEVELS.map((lvl) => (
+              <div className="app-level" key={lvl.name} style={{ '--lvl-color': lvl.color }}>
+                <span className="app-level__name" style={{ color: lvl.color }}>{lvl.name}</span>
+                <span className="app-level__xp">{lvl.xp} XP</span>
+                <span className="app-level__val">{lvl.cashback}%</span>
+                <span className="app-level__val">{lvl.writeOff}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bonuses */}
+        <div className="app-bonuses">
+          <p className="app-bonuses__title eyebrow">{t('Предусмотрены бонусы')}</p>
+          <div className="app-bonus-cards">
+            {BONUSES.map((b) => (
+              <div className="app-bonus-card" key={b.label}>
+                <div className="app-bonus-card__bc">{t(b.bc)}</div>
+                <div className="app-bonus-card__label">{t(b.label)}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="app-sec__cta">

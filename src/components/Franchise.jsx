@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang, useT, LANGS } from '../i18n.jsx'
 import LegalModal from './LegalModal.jsx'
+import { applyFranchiseSeo } from '../lib/seo.js'
 import '../franchise.css'
 
 // Images downloaded from the Tilda CDN into public/images/franchise/lp.
@@ -161,7 +162,8 @@ export default function Franchise() {
       company: fd.get('company'),
       city: fd.get('city'),
       branchSlug: 'franchise',
-      branchLabel: 'Франшиза',
+      branchName: 'Франшиза',
+      branchLabel: fd.get('city') ? `Франшиза — ${fd.get('city')}` : 'Франшиза',
       service: 'Заявка на франшизу',
       comment: [
         `Капитал: ${fd.get('capital') || '—'}`,
@@ -188,6 +190,8 @@ export default function Franchise() {
   const rootRef = useRef(null)
   const langRef = useRef(null)
   const heroImgRef = useRef(null)
+
+  useEffect(() => applyFranchiseSeo(), [])
 
   useEffect(() => {
     let raf = null

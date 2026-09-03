@@ -91,6 +91,7 @@ export default function LeadModal({ branch, branches, service, onClose }) {
       company: fd.get('company'), // honeypot
       city: activeBranch?.city || '',
       branchSlug: activeBranch?.slug || '',
+      branchName: activeBranch?.name || activeBranch?.city || '',
       branchLabel: activeBranch ? `${activeBranch.city}, ${activeBranch.address}` : '',
       service: service?.name || '',
       duration: shownDuration,
