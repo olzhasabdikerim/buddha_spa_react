@@ -1,5 +1,7 @@
 import { useT } from '../i18n.jsx'
-import { BRANCHES } from '../data/branches.js'
+import { useBranches } from '../contexts/BranchesContext.jsx'
+import { EditableText } from './EditableText.jsx'
+
 
 const ABOUT_IMAGE = '/images/about-interior.jpg'
 
@@ -7,13 +9,14 @@ const ABOUT_IMAGE = '/images/about-interior.jpg'
 // Photo + short story + headline stats + a link through to the full About page.
 export default function About() {
   const t = useT()
-  const masters = BRANCHES.reduce((n, b) => n + (b.team?.length || 0), 0)
+  const branches = useBranches()
+  const masters = (branches || []).reduce((n, b) => n + (b.team?.length || 0), 0)
 
-  const stats = [
-    ['4', 'города Казахстана'],
-    ['6+', 'лет на рынке'],
-    ['80 000+', 'клиентов в сети'],
-    [`${masters}`, 'мастера из Таиланда и Индонезии'],
+  const statsRaw = [
+    ['4', t('города Казахстана'), 'about.stat.0'],
+    ['6+', t('лет на рынке'), 'about.stat.1'],
+    ['80 000+', t('клиентов в сети'), 'about.stat.2'],
+    [`${masters}`, t('мастера из Юго-Восточной Азии'), 'about.stat.3'],
   ]
 
   return (
@@ -24,17 +27,15 @@ export default function About() {
         </figure>
 
         <div className="brandintro__text">
-          <p className="eyebrow section-label">{t('О нас')}</p>
-          <h2 className="section-title">{t('Забота, которая стала сетью спа-салонов')}</h2>
-          <p className="brandintro__lead">
-            {t('BuddhaSpa начинался с одного салона и желания подарить казахстанцам подлинную тайскую традицию заботы о теле. Сегодня это развивающаяся сеть с едиными стандартами сервиса и мастерами из Юго-Восточной Азии в каждом городе.')}
-          </p>
+          <EditableText as="p" contentKey="about.eyebrow" fallback={t('О нас')} className="eyebrow section-label" />
+          <EditableText as="h2" contentKey="about.title" fallback={t('Забота, которая стала сетью спа-салонов')} className="section-title" />
+          <EditableText as="p" contentKey="about.lead" fallback={t('BuddhaSpa начинался с одного салона и желания подарить казахстанцам подлинную тайскую традицию заботы о теле. Сегодня это развивающаяся сеть с едиными стандартами сервиса и мастерами из Юго-Восточной Азии в каждом городе.')} className="brandintro__lead" />
 
           <div className="brandintro__stats">
-            {stats.map(([n, l]) => (
-              <div className="brandintro__stat" key={l}>
-                <div className="brandintro__num">{n}</div>
-                <div className="brandintro__lbl">{t(l)}</div>
+            {statsRaw.map(([n, l, key]) => (
+              <div className="brandintro__stat" key={key}>
+                <EditableText as="div" contentKey={`${key}.n`} fallback={n} className="brandintro__num" />
+                <EditableText as="div" contentKey={`${key}.l`} fallback={l} className="brandintro__lbl" />
               </div>
             ))}
           </div>

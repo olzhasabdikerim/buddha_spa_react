@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
 import { COMPANY } from '../data/company.js'
 import { handleHashNav } from '../lib/hashNav.js'
+import { EditableText } from './EditableText.jsx'
 
 const FOOTER_LOGO = '/images/footer-brand-stacked.png'
 
@@ -17,9 +18,7 @@ export default function Footer({ onOpenLegal }) {
           {/* Brand */}
           <div className="site-footer__brand">
             <img className="site-footer__logo" src={FOOTER_LOGO} alt="BuddhaSpa — сеть тайских спа-салонов" />
-            <p className="site-footer__tag">
-              {t('Сеть тайских спа-салонов в городах Казахстана. Гармония тела и души в каждой процедуре.')}
-            </p>
+            <EditableText as="p" contentKey="footer.tagline" fallback={t('Сеть тайских спа-салонов в городах Казахстана. Гармония тела и души в каждой процедуре.')} className="site-footer__tag" />
           </div>
 
           {/* Navigation */}
@@ -51,7 +50,7 @@ export default function Footer({ onOpenLegal }) {
               <li><a href={telHref}>{COMPANY.generalPhone}</a></li>
               <li><a href={waHref} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
               <li><a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></li>
-              <li><span>{t(COMPANY.workingHours)}</span></li>
+              <li><EditableText as="span" contentKey="footer.hours" fallback={t(COMPANY.workingHours)} /></li>
             </ul>
           </div>
         </div>

@@ -429,6 +429,10 @@ button { font-family: inherit; }
 .ai-chat-panel__input button { width: 38px; height: 38px; flex-shrink: 0; border: none; border-radius: 10px; cursor: pointer; background: linear-gradient(135deg, #c9a96e, #b8935a); color: #14100b; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s; }
 .ai-chat-panel__input button:disabled { opacity: 0.35; cursor: default; }
 @media (max-width: 560px) { .ai-chat-wrap { bottom: calc(86px + 74px); } }
+.ai-chat-bubble { position: relative; background: #1a1410; border: 1px solid rgba(201,169,110,0.25); border-radius: 14px; padding: 12px 36px 12px 14px; color: #f3e9da; font: 400 13px/1.5 Manrope,sans-serif; max-width: 220px; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.4); animation: leadIn 0.3s ease; }
+.ai-chat-bubble::after { content: ''; position: absolute; bottom: -7px; right: 20px; width: 12px; height: 12px; background: #1a1410; border-right: 1px solid rgba(201,169,110,0.25); border-bottom: 1px solid rgba(201,169,110,0.25); transform: rotate(45deg); }
+.ai-chat-bubble__close { position: absolute; top: 6px; right: 8px; background: none; border: none; color: rgba(243,233,218,0.4); cursor: pointer; font-size: 16px; line-height: 1; padding: 2px; transition: color 0.2s; }
+.ai-chat-bubble__close:hover { color: #f3e9da; }
 
 /* ---------- Brand intro "О бренде" (home, after branches) ---------- */
 .brandintro { padding: clamp(48px, 6vw, 80px) 0; }
@@ -835,11 +839,11 @@ body {
 .app-sec > .wrap { position: relative; z-index: 2; }
 
 .brandintro { position: relative; overflow: hidden; }
-.brandintro::before { content: ''; position: absolute; top: -12%; right: -6%; width: 46vw; height: 46vw; max-width: 600px; max-height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(183,203,160,0.16), transparent 68%); pointer-events: none; }
+.brandintro::before { display: none; }
 .brandintro > .wrap { position: relative; z-index: 1; }
 
 .journey { position: relative; overflow: hidden; }
-.journey::before { content: ''; position: absolute; bottom: -10%; left: -8%; width: 48vw; height: 48vw; max-width: 640px; max-height: 640px; border-radius: 50%; background: radial-gradient(circle, rgba(201,169,110,0.15), transparent 68%); pointer-events: none; }
+.journey::before { display: none; }
 .journey > .wrap { position: relative; z-index: 1; }
 
 /* Gold gradient hairline under section titles — a small but visible flourish. */

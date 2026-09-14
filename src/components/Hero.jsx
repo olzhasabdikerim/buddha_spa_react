@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useT } from '../i18n.jsx'
 import { useBooking } from '../booking.jsx'
+import { EditableText } from './EditableText.jsx'
 
 const HERO_IMAGE = '/images/hero-main.jpg'
 const HERO_VIDEO = '/video/hero.mp4'
@@ -41,15 +42,11 @@ export default function Hero() {
       </div>
       <div className="hero__overlay" />
       <div className="wrap hero__content">
-        <p className="eyebrow hero__eyebrow">{t('Тайский спа · Казахстан')}</p>
+        <EditableText as="p" contentKey="hero.eyebrow" fallback={t('Тайский спа · Казахстан')} className="eyebrow hero__eyebrow" />
         <h1 className="hero__title">
-          {t('Тайский массаж')}
-          <br />
-          {t('и уход')} <em>{t('за телом')}</em>
+          <EditableText as="span" contentKey="hero.title" fallback={t('Тайский массаж и уход за телом')} />
         </h1>
-        <p className="hero__subtitle">
-          {t('Порадуйте себя и своих близких — Buddha Spa встречает вас теплом подлинной тайской традиции.')}
-        </p>
+        <EditableText as="p" contentKey="hero.subtitle" fallback={t('Порадуйте себя и своих близких — Buddha Spa встречает вас теплом подлинной тайской традиции.')} className="hero__subtitle" />
         <div className="hero__actions">
           <a href="#branches" className="btn btn-coral">{t('Выбрать филиал')}</a>
           <button type="button" className="btn btn-line" onClick={openBooking}>{t('Записаться в BuddhaSpa')}</button>

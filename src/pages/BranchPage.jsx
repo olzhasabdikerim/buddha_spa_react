@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
-import { BRANCHES } from '../data/branches.js'
+import { useBranches } from '../contexts/BranchesContext.jsx'
 import { buildBranchCatalog } from '../data/catalog.js'
 import BranchHeader from '../components/BranchHeader.jsx'
 import BranchDetail from '../components/BranchDetail.jsx'
@@ -16,7 +16,7 @@ function buildTabs(branch) {
     { id: 'massages',    label: 'Массажи',        show: hasMassages },
     { id: 'memberships', label: 'Абонементы',     show: !branch.comingSoon },
     { id: 'certificate', label: 'Сертификаты',    show: !branch.comingSoon },
-    { id: 'vr',          label: 'ВР-тур',         show: !!branch.vrTour },
+    { id: 'vr',          label: 'VR-тур',         show: !!branch.vrTour },
     { id: 'masters',     label: 'Мастера',        show: branch.team.length > 0 },
   ].filter((tb) => tb.show)
 }
@@ -37,7 +37,11 @@ function BranchPageInner({ branch }) {
 
 export default function BranchPage() {
   const { slug } = useParams()
-  const branch = BRANCHES.find((b) => b.slug === slug)
+  const branches = useBranches()
+
+  if (branches === null) return <div className="route-fallback" aria-busy="true" />
+
+  const branch = branches.find((b) => b.slug === slug)
   if (!branch) return <Navigate to="/" replace />
   return <BranchPageInner branch={branch} />
 }

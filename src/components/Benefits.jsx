@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useT } from '../i18n.jsx'
+import { EditableText } from './EditableText.jsx'
 
 const STEPS = [
   {
@@ -31,6 +32,7 @@ const STEPS = [
     title: 'Заряд энергии',
     text: 'Вы почувствуете бодрость и лёгкость — мастера применяют уникальную, проверенную технику.',
     img: '/images/journey/energy.jpg',
+    pos: 'center 80%',
   },
 ]
 
@@ -58,8 +60,8 @@ export default function Benefits() {
   return (
     <section className="journey">
       <div className="wrap">
-        <p className="eyebrow section-label">{t('Почему Buddha Spa — лучшая идея')}</p>
-        <h2 className="section-title">{t('Как проходит ваш визит')}</h2>
+        <EditableText as="p" contentKey="journey.eyebrow" fallback={t('Почему Buddha Spa — лучшая идея')} className="eyebrow section-label" />
+        <EditableText as="h2" contentKey="journey.title" fallback={t('Как проходит ваш визит')} className="section-title" />
 
         <ol className="journey__track" ref={trackRef}>
           <span className="journey__spine" aria-hidden="true" />
@@ -69,10 +71,10 @@ export default function Benefits() {
                 <span className="journey__num">{s.n}</span>
               </div>
               <div className="journey__card">
-                {s.img && <div className="journey__photo" style={{ backgroundImage: `url(${s.img})` }} aria-hidden="true" />}
+                {s.img && <div className="journey__photo" style={{ backgroundImage: `url(${s.img})`, backgroundPosition: s.pos || 'center' }} aria-hidden="true" />}
                 <div className="journey__card-body">
-                  <h3>{t(s.title)}</h3>
-                  <p>{t(s.text)}</p>
+                  <EditableText as="h3" contentKey={`journey.step${s.n}.title`} fallback={t(s.title)} />
+                  <EditableText as="p" contentKey={`journey.step${s.n}.text`} fallback={t(s.text)} />
                 </div>
               </div>
             </li>

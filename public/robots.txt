@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://buddhaspareact.vercel.app/sitemap.xml
+Sitemap: https://www.buddhaspa.kz/sitemap.xml

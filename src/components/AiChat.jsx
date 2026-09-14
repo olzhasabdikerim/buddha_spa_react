@@ -15,7 +15,10 @@ function getProfileId() {
 
 export default function AiChat() {
   const t = useT()
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
+  const [chatOpened, setChatOpened] = useState(false)
+  const [bubbleDismissed, setBubbleDismissed] = useState(false)
+  const bubbleTimerRef = useRef(null)
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -118,10 +121,27 @@ export default function AiChat() {
         </div>
       )}
 
+      {/* Greeting bubble when closed */}
+      {!open && !chatOpened && !bubbleDismissed && (
+        <div className="ai-chat-bubble" onClick={() => { setOpen(true); setChatOpened(true); clearTimeout(bubbleTimerRef.current) }}>
+          <button
+            className="ai-chat-bubble__close"
+            onClick={(e) => {
+              e.stopPropagation()
+              setBubbleDismissed(true)
+              clearTimeout(bubbleTimerRef.current)
+              bubbleTimerRef.current = setTimeout(() => setBubbleDismissed(false), 60000)
+            }}
+            aria-label={t('Закрыть')}
+          >×</button>
+          <span>{t('Здравствуйте! Меня зовут Дана — помочь вам с выбором?')}</span>
+        </div>
+      )}
+
       {/* FAB button */}
       <button
         className={`ai-chat-fab ${open ? 'is-open' : ''}`}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => { setOpen((v) => !v); setChatOpened(true); clearTimeout(bubbleTimerRef.current) }}
         aria-label={t('Дана ИИ')}
         aria-expanded={open}
       >

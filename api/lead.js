@@ -42,12 +42,17 @@ function sanitizePhone(raw) {
 async function createBitrixLead(base, lead) {
   const url = base.replace(/\/+$/, '') + '/crm.lead.add.json'
   const sourceLabel = lead.branchName || lead.branchLabel || 'Сайт'
+  // Prefix every lead title with [Источник] so Bitrix24 list view shows the origin immediately.
+  const titlePrefix = `[${sourceLabel}]`
+  const titleBody = lead.service ? ` ${lead.service}` : ' Заявка'
   const fields = {
-    TITLE: `Заявка с сайта — ${sourceLabel}${lead.service ? ` · ${lead.service}` : ''}`,
+    TITLE: `${titlePrefix}${titleBody}`,
     NAME: lead.name,
     SOURCE_ID: 'WEB',
+    SOURCE_DESCRIPTION: sourceLabel,
     PHONE: [{ VALUE: lead.phone, VALUE_TYPE: 'WORK' }],
     COMMENTS: [
+      `Источник: ${sourceLabel}`,
       `${RU_LABELS.branch}: ${lead.branchLabel}`,
       lead.city ? `${RU_LABELS.city}: ${lead.city}` : null,
       lead.service ? `${RU_LABELS.service}: ${lead.service}` : null,
@@ -137,7 +142,7 @@ export default async function handler(req, res) {
     errors.push('telegram: not configured')
   }
 
-  const bitrixBase = process.env.BITRIX_WEBHOOK || 'https://buddhaspa.bitrix24.kz/rest/133/bmf4ia9p255cnc5p/'
+  const bitrixBase = process.env.BITRIX_WEBHOOK || 'https://buddhaspa.bitrix24.kz/rest/133/aas7iugffq2gu990/'
   if (bitrixBase) {
     try {
       results.bitrix = await createBitrixLead(bitrixBase, lead)

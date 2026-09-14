@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { BRANCHES } from '../data/branches.js'
+import { useBranches } from '../contexts/BranchesContext.jsx'
 import { useT } from '../i18n.jsx'
+import { EditableText } from './EditableText.jsx'
 
 // Real per-branch interior photos supplied by the owner (one per branch).
 const CARD_IMG = {
@@ -15,17 +16,16 @@ const CARD_IMG = {
 
 export default function BranchSelector() {
   const t = useT()
+  const branches = useBranches()
   return (
     <section id="branches" className="branch-select">
       <div className="wrap">
-        <p className="eyebrow section-label">{t('Наши адреса')}</p>
-        <h2 className="section-title">{t('Выберите удобный для вас филиал')}</h2>
-        <p className="section-intro">
-          {t('Сеть SPA-салонов, где тайская атмосфера и мастерство превращают массаж в полноценный отдых и восстановление.')}
-        </p>
+        <EditableText as="p" contentKey="branches.eyebrow" fallback={t('Наши адреса')} className="eyebrow section-label" />
+        <EditableText as="h2" contentKey="branches.title" fallback={t('Выберите удобный для вас филиал')} className="section-title" />
+        <EditableText as="p" contentKey="branches.subtitle" fallback={t('Сеть SPA-салонов, где тайская атмосфера и мастерство превращают массаж в полноценный отдых и восстановление.')} className="section-intro" />
 
         <div className="branch-select__grid">
-          {BRANCHES.map((b) => {
+          {(branches || []).map((b) => {
             const soon = b.comingSoon
             const cls = soon ? 'branch-card--soon' : b.premium ? 'branch-card--premium' : 'branch-card--silver'
             return (

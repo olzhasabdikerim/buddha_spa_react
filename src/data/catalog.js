@@ -108,7 +108,7 @@ const FALLBACK_RULES = [
 const KIND_FALLBACK = {
   massage: '/images/branches/taukehana/gallery-2.jpg',
   procedure: '/images/branches/taraz/gallery-2.jpg',
-  program: '/images/franchise/lp/format-2.jpg',
+  program: '/images/branches/interior-warm.jpg',
 }
 
 function imageFor(name, kind) {
@@ -145,7 +145,7 @@ const PROCEDURE_RE = /пенное омовение|^пилинг|4\s*этап|�
 const PROGRAM_RE = /тибет|пробуди любов|перезагрузк|пробужден|для взрослых|шоколадн\w* рай|микс пакет|мудрост|коррекц фигур|инь-?янь|райское|гармони\w*\s+двоих|vip.*пакет|для родител|тайский рай|спа для беременных|family|морской бриз|время себе|бодрост|антистресс|эликсир будды|энергия будды|двойной удар|супер сила|возрожден|экспресс спа|для вас и ваших|спа программа/i
 
 // Premium massages get the gold-framed treatment.
-const PREMIUM_MASSAGE_RE = /королевск|4\s*рук|четыре\s*рук|стоун|эликсир\s*молодости/i
+const PREMIUM_MASSAGE_RE = /королевск|4\s*рук|четыре\s*рук|стоун|эликсир\s*молодости|микс\s*масса/i
 
 // By-zone / short massages.
 const ZONE_RE = /голов|шейно|воротник|спин|foot|фут|ног|походк/i
@@ -158,13 +158,28 @@ function fmtPrice(price) {
   return String(price).replace('тг.', '₸').trim()
 }
 
+// Section values stored in Supabase (set explicitly via admin panel).
+// When present, they override regex-based classification.
+export const SECTIONS = [
+  { value: 'program',         label: 'Спа-программа' },
+  { value: 'massage_full',    label: 'Массаж всего тела' },
+  { value: 'massage_premium', label: 'Премиум массаж' },
+  { value: 'massage_zone',    label: 'Массаж по зонам' },
+  { value: 'procedure',       label: 'Спа-процедура' },
+]
+
 // Classify a raw service into 'program' | 'procedure' | 'massage'.
 function classify(s) {
+  // Explicit section from admin panel takes priority.
+  if (s.section) {
+    if (s.section === 'program') return 'program'
+    if (s.section === 'procedure') return 'procedure'
+    return 'massage' // massage_full | massage_premium | massage_zone
+  }
   const cat = (s.category || '').toLowerCase()
   if (cat.includes('програм')) return 'program'
   if (cat.includes('процедур')) return 'procedure'
   if (cat.includes('масса')) {
-    // "уход за лицом" is filed under Массажи in some branches but is a spa procedure.
     if (/уход за лицом/i.test(s.name)) return 'procedure'
     return 'massage'
   }
@@ -206,17 +221,18 @@ function groupByName(items) {
   items.forEach((s) => {
     let e = byName.get(s.name)
     if (!e) {
-      e = { name: s.name, description: s.description || '', variants: [] }
+      e = { name: s.name, description: s.description || '', section: s.section || null, image_url: s.image_url || null, branchId: s.branch_id || null, variants: [] }
       byName.set(s.name, e)
     }
     if (!e.description && s.description) e.description = s.description
-    // A single row may already list several durations ("60 мин. / 90 мин.") for
-    // one base price. Keep it as one "от {price}" variant across that range.
+    if (!e.section && s.section) e.section = s.section
+    if (!e.image_url && s.image_url) e.image_url = s.image_url
+    if (!e.branchId && s.branch_id) e.branchId = s.branch_id
     const durations = String(s.duration || '').split('/').map((d) => d.trim()).filter(Boolean)
     if (durations.length > 1) {
-      e.variants.push({ duration: durations.join(' / '), price: s.price, from: true })
+      e.variants.push({ id: s.id, duration: durations.join(' / '), price: s.price, from: true })
     } else {
-      e.variants.push({ duration: s.duration || '', price: s.price })
+      e.variants.push({ id: s.id, duration: s.duration || '', price: s.price })
     }
   })
   return Array.from(byName.values())
@@ -224,6 +240,26 @@ function groupByName(items) {
 
 export function goalsFor(name) {
   return GOALS.filter((g) => g.match.test(name)).map((g) => g.key)
+}
+
+// Returns the explicit section value for a service — used in the admin panel
+// to show admins which section a service currently belongs to.
+// Resolves the effective image URL for a service — used in admin to pre-populate
+// the image field so renaming a service doesn't change its photo.
+export function resolveServiceImage(s) {
+  if (s.image_url) return s.image_url
+  const kind = classify(s)
+  return imageFor(s.name, kind)
+}
+
+export function inferSection(s) {
+  if (s.section) return s.section
+  const kind = classify(s)
+  if (kind === 'program') return 'program'
+  if (kind === 'procedure') return 'procedure'
+  if (PREMIUM_MASSAGE_RE.test(s.name)) return 'massage_premium'
+  if (ZONE_RE.test(s.name)) return 'massage_zone'
+  return 'massage_full'
 }
 
 // Enrich a grouped entry with the fields the cards/modal need.
@@ -235,13 +271,13 @@ function decorate(entry, kind, premium = false) {
     ...entry,
     kind,
     premium,
-    image: imageFor(entry.name, kind),
+    image: entry.image_url || imageFor(entry.name, kind),
     composition: parseComposition(entry.description),
     durationLabel: durationLabel(entry.variants),
     priceFromNum: min === Infinity ? 0 : min,
     priceFrom: fmtPrice(cheapest?.price || ''),
     priceFromLabel: (anyFrom ? 'от ' : '') + fmtPrice(cheapest?.price || ''),
-    variants: entry.variants.map((v) => ({ ...v, priceNum: priceNum(v.price), price: fmtPrice(v.price) })),
+    variants: entry.variants.map((v) => ({ ...v, priceNum: priceNum(v.price), rawPrice: v.price, price: fmtPrice(v.price) })),
   }
 }
 
@@ -265,15 +301,11 @@ export function buildBranchCatalog(services = []) {
   const procedures = groupByName(proceduresRaw).map((p) => decorate(p, 'procedure'))
 
   const massagesAll = groupByName(massagesRaw)
-  const massagesPremium = massagesAll
-    .filter((m) => PREMIUM_MASSAGE_RE.test(m.name))
-    .map((m) => decorate(m, 'massage', true))
-  const massagesZone = massagesAll
-    .filter((m) => !PREMIUM_MASSAGE_RE.test(m.name) && ZONE_RE.test(m.name))
-    .map((m) => decorate(m, 'massage'))
-  const massagesFull = massagesAll
-    .filter((m) => !PREMIUM_MASSAGE_RE.test(m.name) && !ZONE_RE.test(m.name))
-    .map((m) => decorate(m, 'massage'))
+  const isPremium = (m) => m.section === 'massage_premium' || (!m.section && PREMIUM_MASSAGE_RE.test(m.name))
+  const isZone    = (m) => m.section === 'massage_zone'    || (!m.section && ZONE_RE.test(m.name))
+  const massagesPremium = massagesAll.filter(isPremium).map((m) => decorate(m, 'massage', true))
+  const massagesZone    = massagesAll.filter((m) => !isPremium(m) && isZone(m)).map((m) => decorate(m, 'massage'))
+  const massagesFull    = massagesAll.filter((m) => !isPremium(m) && !isZone(m)).map((m) => decorate(m, 'massage'))
 
   // Which goals actually have programs here (for the filter chips).
   const goalsPresent = GOALS.filter((g) => programs.some((p) => p.goals.includes(g.key)))

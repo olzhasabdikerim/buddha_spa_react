@@ -1,4 +1,6 @@
 import { useT } from '../i18n.jsx'
+import { EditableText } from './EditableText.jsx'
+
 
 const APP_URL = 'https://app.buddhaspa.kz/'
 
@@ -107,42 +109,12 @@ export default function AppSection() {
     <section id="app" className="app-sec">
       <div className="wrap app-sec__inner">
         <div className="app-sec__head">
-          <p className="eyebrow section-label">{t('Веб-приложение')}</p>
-          <h2 className="section-title">{t('Приложение лояльности Buddha Spa')}</h2>
-          <p className="app-sec__sub">
-            {t('Ваш личный кабинет сети спа-салонов: записывайтесь на процедуры, копите и тратьте бонусы, дарите близким сертификаты — всё в одном приложении.')}
-          </p>
+          <EditableText as="p" contentKey="app.eyebrow" fallback={t('Веб-приложение')} className="eyebrow section-label" />
+          <EditableText as="h2" contentKey="app.title" fallback={t('Приложение лояльности Buddha Spa')} className="section-title" />
+          <EditableText as="p" contentKey="app.subtitle" fallback={t('Ваш личный кабинет сети спа-салонов: записывайтесь на процедуры, копите и тратьте бонусы, дарите близким сертификаты — всё в одном приложении.')} className="app-sec__sub" />
         </div>
 
         <PhonesFan />
-
-        <div className="app-coins-hero">
-          <div className="app-coins-tag">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-              <circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 9.5C8 8.1 9.8 7 12 7s4 1.1 4 2.5-1.8 2.5-4 2.5-4 1.1-4 2.5S9.8 17 12 17s4-1.1 4-2.5"/>
-            </svg>
-            <span>{t('Buddha Coins')}</span>
-            <span className="app-coins-rate">1 BC = 1 ₸</span>
-          </div>
-          <p className="app-coins-sub">{t('Копите баллы за каждый визит и тратьте их на услуги. Чем выше уровень — тем больше кэшбэк и возможность списания.')}</p>
-
-          <div className="app-levels">
-            <div className="app-levels__head">
-              <span>{t('Уровень')}</span>
-              <span>{t('от XP')}</span>
-              <span>{t('Кэшбэк')}</span>
-              <span>{t('Списание')}</span>
-            </div>
-            {LEVELS.map((lvl) => (
-              <div className="app-level" key={lvl.name} style={{ '--lvl-color': lvl.color }}>
-                <span className="app-level__name" style={{ color: lvl.color }}>{lvl.name}</span>
-                <span className="app-level__xp">{lvl.xp} XP</span>
-                <span className="app-level__val">{lvl.cashback}%</span>
-                <span className="app-level__val">{lvl.writeOff}%</span>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Bonuses */}
         <div className="app-bonuses">
@@ -151,9 +123,9 @@ export default function AppSection() {
             {BONUSES.map((b, i) => (
               <div className="app-bonus-row" key={b.label}>
                 <span className="app-bonus-row__n">{String(i + 1).padStart(2, '0')}</span>
-                <span className="app-bonus-row__bc">{t(b.bc)}</span>
-                <span className="app-bonus-row__label">{t(b.label)}</span>
-                <span className="app-bonus-row__note">{t(b.note)}</span>
+                <EditableText as="span" contentKey={`app.bonus.${i}.bc`} fallback={t(b.bc)} className="app-bonus-row__bc" />
+                <EditableText as="span" contentKey={`app.bonus.${i}.label`} fallback={t(b.label)} className="app-bonus-row__label" />
+                <EditableText as="span" contentKey={`app.bonus.${i}.note`} fallback={t(b.note)} className="app-bonus-row__note" />
               </div>
             ))}
           </div>

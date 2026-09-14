@@ -155,7 +155,7 @@ export const BRANCHES = [
     whatsapp: '77026518099',
     hours: 'Ежедневно с 11:00 до 23:00',
     hero: '/images/branches/nursat/hero.jpg',
-    vrTour: 'https://kuula.co/share/collection/7JZg7?logo=-1&card=1&info=0&fs=1&vr=1&zoom=1&gyro=0&initload=0&thumbs=3&alpha=0.60&inst=ru',
+    vrTour: 'https://kuula.co/share/collection/7JZg7?logo=-1&card=1&info=0&fs=1&vr=1&zoom=1&gyro=0&initload=1&thumbs=3&alpha=0.60&inst=ru',
     aboutText: 'Мы подготовили для вас подборку лучших массажей в зависимости от вашего запроса. Приобретая годовой абонемент, вы сможете наслаждаться массажем куда чаще и выгоднее.',
     gallery: ['/images/branches/nursat/gallery-1.jpeg'],
     team: [
@@ -200,8 +200,8 @@ export const BRANCHES = [
     phone: '+7 (702) 222 31 00',
     whatsapp: '77022223100',
     hours: 'Ежедневно с 11:00 до 23:00',
-    hero: '/images/branches/kunaeva/hero.jpeg',
-    vrTour: 'https://kuula.co/share/collection/7JZy3?logo=-1&card=1&info=0&fs=1&vr=1&zoom=1&gyro=0&initload=0&thumbs=3&alpha=0.60&inst=ru',
+    hero: '/images/branches/ilyaeva/hero.jpeg',
+    vrTour: 'https://kuula.co/share/collection/7JZy3?logo=-1&card=1&info=0&fs=1&vr=1&zoom=1&gyro=0&initload=1&thumbs=3&alpha=0.60&inst=ru',
     aboutText: 'Полный каталог тайских массажей и спа-программ, сгруппированный по вашему запросу — расслабление, энергия и бодрость, стройность и тонус, программы для двоих, спа для беременных и семейный день.',
     gallery: [
       '/images/branches/kunaeva/gallery-1.jpg',
@@ -229,7 +229,7 @@ export const BRANCHES = [
     whatsapp: '77787794309',
     hours: 'Ежедневно с 11:00 до 23:00',
     hero: '/images/branches/taukehana/hero.jpeg',
-    vrTour: 'https://kuula.co/share/collection/7JZWS?logo=-1&card=1&info=0&fs=1&vr=1&zoom=1&gyro=0&initload=0&thumbs=3&alpha=0.60&inst=ru',
+    vrTour: 'https://kuula.co/share/collection/7JZWS?logo=-1&card=1&info=0&fs=1&vr=1&zoom=1&gyro=0&initload=1&thumbs=3&alpha=0.60&inst=ru',
     aboutText: 'Вас ждёт укрепление иммунитета, нормализация лимфотока, релаксация мышечной системы, улучшение сна и повышение упругости кожи — во всех программах салона.',
     gallery: [
       '/images/branches/taukehana/gallery-1.png',
@@ -256,7 +256,7 @@ export const BRANCHES = [
     whatsapp: '77058887650',
     hours: 'Ежедневно с 11:00 до 23:00',
     hero: '/images/branches/taraz/hero.jpeg',
-    vrTour: 'https://kuula.co/share/collection/7bXMS?logo=-1&card=1&info=0&fs=1&vr=1&zoom=1&gyro=0&initload=0&thumbs=3&alpha=0.60&inst=0',
+    vrTour: 'https://kuula.co/share/collection/7bXMS?logo=-1&card=1&info=0&fs=1&vr=1&zoom=1&gyro=0&initload=1&thumbs=3&alpha=0.60&inst=0',
     aboutText: 'Укрепление иммунитета, нормализация лимфотока, релаксация мышечной системы, повышение качества сна и упругости кожи. Предварительная запись обязательна — в день визита мы пришлём напоминание в WhatsApp.',
     gallery: [
       '/images/branches/taraz/gallery-1.jpg',
@@ -349,7 +349,7 @@ export const BRANCHES = [
     whatsapp: '77019898001',
     hours: 'Ежедневно с 11:00 до 23:00',
     hero: '/images/branches/turan/hero.jpeg',
-    vrTour: 'https://kuula.co/share/collection/7cFJ9?logo=-1&card=1&info=0&fs=1&vr=1&zoom=1&gyro=0&initload=0&thumbs=3&alpha=0.60&inst=ru',
+    vrTour: 'https://kuula.co/share/collection/7cFJ9?logo=-1&card=1&info=0&fs=1&vr=1&zoom=1&gyro=0&initload=1&thumbs=3&alpha=0.60&inst=ru',
     aboutText: 'Самый молодой филиал сети в Астане — полная линейка массажей, спа-программ и семейных программ с той же заботой, что и во всех салонах Buddha Spa.',
     gallery: [
       '/images/branches/turan/gallery-1.jpg',

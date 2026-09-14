@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
+import { EditableText } from '../components/EditableText.jsx'
 
 const HERO = '/images/hero-main.jpg'
 const PHIL = '/images/franchise/lp/philosophy.jpg'
@@ -52,9 +53,7 @@ export default function AboutPage() {
           <Link to="/" className="br-back">← {t('На главную')}</Link>
           <p className="eyebrow br-hero__eyebrow">{t('О бренде')} · BuddhaSpa</p>
           <h1 className="br-hero__title serif">{t('История')} <span className="ital">BuddhaSpa</span></h1>
-          <p className="br-hero__sub">
-            {t('Сеть тайских SPA-салонов, выросшая из одной простой идеи — дарить настоящую заботу о теле и внутреннем состоянии.')}
-          </p>
+          <EditableText as="p" contentKey="aboutpage.hero.sub" fallback={t('Сеть тайских SPA-салонов, выросшая из одной простой идеи — дарить настоящую заботу о теле и внутреннем состоянии.')} className="br-hero__sub" />
         </div>
       </header>
 
@@ -62,11 +61,11 @@ export default function AboutPage() {
       <section className="sec br-sec" id="story">
         <div className="wrap about-story">
           <p className="eyebrow rv">{t('История')}</p>
-          <h2 className="h2 serif rv">{t('С чего начинался BuddhaSpa')}</h2>
+          <EditableText as="h2" contentKey="aboutpage.story.title" fallback={t('С чего начинался BuddhaSpa')} className="h2 serif rv" />
           <div className="about-story__cols rv">
-            <p>{t('BuddhaSpa начинался с желания создать в Казахстане место, где тайский массаж — это не просто процедура, а целая культура заботы о себе. Первый салон открылся, чтобы подарить гостям подлинную восточную традицию: тепло рук мастеров, тишину и ощущение настоящей перезагрузки.')}</p>
-            <p>{t('Постепенно один салон превратился в сеть. Появлялись новые адреса в разных городах, но принцип оставался прежним — в каждом филиале та же тайская забота, приветливые мастера из Юго-Восточной Азии и спокойная атмосфера. Так складывались стандарты BuddhaSpa: качество программ, уровень сервиса и внимание к каждому гостю.')}</p>
-            <p>{t('Сегодня BuddhaSpa — это развивающаяся сеть SPA-салонов и живая SPA-культура: команда мастеров, продуманные ритуалы и философия, в которой забота о теле становится заботой о внутреннем состоянии человека.')}</p>
+            <EditableText as="p" contentKey="aboutpage.story.p1" fallback={t('BuddhaSpa начинался с желания создать в Казахстане место, где тайский массаж — это не просто процедура, а целая культура заботы о себе. Первый салон открылся, чтобы подарить гостям подлинную восточную традицию: тепло рук мастеров, тишину и ощущение настоящей перезагрузки.')} />
+            <EditableText as="p" contentKey="aboutpage.story.p2" fallback={t('Постепенно один салон превратился в сеть. Появлялись новые адреса в разных городах, но принцип оставался прежним — в каждом филиале та же тайская забота, приветливые мастера из Юго-Восточной Азии и спокойная атмосфера. Так складывались стандарты BuddhaSpa: качество программ, уровень сервиса и внимание к каждому гостю.')} />
+            <EditableText as="p" contentKey="aboutpage.story.p3" fallback={t('Сегодня BuddhaSpa — это развивающаяся сеть SPA-салонов и живая SPA-культура: команда мастеров, продуманные ритуалы и философия, в которой забота о теле становится заботой о внутреннем состоянии человека.')} />
           </div>
         </div>
       </section>
@@ -77,10 +76,8 @@ export default function AboutPage() {
           <div className="about-phil__media rv" style={{ backgroundImage: `url(${PHIL})` }} />
           <div className="about-phil__text rv">
             <p className="eyebrow">{t('Философия')}</p>
-            <h2 className="h2 serif">{t('Роскошь для души и тела')}</h2>
-            <p className="lead">
-              {t('BuddhaSpa — это не просто массажный салон, а пространство восстановления, тишины, заботы о себе и внутреннего баланса.')}
-            </p>
+            <EditableText as="h2" contentKey="aboutpage.phil.title" fallback={t('Роскошь для души и тела')} className="h2 serif" />
+            <EditableText as="p" contentKey="aboutpage.phil.text" fallback={t('BuddhaSpa — это не просто массажный салон, а пространство восстановления, тишины, заботы о себе и внутреннего баланса.')} className="lead" />
           </div>
         </div>
       </section>
@@ -89,13 +86,13 @@ export default function AboutPage() {
       <section className="sec br-sec" id="values">
         <div className="wrap">
           <p className="eyebrow rv">{t('Ценности')}</p>
-          <h2 className="h2 serif rv">{t('Ценности BuddhaSpa')}</h2>
+          <EditableText as="h2" contentKey="aboutpage.values.title" fallback={t('Ценности BuddhaSpa')} className="h2 serif rv" />
           <div className="about-values">
-            {VALUES.map(([title, text]) => (
+            {VALUES.map(([title, text], i) => (
               <div className="about-value rv" key={title}>
                 <span className="about-value__mark" aria-hidden="true" />
-                <h3 className="serif">{t(title)}</h3>
-                <p>{t(text)}</p>
+                <EditableText as="h3" contentKey={`aboutpage.value${i + 1}.title`} fallback={t(title)} className="serif" />
+                <EditableText as="p" contentKey={`aboutpage.value${i + 1}.text`} fallback={t(text)} />
               </div>
             ))}
           </div>
@@ -108,10 +105,8 @@ export default function AboutPage() {
           <div className="about-founder__photo rv" style={{ backgroundImage: `url(${FOUNDER})` }} />
           <div className="about-founder__text rv">
             <p className="eyebrow">{t('Основательница')}</p>
-            <h2 className="h2 serif">{t('Арай Жузенова')}</h2>
-            <p className="lead">
-              {t('С самого начала Арай хотела создать место, где забота о теле становится заботой о внутреннем состоянии человека. BuddhaSpa — это результат её видения: пространство тишины, присутствия и настоящей перезагрузки.')}
-            </p>
+            <EditableText as="h2" contentKey="aboutpage.founder.name" fallback={t('Арай Жузенова')} className="h2 serif" />
+            <EditableText as="p" contentKey="aboutpage.founder.text" fallback={t('С самого начала Арай хотела создать место, где забота о теле становится заботой о внутреннем состоянии человека. BuddhaSpa — это результат её видения: пространство тишины, присутствия и настоящей перезагрузки.')} className="lead" />
           </div>
         </div>
       </section>
@@ -120,10 +115,8 @@ export default function AboutPage() {
       <section className="sec br-sec" id="today">
         <div className="wrap">
           <p className="eyebrow rv">{t('Сегодня')}</p>
-          <h2 className="h2 serif rv">{t('BuddhaSpa сегодня')}</h2>
-          <p className="lead rv br-sec__intro">
-            {t('Сеть салонов в городах Казахстана, мастера из Юго-Восточной Азии и единые стандарты заботы — в каждом филиале.')}
-          </p>
+          <EditableText as="h2" contentKey="aboutpage.today.title" fallback={t('BuddhaSpa сегодня')} className="h2 serif rv" />
+          <EditableText as="p" contentKey="aboutpage.today.text" fallback={t('Сеть салонов в городах Казахстана, мастера из Юго-Восточной Азии и единые стандарты заботы — в каждом филиале.')} className="lead rv br-sec__intro" />
           <div className="about-stats rv">
             {TODAY.map(([n, l]) => (
               <div className="about-stat" key={l}>

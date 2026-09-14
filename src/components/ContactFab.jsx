@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { BRANCHES } from '../data/branches.js'
+import { useBranches } from '../contexts/BranchesContext.jsx'
 import { useT } from '../i18n.jsx'
 
 // Floating "Связаться с нами" button (bottom-right). Opens a branch list; each
 // branch links to its own WhatsApp with a pre-filled message.
 export default function ContactFab() {
   const t = useT()
+  const branches = useBranches()
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
 
@@ -30,7 +31,7 @@ export default function ContactFab() {
         <div className="contact-fab__menu" role="menu">
           <p className="contact-fab__title">{t('Выберите филиал')}</p>
           <ul>
-            {BRANCHES.map((b) => (
+            {(branches || []).map((b) => (
               <li key={b.slug}>
                 <a href={waLink(b)} target="_blank" rel="noopener noreferrer" role="menuitem" onClick={() => setOpen(false)}>
                   <span className="contact-fab__branch">{t(b.city)}, {b.name ? t(b.name) : b.address}</span>

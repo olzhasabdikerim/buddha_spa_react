@@ -20,6 +20,10 @@
 }
 .fr-page a { color: var(--fr-gold); text-decoration: none; transition: color 0.25s; }
 .fr-page a:hover { color: var(--fr-gold2); }
+.fr-page .site-footer a,
+.fr-page .footer-link-btn { color: rgba(255,255,255,0.88); }
+.fr-page .site-footer a:hover,
+.fr-page .footer-link-btn:hover { color: #fff; }
 .fr-page ::selection { background: var(--fr-gold); color: var(--fr-bg); }
 .fr-page img { display: block; }
 
@@ -103,7 +107,7 @@
 .fr-mobile-menu a:hover { color: var(--fr-gold); }
 
 /* Hero */
-.fr-hero { position: relative; min-height: 80vh; display: flex; align-items: flex-end; overflow: hidden; }
+.fr-hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; }
 .fr-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); transform: scale(1.08); will-change: transform; }
 .fr-hero-grad { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 16, 11, 0.7) 0%, rgba(20, 16, 11, 0.12) 16%, transparent 40%, rgba(20, 16, 11, 0.6) 74%, rgba(20, 16, 11, 0.96) 100%); }
 .fr-hero-inner { position: relative; z-index: 2; width: 100%; padding-bottom: clamp(48px, 7vh, 84px); padding-top: 132px; }
@@ -385,7 +389,7 @@
   .fr-why-grid, .fr-qa, .fr-step, .fr-step.rev { grid-template-columns: 1fr !important; gap: 22px; }
   .fr-why-sticky { position: static; }
   .fr-step.rev .fr-step-img, .fr-step.rev .fr-step-txt { order: 0; }
-  .fr-hero { min-height: 68vh; }
+  .fr-hero { min-height: 100vh; }
   .fr-imm { min-height: auto; padding: 80px 0; }
 }
 

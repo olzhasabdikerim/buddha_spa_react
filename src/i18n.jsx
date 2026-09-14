@@ -7,6 +7,7 @@ import { FAQ_TR } from './data/faqTranslations.js'
 import { BRANCH_TR } from './data/branchTranslations.js'
 import { COMPOSITION_TR } from './data/compositionTranslations.js'
 import { AUTO_TR } from './data/autoTranslations.js'
+import { SURVEY_TR } from './data/surveyTranslations.js'
 
 // Main-site UI strings. Keys are the Russian source text.
 export const MAIN_TR = {
@@ -48,7 +49,7 @@ export const MAIN_TR = {
     'BuddhaSpa начинался с одного салона и желания подарить казахстанцам подлинную тайскую традицию заботы о теле. Сегодня это развивающаяся сеть с едиными стандартами сервиса и мастерами из Юго-Восточной Азии в каждом городе.':
       'BuddhaSpa бір салоннан және қазақстандықтарға нағыз тай дене күтімі дәстүрін сыйлау тілегінен басталды. Бүгінде бұл бірыңғай сервис стандарттары мен әр қаладағы Оңтүстік-Шығыс Азия шеберлері бар дамып келе жатқан желі.',
     'города Казахстана': 'Қазақстан қаласы', 'лет на рынке': 'жыл нарықта',
-    'клиентов в сети': 'желі клиенттері', 'мастера из Таиланда и Индонезии': 'Таиланд пен Индонезия шеберлері',
+    'клиентов в сети': 'желі клиенттері', 'мастера из Юго-Восточной Азии': 'Оңтүстік-Шығыс Азия шеберлері',
     'Роскошь для души и тела': 'Жан мен тәнге арналған сән-салтанат',
     'Большой спа-салон тайского массажа и ухода за собой': 'Тай массажы мен өзін-өзі күтуге арналған үлкен спа-салон',
     // benefits
@@ -132,6 +133,26 @@ export const MAIN_TR = {
     'Spa-программы': 'Spa-бағдарламалар', 'Spa-процедуры': 'Spa-процедуралар', 'Массажные процедуры': 'Массаж процедуралары',
     'Абонементы': 'Абонементтер', 'Спа-ритуалы — чаще и выгоднее': 'Спа-рәсімдер — жиірек әрі тиімдірек',
     'Оформить': 'Рәсімдеу', 'год': 'жыл',
+    // app section
+    'Веб-приложение': 'Веб-қосымша',
+    'Приложение лояльности Buddha Spa': 'Buddha Spa адалдық қосымшасы',
+    'Ваш личный кабинет сети спа-салонов: записывайтесь на процедуры, копите и тратьте бонусы, дарите близким сертификаты — всё в одном приложении.':
+      'Спа-салондар желісінің жеке кабинеті: процедураларға жазылыңыз, бонус жинаңыз және жұмсаңыз, жақындарыңызға сертификат сыйлаңыз — барлығы бір қосымшада.',
+    'Предусмотрены бонусы': 'Бонустар қарастырылған',
+    'Регистрация в приложении': 'Қосымшада тіркелу',
+    '+ массаж головы 30 мин в первый визит · независимо от источника ссылки': '+ бірінші келуде 30 мин бас массажы · сілтеме көзіне қарамастан',
+    'Приглашение друга по реф. ссылке': 'Реф. сілтеме арқылы досты шақыру',
+    '+1 000 за регистрацию друга · +2 000 после его первой покупки': '+1 000 досты тіркегені үшін · +2 000 оның бірінші сатып алуынан кейін',
+    'Регистрация по реф. ссылке друга': 'Достың реф. сілтемесі арқылы тіркелу',
+    '+5 000 за регистрацию · +1 000 ₸ бонусом за использование реферальной ссылки': '+5 000 тіркегені үшін · +1 000 ₸ реферальды сілтеме пайдаланғаны үшін бонус',
+    'Оценка визита': 'Келуді бағалау',
+    'Оставьте отзыв о посещении в приложении и получите бонус': 'Қосымшада келу туралы пікір қалдырып, бонус алыңыз',
+    'Подарок ко дню рождения': 'Туған күнге сыйлық',
+    'Начисляются ко дню рождения каждый год': 'Жыл сайын туған күнге есептеледі',
+    'Перейти в приложение': 'Қосымшаға өту',
+    'BuddhaSpa — удобно с телефона': 'BuddhaSpa — телефоннан ыңғайлы',
+    'Записывайтесь онлайн в пару касаний — без звонков': 'Бірнеше басу арқылы онлайн жазылыңыз — қоңырауларсыз',
+    'Открыть приложение': 'Қосымшаны ашу',
   },
   en: {
     'Филиалы': 'Locations', 'О спа': 'About', 'О BuddhaSpa': 'About BuddhaSpa', 'О нас': 'About us', 'Гостям': 'Guests',
@@ -166,7 +187,7 @@ export const MAIN_TR = {
     'BuddhaSpa начинался с одного салона и желания подарить казахстанцам подлинную тайскую традицию заботы о теле. Сегодня это развивающаяся сеть с едиными стандартами сервиса и мастерами из Юго-Восточной Азии в каждом городе.':
       'BuddhaSpa began with a single salon and a wish to give Kazakhstan the authentic Thai tradition of body care. Today it is a growing network with unified service standards and therapists from Southeast Asia in every city.',
     'города Казахстана': 'cities in Kazakhstan', 'лет на рынке': 'years on the market',
-    'клиентов в сети': 'clients across the network', 'мастера из Таиланда и Индонезии': 'therapists from Thailand & Indonesia',
+    'клиентов в сети': 'clients across the network', 'мастера из Юго-Восточной Азии': 'therapists from Southeast Asia',
     'Роскошь для души и тела': 'Luxury for body and soul',
     'Большой спа-салон тайского массажа и ухода за собой': 'A large spa salon of Thai massage and self-care',
     'Почему Buddha Spa — лучшая идея': 'Why Buddha Spa is the best idea',
@@ -238,7 +259,7 @@ export const MAIN_TR = {
     'Подберём программу под ваш запрос': 'We’ll match a program to your needs',
     'Мы собрали лучшие массажи и спа-программы по целям — выберите настроение, а остальное доверьте нашим мастерам.':
       'We’ve grouped our best massages and spa programs by goal — pick your mood and leave the rest to our therapists.',
-    'Подобрать': 'Explore', 'от': 'from',
+    'Подобрать': 'Explore', 'от': 'from', 'мин': 'min',
     'Расслабление': 'Relaxation', 'Энергия и бодрость': 'Energy & vitality',
     'Стройность, тонус и рельеф': 'Shape, tone & contour',
     'Программы для 2-х': 'Programs for two',
@@ -246,6 +267,26 @@ export const MAIN_TR = {
     'Spa-программы': 'Spa programs', 'Spa-процедуры': 'Spa treatments', 'Массажные процедуры': 'Massage treatments',
     'Абонементы': 'Memberships', 'Спа-ритуалы — чаще и выгоднее': 'Spa rituals — more often, better value',
     'Оформить': 'Get started', 'год': 'year',
+    // app section
+    'Веб-приложение': 'Web app',
+    'Приложение лояльности Buddha Spa': 'Buddha Spa Loyalty App',
+    'Ваш личный кабинет сети спа-салонов: записывайтесь на процедуры, копите и тратьте бонусы, дарите близким сертификаты — всё в одном приложении.':
+      'Your personal account for our spa network: book treatments, earn and spend bonuses, give gift certificates to loved ones — all in one app.',
+    'Предусмотрены бонусы': 'Bonuses available',
+    'Регистрация в приложении': 'App registration',
+    '+ массаж головы 30 мин в первый визит · независимо от источника ссылки': '+ 30 min head massage on your first visit · regardless of referral source',
+    'Приглашение друга по реф. ссылке': 'Refer a friend via link',
+    '+1 000 за регистрацию друга · +2 000 после его первой покупки': '+1,000 when a friend registers · +2,000 after their first purchase',
+    'Регистрация по реф. ссылке друга': 'Sign up via a friend\'s referral link',
+    '+5 000 за регистрацию · +1 000 ₸ бонусом за использование реферальной ссылки': '+5,000 for registration · +1,000 ₸ bonus for using the referral link',
+    'Оценка визита': 'Rate your visit',
+    'Оставьте отзыв о посещении в приложении и получите бонус': 'Leave a review of your visit in the app and earn a bonus',
+    'Подарок ко дню рождения': 'Birthday gift',
+    'Начисляются ко дню рождения каждый год': 'Credited every year on your birthday',
+    'Перейти в приложение': 'Open the app',
+    'BuddhaSpa — удобно с телефона': 'BuddhaSpa — easy from your phone',
+    'Записывайтесь онлайн в пару касаний — без звонков': 'Book online in a few taps — no phone calls needed',
+    'Открыть приложение': 'Open the app',
   },
 }
 
@@ -296,7 +337,7 @@ export function useT() {
   const { lang } = useLang()
   return (text) => {
     if (lang === 'ru') return brandName(text)
-    const dict = { ...MAIN_TR[lang], ...(SERVICE_TR[lang] || {}), ...(EXTRA_TR[lang] || {}), ...(FRANCHISE_TR[lang] || {}), ...(LEAD_TR[lang] || {}), ...(FAQ_TR[lang] || {}), ...(BRANCH_TR[lang] || {}), ...(COMPOSITION_TR[lang] || {}), ...(AUTO_TR[lang] || {}) }
+    const dict = { ...MAIN_TR[lang], ...(SERVICE_TR[lang] || {}), ...(EXTRA_TR[lang] || {}), ...(FRANCHISE_TR[lang] || {}), ...(LEAD_TR[lang] || {}), ...(FAQ_TR[lang] || {}), ...(BRANCH_TR[lang] || {}), ...(COMPOSITION_TR[lang] || {}), ...(AUTO_TR[lang] || {}), ...(SURVEY_TR[lang] || {}) }
     return brandName(dict[text] !== undefined ? dict[text] : text)
   }
 }

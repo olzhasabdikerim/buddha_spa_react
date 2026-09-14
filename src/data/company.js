@@ -22,9 +22,60 @@ export const GUEST_BENEFITS = [
 ]
 
 export const MEMBERSHIP_TIERS = [
-  { icon: '/images/shared/abonement-silver.svg', name: 'Silver', price: '190 000 тг.', period: 'год' },
-  { icon: '/images/shared/abonement-gold.svg', name: 'Gold', price: '390 000 тг.', period: 'год' },
-  { icon: '/images/shared/abonement-platinum.svg', name: 'Platinum', price: '590 000 тг.', period: 'год' },
+  {
+    name: 'Silver',
+    theme: 'silver',
+    subtitle: 'Гармония начинается с заботы',
+    discount: '-15%',
+    items: [
+      '5 × массаж 60 мин',
+      '1 × массаж 120 мин',
+      '1 × массаж 90 мин',
+      '1 × 4-этапный пилинг',
+      '1 × скрабирование',
+      '1 × шоколадное обёртывание',
+    ],
+    oldPrice: '223 000',
+    price: '190 000',
+    slogan: 'Забота каждый день',
+  },
+  {
+    name: 'Gold',
+    theme: 'gold',
+    featured: true,
+    subtitle: 'Больше возможностей для вашего баланса',
+    discount: '-20%',
+    items: [
+      '7 × массаж 60 мин',
+      '1 × SPA-программа 150 мин',
+      '1 × SPA-программа 150 мин на двоих',
+      '2 массажные программы – суммарно 150 мин',
+      '1 × массаж 120 минут',
+      '3 × скрабирование',
+      '2 × 4-этапный пилинг',
+    ],
+    oldPrice: '488 000',
+    price: '390 000',
+    slogan: 'Глубже · Дольше · Ярче',
+  },
+  {
+    name: 'Platinum',
+    theme: 'platinum',
+    subtitle: 'Максимум заботы и привилегий',
+    discount: '-25%',
+    items: [
+      '10 × массаж 60 мин',
+      '1 × SPA-программа 150 мин',
+      '1 × VIP SPA на двоих 180 мин',
+      '3 × массажные программы',
+      '2 × массаж 120 мин',
+      '3 × скрабирование',
+      '3 × 4-этапный пилинг',
+    ],
+    oldPrice: '787 000',
+    price: '590 000',
+    slogan: 'Высший уровень гармонии',
+  },
 ]
 
 // Guest rules shown both on the home page and on every branch page (single source).
