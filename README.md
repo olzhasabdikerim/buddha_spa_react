@@ -261,4 +261,3 @@ Vercel автоматически деплоит при push в `main`. Доба
 
 `VITE_*` — для всех окружений (Production, Preview, Development).  
 `TELEGRAM_*` — только для Production.
-
