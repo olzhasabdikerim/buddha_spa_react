@@ -10,6 +10,7 @@ import { useContentContext } from '../contexts/ContentContext.jsx'
 import '../franchise.css'
 
 // Images downloaded from the Tilda CDN into public/images/franchise/lp.
+const PRESENTATION_URL = 'https://drive.google.com/file/d/12VJkYuEBaD-V1mmZB-gYqyT2K_jWTbdz/view?usp=drive_link'
 const LP = '/images/franchise/lp/'
 const IMG = {
   hero: LP + 'hero.jpg',
@@ -467,6 +468,8 @@ export default function Franchise() {
       const data = await resp.json().catch(() => ({}))
       if (!resp.ok || !data.ok) throw new Error(data.error || '')
       setSent(true)
+      // После заявки показываем презентацию франшизы
+      setTimeout(() => { window.location.href = PRESENTATION_URL }, 2500)
     } catch (err) {
       setSendError(err.message || t('Не удалось отправить заявку. Попробуйте ещё раз.'))
     } finally {
@@ -1048,6 +1051,8 @@ export default function Franchise() {
                   <div className="ring"><span /></div>
                   <h3>{t('Заявка принята')}</h3>
                   <p>{t('Мы свяжемся с вами в течение 30 минут в рабочее время.')}</p>
+                  <p>{t('Сейчас откроется презентация франшизы…')}</p>
+                  <a href={PRESENTATION_URL} className="btn" style={{ marginTop: 16, justifyContent: 'center' }}>{t('Открыть презентацию →')}</a>
                 </div>
               )}
             </div>
