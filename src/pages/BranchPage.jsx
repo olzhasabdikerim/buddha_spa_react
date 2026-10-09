@@ -30,7 +30,7 @@ function BranchPageInner({ branch }) {
     <>
       <BranchHeader tabs={tabs} onBook={() => onBook.current.open?.()} />
       <BranchDetail branch={branch} onBook={onBook.current} />
-      {branch.slug === 'taukehana' && <AiChat />}
+      {!branch.comingSoon && <AiChat />}
     </>
   )
 }
