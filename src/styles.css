@@ -400,6 +400,31 @@ button { font-family: inherit; }
 
 .app-sec__cta { display: flex; justify-content: center; margin-top: 52px; }
 .app-sec__btn { padding: 18px 48px; font-size: 13px; letter-spacing: 0.14em; }
+
+/* App Store download: branded QR card + text */
+.app-dl { align-items: center; gap: clamp(28px, 5vw, 64px); }
+.app-qr {
+  flex-shrink: 0; width: 320px; padding: 30px 26px 26px; box-sizing: border-box;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  background: #fff; border: 2px solid var(--gold-500); border-radius: 28px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45); text-decoration: none;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.app-qr:hover { transform: translateY(-3px); box-shadow: 0 30px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,169,110,0.5); }
+.app-qr__brand { font: 400 30px/1 var(--font-display); color: #5c5a57; }
+.app-qr__tag { margin-top: 8px; font: 500 11px/1 var(--font-body); letter-spacing: 0.32em; color: #b8935a; }
+.app-qr__code { position: relative; display: block; width: 240px; height: 240px; margin: 18px 0 16px; }
+.app-qr__code img { display: block; width: 100%; height: 100%; }
+.app-qr__code .app-qr__emblem { position: absolute; top: 50%; left: 50%; width: 17%; height: auto; transform: translate(-50%, -50%); }
+.app-qr__caption { font: 600 14px/1.35 var(--font-body); color: #2a2723; }
+.app-dl__text { max-width: 420px; }
+.app-dl__title { font: 400 clamp(26px, 3vw, 34px)/1.2 var(--font-display); color: var(--ink); margin: 12px 0 14px; }
+.app-dl__sub { font-size: 16px; line-height: 1.7; color: var(--muted); margin-bottom: 28px; }
+@media (max-width: 760px) {
+  .app-dl { flex-direction: column; text-align: center; }
+  .app-dl__text { display: flex; flex-direction: column; align-items: center; }
+}
+@media (max-width: 360px) { .app-qr { width: 100%; } }
 @media (max-width: 900px) { .app-feat-cards { grid-template-columns: repeat(2, 1fr); } .app-levels__head, .app-level { grid-template-columns: 1.2fr 0.8fr 0.8fr 0.8fr; padding: 12px 14px; } }
 @media (max-width: 560px) { .app-feat-cards { grid-template-columns: repeat(2, 1fr); } .app-levels__head span:nth-child(n+3), .app-level__val:last-child { display: none; } .app-levels__head, .app-level { grid-template-columns: 1.4fr 1fr 1fr; } }
 

@@ -2,7 +2,9 @@ import { useT } from '../i18n.jsx'
 import { EditableText } from './EditableText.jsx'
 
 
-const APP_URL = 'https://app.buddhaspa.kz/'
+// BuddhaSpa App on the App Store. /images/app/appstore-qr.svg encodes this exact URL —
+// regenerate the QR if the link changes.
+const APP_URL = 'https://apps.apple.com/app/apple-store/id6809714197?pt=129394407&ct=website&mt=8'
 
 const SCREENS = [
   { src: '/images/app/screen-levels.jpg', alt: 'Уровни лояльности' },
@@ -131,10 +133,24 @@ export default function AppSection() {
           </div>
         </div>
 
-        <div className="app-sec__cta">
-          <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-coral app-sec__btn">
-            {t('Перейти в приложение')}
+        <div className="app-sec__cta app-dl">
+          <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="app-qr" aria-label={t('Скачать BuddhaSpa App в App Store')}>
+            <span className="app-qr__brand">BuddhaSpa App</span>
+            <span className="app-qr__tag">relaxation centre</span>
+            <span className="app-qr__code">
+              <img src="/images/app/appstore-qr.svg" alt={t('QR-код для скачивания BuddhaSpa App в App Store')} width="240" height="240" loading="lazy" />
+              <img src="/images/brand-emblem.png" alt="" className="app-qr__emblem" aria-hidden="true" />
+            </span>
+            <span className="app-qr__caption">{t('Сканируйте — скачайте в App Store')}</span>
           </a>
+          <div className="app-dl__text">
+            <p className="eyebrow">BuddhaSpa App</p>
+            <h3 className="app-dl__title">{t('Скачайте приложение в App Store')}</h3>
+            <p className="app-dl__sub">{t('Наведите камеру телефона на QR-код или нажмите кнопку ниже.')}</p>
+            <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-coral app-sec__btn">
+              {t('Скачать в App Store')}
+            </a>
+          </div>
         </div>
       </div>
     </section>
