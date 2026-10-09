@@ -4,6 +4,7 @@ import AppSection from '../components/AppSection.jsx'
 import About from '../components/About.jsx'
 import Benefits from '../components/Benefits.jsx'
 import FAQ from '../components/FAQ.jsx'
+import AiChat from '../components/AiChat.jsx'
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
       <About />
       <Benefits />
       <FAQ />
+      <AiChat />
     </>
   )
 }
