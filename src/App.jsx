@@ -5,10 +5,11 @@ import Footer from './components/Footer.jsx'
 import LegalModal from './components/LegalModal.jsx'
 import LeadModal from './components/LeadModal.jsx'
 import ContactFab from './components/ContactFab.jsx'
+import AppDownloadPrompt from './components/AppDownloadPrompt.jsx'
 import { BookingProvider } from './booking.jsx'
 import { BranchesProvider, useBranches } from './contexts/BranchesContext.jsx'
 import { ContentProvider } from './contexts/ContentContext.jsx'
-import { EditModeProvider } from './contexts/EditModeContext.jsx'
+import { EditModeProvider, useEditMode } from './contexts/EditModeContext.jsx'
 import HomePage from './pages/HomePage.jsx'
 import BranchPage from './pages/BranchPage.jsx'
 
@@ -50,6 +51,10 @@ function AppInner() {
   const isBranch = (branches || []).some((b) => pathname === `/${b.slug}`)
   // Survey/master pages are standalone — no nav, footer or floating buttons.
   const isSurvey = pathname.startsWith('/opros/') || pathname.startsWith('/master/')
+  // App download prompt: home + open branch pages only, never in the visual editor.
+  const { isEditMode } = useEditMode()
+  const promptBranch = (branches || []).find((b) => pathname === `/${b.slug}`)
+  const appPromptEligible = !isEditMode && (pathname === '/' || (!!promptBranch && !promptBranch.comingSoon))
 
   return (
     <BookingProvider open={() => setBookOpen(true)}>
@@ -70,6 +75,7 @@ function AppInner() {
       </main>
       {!isFranchise && !isSurvey && !isAdmin && <Footer onOpenLegal={setLegalSlug} />}
       {!isFranchise && !isSurvey && !isAdmin && <ContactFab />}
+      <AppDownloadPrompt eligible={appPromptEligible} routeKey={pathname} />
       {legalSlug && <LegalModal slug={legalSlug} onClose={() => setLegalSlug(null)} />}
       {!isSurvey && !isAdmin && bookOpen && <LeadModal branches={branches || []} onClose={() => setBookOpen(false)} />}
     </BookingProvider>

@@ -426,6 +426,29 @@ button { font-family: inherit; }
   .app-dl__text { display: flex; flex-direction: column; align-items: center; }
 }
 @media (max-width: 360px) { .app-qr { width: 100%; } }
+
+/* App download prompt: desktop card / mobile bottom sheet. z 95 = above Dana (91) & ContactFab (92), below legal/lead/svc modals */
+.app-prompt { position: fixed; inset: 0; z-index: 95; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(0,0,0,0.45); animation: appPromptFade 0.35s ease; }
+.app-prompt__card { position: relative; width: 100%; max-width: 440px; box-sizing: border-box; padding: 36px 32px 30px; text-align: center; background: var(--bg2); border: 1px solid var(--line-strong); border-radius: 22px; box-shadow: 0 30px 80px rgba(0,0,0,0.55); animation: appPromptIn 0.35s ease; }
+.app-prompt__close { position: absolute; top: 14px; right: 16px; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--bg3); border: 1px solid var(--line-strong); border-radius: 50%; cursor: pointer; color: var(--muted); transition: color 0.2s ease, border-color 0.2s ease; }
+.app-prompt__close:hover, .app-prompt__close:focus-visible { color: var(--gold-300); border-color: var(--gold-500); }
+.app-prompt__eyebrow { justify-content: center; }
+.app-prompt__title { font: 400 clamp(24px, 3vw, 28px)/1.25 var(--font-display); color: var(--ink); margin: 10px 0 12px; }
+.app-prompt__text { font-size: 15px; line-height: 1.6; color: var(--muted); margin: 0 auto 22px; max-width: 340px; }
+.app-prompt__qr { position: relative; width: 200px; height: 200px; margin: 0 auto 22px; padding: 10px; background: #fff; border-radius: 16px; }
+.app-prompt__qr img { display: block; width: 100%; height: 100%; }
+.app-prompt__qr .app-prompt__emblem { position: absolute; top: 50%; left: 50%; width: 17%; height: auto; transform: translate(-50%, -50%); }
+.app-prompt__cta { width: 100%; justify-content: center; padding: 17px 24px; font-size: 13px; letter-spacing: 0.14em; animation: none; }
+.app-prompt__cta::after { display: none; } /* no infinite sheen inside the prompt */
+@keyframes appPromptFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes appPromptIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes appPromptUp { from { transform: translateY(100%); } to { transform: none; } }
+@media (max-width: 560px) {
+  .app-prompt { align-items: flex-end; padding: 0; }
+  .app-prompt__card { max-width: none; border-radius: 22px 22px 0 0; border-bottom: none; padding: 30px 20px calc(20px + env(safe-area-inset-bottom)); animation: appPromptUp 0.4s ease; }
+  .app-prompt__qr { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .app-prompt, .app-prompt__card { animation: none; } }
 @media (max-width: 900px) { .app-feat-cards { grid-template-columns: repeat(2, 1fr); } .app-levels__head, .app-level { grid-template-columns: 1.2fr 0.8fr 0.8fr 0.8fr; padding: 12px 14px; } }
 @media (max-width: 560px) { .app-feat-cards { grid-template-columns: repeat(2, 1fr); } .app-levels__head span:nth-child(n+3), .app-level__val:last-child { display: none; } .app-levels__head, .app-level { grid-template-columns: 1.4fr 1fr 1fr; } }
 

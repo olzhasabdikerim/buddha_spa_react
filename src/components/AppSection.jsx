@@ -4,7 +4,7 @@ import { EditableText } from './EditableText.jsx'
 
 // BuddhaSpa App on the App Store. /images/app/appstore-qr.svg encodes this exact URL —
 // regenerate the QR if the link changes.
-const APP_URL = 'https://apps.apple.com/app/apple-store/id6809714197?pt=129394407&ct=website&mt=8'
+export const APP_URL = 'https://apps.apple.com/app/apple-store/id6809714197?pt=129394407&ct=website&mt=8'
 
 const SCREENS = [
   { src: '/images/app/screen-levels.jpg', alt: 'Уровни лояльности' },

@@ -33,6 +33,8 @@ export const EXTRA_TR = {
     'Скачайте приложение в App Store': 'Қосымшаны App Store-дан жүктеңіз',
     'Наведите камеру телефона на QR-код или нажмите кнопку ниже.': 'Телефон камерасын QR-кодқа бағыттаңыз немесе төмендегі батырманы басыңыз.',
     'Скачать в App Store': 'App Store-дан жүктеу',
+    'Записывайтесь в Buddha Spa быстрее': 'Buddha Spa-ға жылдамырақ жазылыңыз',
+    'Выбирайте филиал, услуги и удобное время прямо в приложении.': 'Филиалды, қызметтерді және ыңғайлы уақытты тікелей қосымшада таңдаңыз.',
     'Приложение': 'Қосымша',
     // AI chat
     'Дана ИИ': 'Дана ЖИ',
@@ -251,6 +253,8 @@ export const EXTRA_TR = {
     'Скачайте приложение в App Store': 'Download the app on the App Store',
     'Наведите камеру телефона на QR-код или нажмите кнопку ниже.': 'Point your phone camera at the QR code or tap the button below.',
     'Скачать в App Store': 'Download on the App Store',
+    'Записывайтесь в Buddha Spa быстрее': 'Book Buddha Spa faster',
+    'Выбирайте филиал, услуги и удобное время прямо в приложении.': 'Choose a branch, services and a convenient time right in the app.',
     'Приложение': 'App',
     // AI chat
     'Дана ИИ': 'Dana AI',
