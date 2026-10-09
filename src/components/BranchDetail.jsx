@@ -7,6 +7,7 @@ import { GUEST_BENEFITS, MEMBERSHIP_TIERS, GUEST_INFO } from '../data/company.js
 import { buildBranchCatalog } from '../data/catalog.js'
 import { applyBranchSeo } from '../lib/seo.js'
 import { useT } from '../i18n.jsx'
+import { BRAND_EMBLEM } from './Header.jsx'
 import LeadModal from './LeadModal.jsx'
 import ServiceDetailModal from './ServiceDetailModal.jsx'
 
@@ -321,7 +322,9 @@ export default function BranchDetail({ branch, onBook }) {
             <div className="br-team rv">
               {branch.team.map((m) => (
                 <figure className="br-master" key={m.name}>
-                  <img src={m.photo} alt={m.name} loading="lazy" />
+                  {m.photo
+                    ? <img src={m.photo} alt={m.name} loading="lazy" />
+                    : <img src={BRAND_EMBLEM} alt="" aria-hidden="true" className="br-master__ph" loading="lazy" />}
                   <figcaption>{m.name}</figcaption>
                 </figure>
               ))}

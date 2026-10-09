@@ -279,6 +279,7 @@
 .br-team { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: clamp(16px, 2vw, 24px); margin-top: 44px; }
 .br-master { margin: 0; }
 .br-master img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 16px; border: 1px solid var(--line); }
+.br-master img.br-master__ph { box-sizing: border-box; object-fit: contain; padding: 28%; background: var(--bg2); opacity: 0.5; } /* no photo yet: brand emblem in the same frame */
 .br-master figcaption { margin-top: 12px; font-size: 13.5px; color: var(--text); text-align: center; }
 
 /* Why / benefits */
