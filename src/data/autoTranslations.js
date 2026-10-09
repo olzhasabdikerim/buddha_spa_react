@@ -45,6 +45,8 @@ export const AUTO_TR = {
       'A premium Buddha Spa branch on Tulemetova in Shymkent — a full set of spa programs, Thai massages and body-care treatments with the same premium care as at Nursat.',
     'Новый филиал BuddhaSpa в Актобе готовится к открытию. Полный список услуг и цен появится совсем скоро — оставьте контакты или напишите в WhatsApp, и мы сообщим об открытии первыми.':
       'A new BuddhaSpa branch in Aktobe is getting ready to open. The full list of services and prices is coming very soon — leave your contact or message us on WhatsApp, and we’ll be the first to tell you about the opening.',
+    'Buddha Spa Актобе — премиальное пространство для отдыха, восстановления и заботы о себе. Филиал расположен на улице Тауелсыздык и объединяет атмосферу Buddha Spa, профессиональный сервис и широкий выбор SPA-программ и ритуалов.':
+      'Buddha Spa Aktobe is a premium space for rest, recovery and self-care. The branch is located on Tauelsizdyk Street and brings together the Buddha Spa atmosphere, professional service and a wide choice of SPA programs and rituals.',
     'Массаж в 4 руки — снимает усталость и усиливает кровоток.': 'A four-hands massage — relieves fatigue and boosts circulation.',
     'Особое направление массажа с акцентом на точечное воздействие.': 'A special massage style focused on pressure-point work.',
     'Глубокая релаксация с ароматическими маслами.': 'Deep relaxation with aromatic oils.',
@@ -204,6 +206,8 @@ export const AUTO_TR = {
       'Шымкенттегі Тулеметова көшесіндегі премиум Buddha Spa филиалы — Нұрсаттағыдай премиум қамқорлықпен спа-бағдарламалардың, тай массаждары мен күтім процедураларының толық жиынтығы.',
     'Новый филиал BuddhaSpa в Актобе готовится к открытию. Полный список услуг и цен появится совсем скоро — оставьте контакты или напишите в WhatsApp, и мы сообщим об открытии первыми.':
       'Ақтөбедегі жаңа BuddhaSpa филиалы ашылуға дайындалып жатыр. Қызметтер мен бағалардың толық тізімі жақында пайда болады — байланысыңызды қалдырыңыз немесе WhatsApp-қа жазыңыз, ашылу туралы бірінші боп хабарлаймыз.',
+    'Buddha Spa Актобе — премиальное пространство для отдыха, восстановления и заботы о себе. Филиал расположен на улице Тауелсыздык и объединяет атмосферу Buddha Spa, профессиональный сервис и широкий выбор SPA-программ и ритуалов.':
+      'Buddha Spa Ақтөбе — демалуға, қалпына келуге және өзіңізге қамқорлық жасауға арналған премиум кеңістік. Тәуелсіздік көшесінде орналасқан филиал Buddha Spa атмосферасын, кәсіби сервисті және SPA-бағдарламалар мен рәсімдердің кең таңдауын біріктіреді.',
     'Массаж в 4 руки — снимает усталость и усиливает кровоток.': 'Төрт қолмен массаж — шаршауды сейілтіп, қан айналымын күшейтеді.',
     'Особое направление массажа с акцентом на точечное воздействие.': 'Нүктелік әсерге баса назар аударатын ерекше массаж бағыты.',
     'Глубокая релаксация с ароматическими маслами.': 'Хош иісті майлармен терең релаксация.',

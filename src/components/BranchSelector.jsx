@@ -11,7 +11,7 @@ const CARD_IMG = {
   tulpar: '/images/branches/cards/tulpar.jpg?v=3',    // Будда со свечами у колонны
   turan: '/images/branches/cards/turan.jpg',          // чёрная голова Будды (Астана)
   taraz: '/images/branches/cards/taraz.jpg',          // лаунж-зона
-  aktobe: '/images/branches/interior-warm.jpg',       // «Скоро» — интерьер под затемнением
+  aktobe: '/images/branches/cards/aktobe.jpg',        // светлый Будда в интерьере (Тауелсыздык)
 }
 
 export default function BranchSelector() {
