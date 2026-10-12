@@ -1,23 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useT } from '../i18n.jsx'
-import { APP_URL } from './AppSection.jsx'
+import { APP_URL, BonusText } from './AppSection.jsx'
 import { BRAND_EMBLEM } from './Header.jsx'
 
-// One-off "download BuddhaSpa App" prompt. Mounted once in App; `eligible` says
-// whether the current route may show it. Shows at most once per session, after
-// 10s or 35% scroll (never before 3s), and respects 7-day / 30-day caps.
+// "Download BuddhaSpa App" prompt. Mounted once in App; `eligible` says whether
+// the current route may show it. Shows at most once per page load (a full reload
+// re-arms it), after 8s or 15% scroll, never before 2s. Nothing is stored.
 
-const K_DISMISSED = 'buddha_app_popup_dismissed_at'
-const K_CLICKED = 'buddha_app_popup_clicked_at'
-const K_SHOWN = 'buddha_app_popup_shown'
-const DAY = 24 * 60 * 60 * 1000
-const MIN_DELAY = 3000
-const TIME_TRIGGER = 10000
-const SCROLL_TRIGGER = 0.35
+const MIN_DELAY = 2000
+const TIME_TRIGGER = 8000
+const SCROLL_TRIGGER = 0.15
 // Interfaces the prompt must never cover; a ready prompt waits until they close.
 const BLOCKERS = '.lead-modal, .legal-modal, .svc-modal, .ai-chat-panel, .contact-fab.is-open'
 
-let shownThisSession = false // fallback in case sessionStorage silently resets
+let shownThisLoad = false // module scope: survives route changes, resets on reload
 
 function isAndroid() {
   try {
@@ -25,22 +21,6 @@ function isAndroid() {
   } catch {
     return false
   }
-}
-
-// Storage unavailable → treat as "not allowed" so the prompt never nags on every load.
-function capAllows() {
-  try {
-    const now = Date.now()
-    if (now - (Number(localStorage.getItem(K_DISMISSED)) || 0) < 7 * DAY) return false
-    if (now - (Number(localStorage.getItem(K_CLICKED)) || 0) < 30 * DAY) return false
-    return !sessionStorage.getItem(K_SHOWN)
-  } catch {
-    return false
-  }
-}
-
-function remember(key, storage = localStorage) {
-  try { storage.setItem(key, String(Date.now())); return true } catch { return false }
 }
 
 export default function AppDownloadPrompt({ eligible, routeKey }) {
@@ -53,7 +33,7 @@ export default function AppDownloadPrompt({ eligible, routeKey }) {
 
   // 1) Arm the triggers on every eligible route until the prompt has been shown.
   useEffect(() => {
-    if (!eligible || android || phase !== 'idle' || shownThisSession) return
+    if (!eligible || android || phase !== 'idle' || shownThisLoad) return
     const start = Date.now()
     let delayTimer
     const fire = () => { cleanup(); setPhase('pending') }
@@ -81,8 +61,8 @@ export default function AppDownloadPrompt({ eligible, routeKey }) {
     if (!eligible) { setPhase('idle'); return }
     const tryShow = () => {
       if (document.querySelector(BLOCKERS)) return false
-      if (!capAllows() || !remember(K_SHOWN, sessionStorage)) { setPhase('done'); return true }
-      shownThisSession = true
+      if (shownThisLoad) { setPhase('done'); return true }
+      shownThisLoad = true
       returnFocusRef.current = document.activeElement
       setPhase('open')
       return true
@@ -103,13 +83,9 @@ export default function AppDownloadPrompt({ eligible, routeKey }) {
     if (el && typeof el.focus === 'function' && document.contains(el)) el.focus()
   }, [])
 
-  const dismiss = useCallback(() => {
-    remember(K_DISMISSED)
-    close()
-  }, [close])
+  const dismiss = close
 
   const onDownload = () => {
-    remember(K_CLICKED)
     // let the link's own navigation (new tab) happen before unmounting it
     setTimeout(close, 0)
   }
@@ -147,8 +123,8 @@ export default function AppDownloadPrompt({ eligible, routeKey }) {
         </button>
         <p className="eyebrow app-prompt__eyebrow">BuddhaSpa App</p>
         <h2 id="app-prompt-title" className="app-prompt__title">{t('Скачайте BuddhaSpa App')}</h2>
-        <p className="app-bonus app-prompt__bonus"><b>5 000</b> <span>{t('бонусов')}</span></p>
-        <p className="app-prompt__text">{t('Зарегистрируйтесь в приложении и получите 5 000 бонусов. Записывайтесь на процедуры, выбирайте филиал и удобное время прямо в приложении.')}</p>
+        <p className="app-prompt__offer"><BonusText text={t('Зарегистрируйтесь и получите 5 000 бонусов')} mark={t('5 000 бонусов')} /></p>
+        <p className="app-prompt__text">{t('Записывайтесь на процедуры, выбирайте филиал и удобное время прямо в приложении.')}</p>
         <div className="app-prompt__qr">
           <img src="/images/app/appstore-qr.svg" alt={t('QR-код для скачивания BuddhaSpa App в App Store')} width="200" height="200" />
           <img src={BRAND_EMBLEM} alt="" aria-hidden="true" className="app-prompt__emblem" />

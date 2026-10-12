@@ -2,6 +2,24 @@ import { useT } from '../i18n.jsx'
 import { EditableText } from './EditableText.jsx'
 
 
+// One sentence with the bonus amount emphasised inline (number larger, word smaller).
+// `mark` is the translated "5 000 бонусов" fragment; if it isn't found the text renders plain.
+export function BonusText({ text, mark }) {
+  const i = text.indexOf(mark)
+  if (i < 0) return text
+  const rest = text.slice(i + mark.length)
+  const m = mark.match(/^(\d[\d\s.,\u00a0]*\d|\d)\s+(\D.*)$/) // "5 000" + "бонусов"
+  return (
+    <>
+      {text.slice(0, i)}
+      <span className={`bonus-hl${rest.trim() ? '' : ' is-end'}`}>
+        {m ? <><b>{m[1]}</b> <span>{m[2]}</span></> : mark}
+      </span>
+      {rest}
+    </>
+  )
+}
+
 // BuddhaSpa App on the App Store. /images/app/appstore-qr.svg encodes this exact URL —
 // regenerate the QR if the link changes.
 export const APP_URL = 'https://apps.apple.com/app/apple-store/id6809714197?pt=129394407&ct=website&mt=8'
@@ -146,10 +164,7 @@ export default function AppSection() {
           <div className="app-dl__text">
             <p className="eyebrow">BuddhaSpa App</p>
             <h3 className="app-dl__title">{t('Скачайте приложение в App Store')}</h3>
-            <div className="app-dl__bonus">
-              <p className="app-bonus"><b>5 000</b> <span>{t('бонусов')}</span></p>
-              <p className="app-dl__bonus-text">{t('Скачайте BuddhaSpa App, зарегистрируйтесь и получите 5 000 бонусов')}</p>
-            </div>
+            <p className="app-dl__offer"><BonusText text={t('Скачайте BuddhaSpa App, зарегистрируйтесь и получите 5 000 бонусов')} mark={t('5 000 бонусов')} /></p>
             <p className="app-dl__sub">{t('Наведите камеру телефона на QR-код или нажмите кнопку ниже.')}</p>
             <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-coral app-sec__btn">
               {t('Скачать в App Store')}
