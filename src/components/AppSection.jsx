@@ -146,6 +146,10 @@ export default function AppSection() {
           <div className="app-dl__text">
             <p className="eyebrow">BuddhaSpa App</p>
             <h3 className="app-dl__title">{t('Скачайте приложение в App Store')}</h3>
+            <div className="app-dl__bonus">
+              <p className="app-bonus"><b>5 000</b> <span>{t('бонусов')}</span></p>
+              <p className="app-dl__bonus-text">{t('Скачайте BuddhaSpa App, зарегистрируйтесь и получите 5 000 бонусов')}</p>
+            </div>
             <p className="app-dl__sub">{t('Наведите камеру телефона на QR-код или нажмите кнопку ниже.')}</p>
             <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-coral app-sec__btn">
               {t('Скачать в App Store')}

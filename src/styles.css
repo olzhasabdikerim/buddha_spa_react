@@ -188,6 +188,17 @@ button { font-family: inherit; }
 .hero__title em { font-style: italic; color: var(--gold-soft); }
 .hero__subtitle { font-size: 18px; line-height: 1.8; max-width: 500px; color: rgba(251, 247, 240, 0.82); margin-bottom: 38px; }
 .hero__actions { display: flex; gap: 16px; flex-wrap: wrap; }
+/* Franchise CTA: premium secondary business action, quieter than the gold primary */
+.hero__franchise { gap: 14px; padding: 11px 26px 11px 28px; background: rgba(20,16,11,0.55); border-color: rgba(201,169,110,0.55); color: var(--gold-300); text-align: left; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; }
+.hero__franchise-text { display: flex; flex-direction: column; gap: 5px; }
+.hero__franchise-text small { font: 600 9px/1 var(--font-body); letter-spacing: 0.26em; color: var(--gold-500); }
+.hero__franchise-arrow { font-size: 16px; line-height: 1; transition: transform 0.3s ease; }
+@media (hover: hover) {
+  .hero__franchise:hover { transform: translateY(-2px); border-color: var(--gold-300); box-shadow: 0 0 0 1px rgba(228,207,166,0.25), 0 12px 32px rgba(201,169,110,0.22); }
+  .hero__franchise:hover .hero__franchise-arrow { transform: translateX(4px); }
+}
+@media (prefers-reduced-motion: reduce) { .hero__franchise:hover, .hero__franchise:hover .hero__franchise-arrow { transform: none; } }
+@media (max-width: 560px) { .hero__actions { flex-direction: column; align-items: stretch; } .hero__actions .btn { width: 100%; } .hero__franchise { justify-content: space-between; } }
 .hero__app-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; color: rgba(251,247,240,0.52); font: 500 12px/1 var(--font-body); letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s; }
 .hero__app-link:hover { color: var(--gold-300); }
 .hero__scroll { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 2; }
@@ -440,6 +451,16 @@ button { font-family: inherit; }
 .app-prompt__qr .app-prompt__emblem { position: absolute; top: 50%; left: 50%; width: 17%; height: auto; transform: translate(-50%, -50%); }
 .app-prompt__cta { width: 100%; justify-content: center; padding: 17px 24px; font-size: 13px; letter-spacing: 0.14em; animation: none; }
 .app-prompt__cta::after { display: none; } /* no infinite sheen inside the prompt */
+/* "5 000 бонусов" badge (popup + AppSection) */
+.app-bonus { display: inline-flex; align-items: baseline; gap: 10px; margin: 0; padding: 10px 22px; border-radius: 40px; border: 1px solid var(--gold-500); background: linear-gradient(135deg, rgba(201,169,110,0.2), rgba(201,169,110,0.06)); }
+.app-bonus b { font: 400 30px/1 var(--font-display); color: var(--gold-300); letter-spacing: 0.01em; white-space: nowrap; }
+.app-bonus span { font: 600 11px/1 var(--font-body); letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-400); }
+.app-prompt__bonus { margin: 0 0 14px; }
+.app-prompt__text { font-size: 14.5px; }
+.app-dl__bonus { display: flex; align-items: center; gap: 16px; margin: 0 0 18px; }
+.app-dl__bonus-text { margin: 0; font-size: 15px; line-height: 1.5; color: var(--text); max-width: 250px; }
+@media (max-width: 760px) { .app-dl__bonus { flex-direction: column; gap: 10px; } .app-dl__bonus-text { max-width: 320px; } }
+@media (max-width: 560px) { .app-bonus b { font-size: 26px; } .app-prompt__bonus { margin-bottom: 10px; } }
 @keyframes appPromptFade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes appPromptIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @keyframes appPromptUp { from { transform: translateY(100%); } to { transform: none; } }

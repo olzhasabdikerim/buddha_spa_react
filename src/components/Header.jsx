@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
 import LanguageSwitcher from './LanguageSwitcher.jsx'
 import { handleHashNav } from '../lib/hashNav.js'
@@ -9,6 +9,7 @@ export const BRAND_EMBLEM = '/images/brand-emblem.png'
 
 export default function Header({ onBook }) {
   const t = useT()
+  const { pathname } = useLocation()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -48,7 +49,8 @@ export default function Header({ onBook }) {
           <Link to="/#about" onClick={(e) => { close(); handleHashNav(e, '/#about') }}>{t('О нас')}</Link>
           <Link to="/#app" onClick={(e) => { close(); handleHashNav(e, '/#app') }}>{t('Приложение')}</Link>
           <Link to="/#faq" onClick={(e) => { close(); handleHashNav(e, '/#faq') }}>FAQ</Link>
-          <Link to="/franchise" onClick={close}>{t('Франшиза')}</Link>
+          {/* On the home page the franchise entry lives in the Hero CTA instead. */}
+          {pathname !== '/' && <Link to="/franchise" onClick={close}>{t('Франшиза')}</Link>}
           <Link to="/#contacts" onClick={(e) => { close(); handleHashNav(e, '/#contacts') }}>{t('Контакты')}</Link>
         </nav>
 

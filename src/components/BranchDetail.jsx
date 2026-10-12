@@ -235,35 +235,19 @@ export default function BranchDetail({ branch, onBook }) {
                 return (
                   <div className={`br-tier rv br-tier--${m.theme}${m.featured ? ' is-featured' : ''}`} key={m.name}>
                     {m.featured && <span className="br-tier__badge">{t('Популярный выбор')}</span>}
-                    <div className="br-tier__ornament">
-                      <span className="br-tier__orn-line" />
-                      <span className="br-tier__orn-diamond" />
-                      <span className="br-tier__orn-line" />
-                    </div>
                     <div className="br-tier__name">{m.name}</div>
-                    <div className="br-tier__accent-line" />
+                    <EditableText as="div" contentKey={`tier.${tk}.discount`} fallback={m.discount} translate={false} className="br-tier__discount-num" />
+                    <EditableText as="div" contentKey={`tier.${tk}.discount_sub`} fallback={t('Скидка на процедуры')} className="br-tier__discount-sub" />
                     <EditableText as="div" contentKey={`tier.${tk}.subtitle`} fallback={t(m.subtitle)} className="br-tier__subtitle" />
-                    <div className="br-tier__discount-block">
-                      <EditableText as="div" contentKey={`tier.${tk}.discount`} fallback={m.discount} translate={false} className="br-tier__discount-num" />
-                      <EditableText as="div" contentKey={`tier.${tk}.discount_sub`} fallback={t('скидка на все услуги')} className="br-tier__discount-sub" />
-                    </div>
-                    <div className="br-tier__divider">
-                      <span className="br-tier__div-line" />
-                      <span className="br-tier__div-dot" />
-                      <span className="br-tier__div-line" />
-                    </div>
                     <ul className="br-tier__items">
                       {m.items.map((item, i) => (
-                        <li key={item}><span><EditableText as="span" contentKey={`tier.${tk}.item.${i}`} fallback={t(item)} /></span></li>
+                        <li key={item}><EditableText as="span" contentKey={`tier.${tk}.item.${i}`} fallback={t(item)} /></li>
                       ))}
                     </ul>
                     <div className="br-tier__price-block">
-                      <div>
-                        <div className="br-tier__price-label">{t('Стоимость')}</div>
-                        <div className="br-tier__old-price"><EditableText as="span" contentKey={`tier.${tk}.old_price`} fallback={m.oldPrice} translate={false} /> ₸</div>
-                        <div className="br-tier__price serif"><EditableText as="span" contentKey={`tier.${tk}.price`} fallback={m.price} translate={false} /> <small>₸</small></div>
-                      </div>
-                      <div className="br-tier__period-lbl">/ {t('год')}</div>
+                      <div className="br-tier__old-price"><EditableText as="span" contentKey={`tier.${tk}.old_price`} fallback={m.oldPrice} translate={false} /> ₸</div>
+                      <div className="br-tier__price"><EditableText as="span" contentKey={`tier.${tk}.price`} fallback={m.price} translate={false} /> ₸</div>
+                      <div className="br-tier__period-lbl">{t('Годовой абонемент')}</div>
                     </div>
                     <EditableText as="div" contentKey={`tier.${tk}.slogan`} fallback={t(m.slogan)} className="br-tier__slogan" />
                     <a className="btn btn-sm br-tier__btn" href={waMember} target="_blank" rel="noopener noreferrer">{t('Оформить абонемент')}</a>

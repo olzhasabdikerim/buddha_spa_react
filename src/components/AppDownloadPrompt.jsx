@@ -146,8 +146,9 @@ export default function AppDownloadPrompt({ eligible, routeKey }) {
           </svg>
         </button>
         <p className="eyebrow app-prompt__eyebrow">BuddhaSpa App</p>
-        <h2 id="app-prompt-title" className="app-prompt__title">{t('Записывайтесь в Buddha Spa быстрее')}</h2>
-        <p className="app-prompt__text">{t('Выбирайте филиал, услуги и удобное время прямо в приложении.')}</p>
+        <h2 id="app-prompt-title" className="app-prompt__title">{t('Скачайте BuddhaSpa App')}</h2>
+        <p className="app-bonus app-prompt__bonus"><b>5 000</b> <span>{t('бонусов')}</span></p>
+        <p className="app-prompt__text">{t('Зарегистрируйтесь в приложении и получите 5 000 бонусов. Записывайтесь на процедуры, выбирайте филиал и удобное время прямо в приложении.')}</p>
         <div className="app-prompt__qr">
           <img src="/images/app/appstore-qr.svg" alt={t('QR-код для скачивания BuddhaSpa App в App Store')} width="200" height="200" />
           <img src={BRAND_EMBLEM} alt="" aria-hidden="true" className="app-prompt__emblem" />

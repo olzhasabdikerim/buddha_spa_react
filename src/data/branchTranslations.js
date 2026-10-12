@@ -76,6 +76,7 @@ export const BRANCH_TR = {
     'Популярный': 'Танымал',
     'Популярный выбор': 'Танымал таңдау',
     'скидка на все услуги': 'барлық қызметке жеңілдік',
+    'Скидка на процедуры': 'Процедураларға жеңілдік',
     'Стоимость': 'Құны',
     'год': 'жыл',
     // membership tier content
@@ -187,6 +188,7 @@ export const BRANCH_TR = {
     'Популярный': 'Popular',
     'Популярный выбор': 'Most popular',
     'скидка на все услуги': 'discount on all services',
+    'Скидка на процедуры': 'Discount on treatments',
     'Стоимость': 'Price',
     'год': 'year',
     // membership tier content

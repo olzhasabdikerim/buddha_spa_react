@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useT } from '../i18n.jsx'
 import { useBooking } from '../booking.jsx'
 import { EditableText } from './EditableText.jsx'
@@ -50,6 +51,13 @@ export default function Hero() {
         <div className="hero__actions">
           <a href="#branches" className="btn btn-coral">{t('Выбрать филиал')}</a>
           <button type="button" className="btn btn-line" onClick={openBooking}>{t('Записаться в BuddhaSpa')}</button>
+          <Link to="/franchise" className="btn hero__franchise">
+            <span className="hero__franchise-text">
+              <small>{t('Франшиза')}</small>
+              {t('Открыть свой Buddha Spa')}
+            </span>
+            <span className="hero__franchise-arrow" aria-hidden="true">→</span>
+          </Link>
         </div>
         <a
           href="https://app.buddhaspa.kz/"
